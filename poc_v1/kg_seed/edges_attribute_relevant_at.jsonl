@@ -1,0 +1,6 @@
+{"start_id": "attr_price", "end_id": "stg_acquisition", "properties": {"score": 0.92, "valid_from": "2026-10-01", "valid_to": "2026-12-31", "evidence_ids": ["ev_benchmark_pricing_001"], "schema_version": "1.0.0"}}
+{"start_id": "attr_provenance_visibility", "end_id": "stg_acquisition", "properties": {"score": 0.88, "valid_from": "2026-10-01", "valid_to": "2026-12-31", "evidence_ids": ["ev_exec_interview_001", "ev_benchmark_014"], "schema_version": "1.0.0"}}
+{"start_id": "attr_setup_days", "end_id": "stg_activation", "properties": {"score": 0.85, "valid_from": "2026-10-01", "valid_to": "2026-12-31", "evidence_ids": [], "schema_version": "1.0.0"}}
+{"start_id": "attr_provenance_visibility", "end_id": "stg_retention", "properties": {"score": 0.72, "valid_from": "2026-10-01", "valid_to": "2026-12-31", "evidence_ids": ["ev_exec_interview_001"], "schema_version": "1.0.0"}}
+{"start_id": "attr_brand_strength", "end_id": "stg_awareness", "properties": {"score": 0.78, "valid_from": "2026-10-01", "valid_to": "2026-12-31", "evidence_ids": [], "schema_version": "1.0.0"}}
+{"start_id": "attr_brand_strength", "end_id": "stg_acquisition", "properties": {"score": 0.65, "valid_from": "2026-10-01", "valid_to": "2026-12-31", "evidence_ids": [], "schema_version": "1.0.0"}}

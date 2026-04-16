@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Experiment Results — Subconscious to ontology",
+  "description": "Results returned from Subconscious. Each estimate lands as an Estimate node with an ABOUT edge.",
+  "type": "object",
+  "required": [
+    "experiment_results_version",
+    "subconscious_experiment_id",
+    "ontology_snapshot_hash",
+    "model_version",
+    "completed_at",
+    "estimates"
+  ],
+  "properties": {
+    "experiment_results_version": {"type": "string"},
+    "subconscious_experiment_id": {"type": "string"},
+    "ontology_snapshot_hash": {
+      "type": "string",
+      "description": "Must match the hash in the context that generated this experiment."
+    },
+    "model_version": {"type": "string"},
+    "completed_at": {"type": "string", "format": "date-time"},
+    "estimates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "estimate_type",
+          "value",
+          "about"
+        ],
+        "properties": {
+          "estimate_type": {
+            "type": "string",
+            "enum": ["part_worth", "transition_probability", "wtp", "elasticity", "ate"]
+          },
+          "value": {"type": "number"},
+          "ci_low": {"type": ["number", "null"]},
+          "ci_high": {"type": ["number", "null"]},
+          "standard_error": {"type": ["number", "null"]},
+          "about": {
+            "type": "object",
+            "required": ["node_type", "node_id"],
+            "properties": {
+              "node_type": {
+                "type": "string",
+                "enum": [
+                  "Transition",
+                  "Attribute",
+                  "AttributeLevel",
+                  "StakeholderArchetype",
+                  "Offering"
+                ]
+              },
+              "node_id": {"type": "string"}
+            }
+          },
+          "stakeholder_archetype_id": {
+            "type": ["string", "null"],
+            "description": "For heterogeneous estimates, the archetype this estimate conditions on."
+          },
+          "valid_from": {"type": ["string", "null"], "format": "date"},
+          "valid_to": {"type": ["string", "null"], "format": "date"}
+        }
+      }
+    }
+  }
+}

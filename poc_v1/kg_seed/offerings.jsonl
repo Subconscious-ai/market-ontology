@@ -1,0 +1,2 @@
+{"id": "off_rcp_pro", "properties": {"name": "Research Copilot Pro", "company_name": "Subconscious", "is_competitor": false, "category": "AI research software", "definition": "Focal offering under study.", "schema_version": "1.0.0"}}
+{"id": "off_competitor_a", "properties": {"name": "Competitor A Enterprise", "company_name": "Competitor A", "is_competitor": true, "category": "AI research software", "definition": "Primary competitive offering in the regulated enterprise segment.", "schema_version": "1.0.0"}}

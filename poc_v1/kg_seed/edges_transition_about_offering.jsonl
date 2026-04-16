@@ -1,0 +1,4 @@
+{"start_id": "tr_consider_choose", "end_id": "off_rcp_pro", "properties": {"target_node_type": "Offering", "schema_version": "1.0.0"}}
+{"start_id": "tr_consider_choose", "end_id": "off_competitor_a", "properties": {"target_node_type": "Offering", "schema_version": "1.0.0"}}
+{"start_id": "tr_choose_activate", "end_id": "off_rcp_pro", "properties": {"target_node_type": "Offering", "schema_version": "1.0.0"}}
+{"start_id": "tr_activate_retain", "end_id": "off_rcp_pro", "properties": {"target_node_type": "Offering", "schema_version": "1.0.0"}}

@@ -1,0 +1,4 @@
+{"start_id": "est_partworth_prov_high_analyst", "end_id": "lvl_prov_high", "properties": {"target_node_type": "AttributeLevel", "stakeholder_archetype_id": "stk_ent_analyst", "schema_version": "1.0.0"}}
+{"start_id": "est_partworth_price_mid_analyst", "end_id": "lvl_price_mid", "properties": {"target_node_type": "AttributeLevel", "stakeholder_archetype_id": "stk_ent_analyst", "schema_version": "1.0.0"}}
+{"start_id": "est_wtp_prov_high_analyst", "end_id": "attr_provenance_visibility", "properties": {"target_node_type": "Attribute", "stakeholder_archetype_id": "stk_ent_analyst", "schema_version": "1.0.0"}}
+{"start_id": "est_transprob_consider_choose_analyst", "end_id": "tr_consider_choose", "properties": {"target_node_type": "Transition", "stakeholder_archetype_id": "stk_ent_analyst", "schema_version": "1.0.0"}}

@@ -1,0 +1,3 @@
+{"start_id": "tr_consider_choose", "end_id": "stg_acquisition", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "tr_choose_activate", "end_id": "stg_activation", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "tr_activate_retain", "end_id": "stg_retention", "properties": {"schema_version": "1.0.0"}}

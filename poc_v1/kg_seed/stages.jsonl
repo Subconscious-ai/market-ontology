@@ -1,0 +1,6 @@
+{"id": "stg_awareness", "properties": {"name": "awareness", "definition": "Stakeholder is aware that a category of solutions exists.", "schema_version": "1.0.0"}}
+{"id": "stg_acquisition", "properties": {"name": "acquisition", "definition": "Stakeholder is evaluating specific offerings in the category.", "schema_version": "1.0.0"}}
+{"id": "stg_activation", "properties": {"name": "activation", "definition": "Stakeholder has chosen an offering and is onboarding or setting it up.", "schema_version": "1.0.0"}}
+{"id": "stg_retention", "properties": {"name": "retention", "definition": "Stakeholder continues using the offering past initial activation.", "schema_version": "1.0.0"}}
+{"id": "stg_referral", "properties": {"name": "referral", "definition": "Stakeholder recommends the offering to others.", "schema_version": "1.0.0"}}
+{"id": "stg_revenue", "properties": {"name": "revenue", "definition": "Stakeholder expands spend or renews.", "schema_version": "1.0.0"}}

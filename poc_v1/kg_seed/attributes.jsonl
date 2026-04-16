@@ -1,0 +1,4 @@
+{"id": "attr_price", "properties": {"name": "price", "data_type": "continuous", "unit": "USD_per_seat_per_month", "definition": "Monthly price per seat for the offering.", "schema_version": "1.0.0"}}
+{"id": "attr_setup_days", "properties": {"name": "setup_days", "data_type": "ordinal", "unit": "days", "definition": "Number of business days from purchase to first successful use.", "schema_version": "1.0.0"}}
+{"id": "attr_provenance_visibility", "properties": {"name": "provenance_visibility", "data_type": "ordinal", "unit": "level", "definition": "Degree to which the offering exposes the provenance and auditability of its outputs.", "schema_version": "1.0.0"}}
+{"id": "attr_brand_strength", "properties": {"name": "brand_strength", "data_type": "ordinal", "unit": "level", "definition": "Perceived brand strength of the offering's vendor.", "schema_version": "1.0.0"}}

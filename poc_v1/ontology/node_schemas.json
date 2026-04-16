@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "v1 POC Node Schemas",
+  "schema_version": "1.0.0",
+  "type": "object",
+  "properties": {
+    "Market": {
+      "type": "object",
+      "required": ["id", "name", "definition"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "definition": {"type": "string"},
+        "geography": {"type": ["string", "null"]},
+        "industry_codes": {"type": "array", "items": {"type": "string"}},
+        "context_factors": {"type": "object"},
+        "period": {"type": ["string", "null"]},
+        "schema_version": {"type": "string"},
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "Stage": {
+      "type": "object",
+      "required": ["id", "name", "definition"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {
+          "type": "string",
+          "enum": ["awareness", "acquisition", "activation", "retention", "referral", "revenue"]
+        },
+        "definition": {"type": "string"},
+        "schema_version": {"type": "string"},
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "Transition": {
+      "type": "object",
+      "required": ["id", "name", "from_stage_id", "to_stage_id", "definition"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "from_stage_id": {"type": "string"},
+        "to_stage_id": {"type": "string"},
+        "definition": {"type": "string"},
+        "schema_version": {"type": "string"},
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "StakeholderArchetype": {
+      "type": "object",
+      "required": ["id", "name", "archetype_type"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "archetype_type": {
+          "type": "string",
+          "enum": ["customer", "competitor_buyer", "competitor_user"]
+        },
+        "traits": {"type": "object"},
+        "role": {"type": ["string", "null"]},
+        "segment": {"type": ["string", "null"]},
+        "industry": {"type": ["string", "null"]},
+        "company_size_band": {"type": ["string", "null"]},
+        "definition": {"type": ["string", "null"]},
+        "schema_version": {"type": "string"},
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "Offering": {
+      "type": "object",
+      "required": ["id", "name", "company_name"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "company_name": {"type": "string"},
+        "is_competitor": {"type": "boolean"},
+        "category": {"type": ["string", "null"]},
+        "definition": {"type": ["string", "null"]},
+        "schema_version": {"type": "string"},
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "Attribute": {
+      "type": "object",
+      "required": ["id", "name", "data_type", "definition"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "data_type": {
+          "type": "string",
+          "enum": ["continuous", "ordinal", "categorical", "boolean"]
+        },
+        "unit": {"type": ["string", "null"]},
+        "definition": {"type": "string"},
+        "schema_version": {"type": "string"},
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "AttributeLevel": {
+      "type": "object",
+      "required": ["id", "attribute_id", "market_id", "value"],
+      "properties": {
+        "id": {"type": "string"},
+        "attribute_id": {"type": "string"},
+        "market_id": {"type": "string"},
+        "value": {},
+        "label": {"type": ["string", "null"]},
+        "is_status_quo": {"type": "boolean"},
+        "valid_from": {"type": ["string", "null"], "format": "date"},
+        "valid_to": {"type": ["string", "null"], "format": "date"},
+        "schema_version": {"type": "string"},
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "Evidence": {
+      "type": "object",
+      "required": ["id", "source_type", "source_ref"],
+      "properties": {
+        "id": {"type": "string"},
+        "source_type": {
+          "type": "string",
+          "enum": ["s1", "10k", "interview", "survey", "benchmark", "web", "deck", "executive_interview", "research_agent"]
+        },
+        "source_ref": {"type": "string"},
+        "source_url": {"type": ["string", "null"]},
+        "excerpt": {"type": ["string", "null"]},
+        "extracted_claim": {"type": ["string", "null"]},
+        "retrieval_query": {"type": ["string", "null"]},
+        "extractor_version": {"type": ["string", "null"]},
+        "confidence": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
+        "period_observed": {"type": ["string", "null"]},
+        "schema_version": {"type": "string"},
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "Estimate": {
+      "type": "object",
+      "required": [
+        "id",
+        "estimate_type",
+        "value",
+        "subconscious_experiment_id",
+        "model_version",
+        "ontology_snapshot_hash",
+        "estimated_at"
+      ],
+      "properties": {
+        "id": {"type": "string"},
+        "estimate_type": {
+          "type": "string",
+          "enum": ["part_worth", "transition_probability", "wtp", "elasticity", "ate"]
+        },
+        "value": {"type": "number"},
+        "ci_low": {"type": ["number", "null"]},
+        "ci_high": {"type": ["number", "null"]},
+        "standard_error": {"type": ["number", "null"]},
+        "subconscious_experiment_id": {"type": "string"},
+        "model_version": {"type": "string"},
+        "ontology_snapshot_hash": {"type": "string"},
+        "estimated_at": {"type": "string", "format": "date-time"},
+        "valid_from": {"type": ["string", "null"], "format": "date"},
+        "valid_to": {"type": ["string", "null"], "format": "date"},
+        "schema_version": {"type": "string"},
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

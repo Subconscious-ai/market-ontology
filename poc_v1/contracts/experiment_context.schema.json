@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Experiment Context — ontology to Subconscious",
+  "description": "The projected context the ontology serves to Subconscious for experiment design.",
+  "type": "object",
+  "required": [
+    "experiment_context_version",
+    "ontology_snapshot_hash",
+    "market",
+    "transition",
+    "stakeholder_archetypes",
+    "offering"
+  ],
+  "properties": {
+    "experiment_context_version": {
+      "type": "string",
+      "description": "Version of this contract schema, e.g. '1.0.0'"
+    },
+    "ontology_snapshot_hash": {
+      "type": "string",
+      "description": "SHA-256 hash of the subgraph used to build this context. Echoed back with results."
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "market": {
+      "type": "object",
+      "required": ["id", "name", "period"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "period": {"type": "string"},
+        "context_factors": {"type": "object"},
+        "evidence_ids": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "transition": {
+      "type": "object",
+      "required": ["id", "from_stage", "to_stage"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "from_stage": {"type": "string"},
+        "to_stage": {"type": "string"},
+        "evidence_ids": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "stakeholder_archetypes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "archetype_type"],
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "archetype_type": {
+            "type": "string",
+            "enum": ["customer", "competitor_buyer", "competitor_user"]
+          },
+          "traits": {"type": "object"},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "offering": {
+      "type": "object",
+      "required": ["id", "name", "company_name", "attributes"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "company_name": {"type": "string"},
+        "attributes": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/attribute_block"}
+        }
+      }
+    },
+    "competitor_offerings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "company_name", "attributes"],
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "company_name": {"type": "string"},
+          "attributes": {
+            "type": "array",
+            "items": {"$ref": "#/$defs/attribute_block"}
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "attribute_block": {
+      "type": "object",
+      "required": ["id", "name", "data_type", "levels"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "data_type": {
+          "type": "string",
+          "enum": ["continuous", "ordinal", "categorical", "boolean"]
+        },
+        "unit": {"type": ["string", "null"]},
+        "relevance_at_stage_score": {
+          "type": ["number", "null"],
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "levels": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["id", "value"],
+            "properties": {
+              "id": {"type": "string"},
+              "value": {},
+              "label": {"type": ["string", "null"]},
+              "is_status_quo": {"type": "boolean"},
+              "valid_from": {"type": ["string", "null"], "format": "date"},
+              "valid_to": {"type": ["string", "null"], "format": "date"}
+            }
+          }
+        },
+        "evidence_ids": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

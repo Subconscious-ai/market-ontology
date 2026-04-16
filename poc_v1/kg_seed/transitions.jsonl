@@ -1,0 +1,3 @@
+{"id": "tr_consider_choose", "properties": {"name": "Consider to Choose", "from_stage_id": "stg_acquisition", "to_stage_id": "stg_acquisition", "definition": "Within acquisition: stakeholder moves from evaluating multiple offerings to selecting one.", "schema_version": "1.0.0"}}
+{"id": "tr_choose_activate", "properties": {"name": "Choose to Activate", "from_stage_id": "stg_acquisition", "to_stage_id": "stg_activation", "definition": "Stakeholder moves from selection to first successful use.", "schema_version": "1.0.0"}}
+{"id": "tr_activate_retain", "properties": {"name": "Activate to Retain", "from_stage_id": "stg_activation", "to_stage_id": "stg_retention", "definition": "Stakeholder continues use past initial onboarding.", "schema_version": "1.0.0"}}

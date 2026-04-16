@@ -1,0 +1,5 @@
+{"start_id": "tr_consider_choose", "end_id": "stk_ent_analyst", "properties": {"confidence": 0.9, "schema_version": "1.0.0"}}
+{"start_id": "tr_consider_choose", "end_id": "stk_procurement_lead", "properties": {"confidence": 0.85, "schema_version": "1.0.0"}}
+{"start_id": "tr_consider_choose", "end_id": "stk_competitor_buyer", "properties": {"confidence": 0.8, "schema_version": "1.0.0"}}
+{"start_id": "tr_choose_activate", "end_id": "stk_ent_analyst", "properties": {"confidence": 0.88, "schema_version": "1.0.0"}}
+{"start_id": "tr_activate_retain", "end_id": "stk_ent_analyst", "properties": {"confidence": 0.82, "schema_version": "1.0.0"}}

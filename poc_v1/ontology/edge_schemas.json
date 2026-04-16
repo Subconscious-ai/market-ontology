@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "v1 POC Edge Schemas",
+  "schema_version": "1.0.0",
+  "type": "object",
+  "properties": {
+    "FROM": {
+      "from": "Transition",
+      "to": "Stage",
+      "properties": {
+        "schema_version": {"type": "string"}
+      }
+    },
+    "TO": {
+      "from": "Transition",
+      "to": "Stage",
+      "properties": {
+        "schema_version": {"type": "string"}
+      }
+    },
+    "IN_MARKET": {
+      "from": "Transition",
+      "to": "Market",
+      "properties": {
+        "schema_version": {"type": "string"}
+      }
+    },
+    "RELEVANT_TO": {
+      "from": "Transition",
+      "to": "StakeholderArchetype",
+      "properties": {
+        "confidence": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
+        "schema_version": {"type": "string"}
+      }
+    },
+    "ABOUT": {
+      "from": ["Transition", "Estimate"],
+      "to": "*",
+      "properties": {
+        "target_node_type": {"type": ["string", "null"]},
+        "schema_version": {"type": "string"}
+      }
+    },
+    "HAS_ATTRIBUTE": {
+      "from": "Offering",
+      "to": "Attribute",
+      "properties": {
+        "schema_version": {"type": "string"}
+      }
+    },
+    "HAS_LEVEL": {
+      "from": "Attribute",
+      "to": "AttributeLevel",
+      "properties": {
+        "schema_version": {"type": "string"}
+      }
+    },
+    "RELEVANT_AT": {
+      "from": "Attribute",
+      "to": "Stage",
+      "properties": {
+        "score": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+        "valid_from": {"type": ["string", "null"], "format": "date"},
+        "valid_to": {"type": ["string", "null"], "format": "date"},
+        "evidence_ids": {"type": "array", "items": {"type": "string"}},
+        "schema_version": {"type": "string"}
+      }
+    },
+    "SUPPORTS": {
+      "from": "Evidence",
+      "to": "*",
+      "properties": {
+        "target_node_type": {"type": ["string", "null"]},
+        "confidence": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
+        "support_type": {"type": ["string", "null"]},
+        "schema_version": {"type": "string"}
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{"start_id": "attr_price", "end_id": "lvl_price_low", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "attr_price", "end_id": "lvl_price_mid", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "attr_price", "end_id": "lvl_price_high", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "attr_setup_days", "end_id": "lvl_setup_fast", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "attr_setup_days", "end_id": "lvl_setup_standard", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "attr_setup_days", "end_id": "lvl_setup_slow", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "attr_provenance_visibility", "end_id": "lvl_prov_low", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "attr_provenance_visibility", "end_id": "lvl_prov_medium", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "attr_provenance_visibility", "end_id": "lvl_prov_high", "properties": {"schema_version": "1.0.0"}}

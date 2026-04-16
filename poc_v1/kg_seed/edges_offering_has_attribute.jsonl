@@ -1,0 +1,8 @@
+{"start_id": "off_rcp_pro", "end_id": "attr_price", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "off_rcp_pro", "end_id": "attr_setup_days", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "off_rcp_pro", "end_id": "attr_provenance_visibility", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "off_rcp_pro", "end_id": "attr_brand_strength", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "off_competitor_a", "end_id": "attr_price", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "off_competitor_a", "end_id": "attr_setup_days", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "off_competitor_a", "end_id": "attr_provenance_visibility", "properties": {"schema_version": "1.0.0"}}
+{"start_id": "off_competitor_a", "end_id": "attr_brand_strength", "properties": {"schema_version": "1.0.0"}}

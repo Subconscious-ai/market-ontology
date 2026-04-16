@@ -1,0 +1,43 @@
+# v1 POC enums. Keep in sync with ontology/schema.py.
+
+stage_names:
+- awareness
+- acquisition
+- activation
+- retention
+- referral
+- revenue
+
+archetype_types:
+- customer
+- competitor_buyer
+- competitor_user
+
+attribute_data_types:
+- continuous
+- ordinal
+- categorical
+- boolean
+
+evidence_source_types:
+- s1
+- 10k
+- interview
+- survey
+- benchmark
+- web
+- deck
+- executive_interview
+- research_agent
+
+estimate_types:
+- part_worth
+- transition_probability
+- wtp
+- elasticity
+- ate
+
+support_types:
+- direct
+- benchmark
+- inferred

@@ -1,0 +1,297 @@
+"""
+v1 POC ontology — Pydantic models for write-boundary validation.
+
+Every node or edge written to Neo4j must first validate through these models.
+This is the single source of truth for the schema. Keep it aligned with:
+  - ontology/node_schemas.json
+  - ontology/edge_schemas.json
+  - neo4j/constraints.cypher
+
+Schema version: 1.0.0
+"""
+
+from __future__ import annotations
+
+from datetime import date, datetime
+from enum import Enum
+from typing import Any, Literal, Optional
+
+from pydantic import BaseModel, Field, model_validator
+
+SCHEMA_VERSION = "1.0.0"
+
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+class StageName(str, Enum):
+    AWARENESS = "awareness"
+    ACQUISITION = "acquisition"
+    ACTIVATION = "activation"
+    RETENTION = "retention"
+    REFERRAL = "referral"
+    REVENUE = "revenue"
+
+
+class ArchetypeType(str, Enum):
+    CUSTOMER = "customer"
+    COMPETITOR_BUYER = "competitor_buyer"
+    COMPETITOR_USER = "competitor_user"
+
+
+class EvidenceSourceType(str, Enum):
+    S1 = "s1"
+    TEN_K = "10k"
+    INTERVIEW = "interview"
+    SURVEY = "survey"
+    BENCHMARK = "benchmark"
+    WEB = "web"
+    DECK = "deck"
+    EXECUTIVE_INTERVIEW = "executive_interview"
+    RESEARCH_AGENT = "research_agent"
+
+
+class AttributeDataType(str, Enum):
+    CONTINUOUS = "continuous"
+    ORDINAL = "ordinal"
+    CATEGORICAL = "categorical"
+    BOOLEAN = "boolean"
+
+
+class EstimateType(str, Enum):
+    PART_WORTH = "part_worth"
+    TRANSITION_PROBABILITY = "transition_probability"
+    WTP = "wtp"
+    ELASTICITY = "elasticity"
+    ATE = "ate"
+
+
+# ---------------------------------------------------------------------------
+# Common mixins
+# ---------------------------------------------------------------------------
+
+class _VersionedNode(BaseModel):
+    schema_version: str = SCHEMA_VERSION
+    ingested_at: Optional[datetime] = None
+
+
+class _TemporallyValid(BaseModel):
+    valid_from: Optional[date] = None
+    valid_to: Optional[date] = None
+
+    @model_validator(mode="after")
+    def _check_range(self):
+        if self.valid_from and self.valid_to and self.valid_from > self.valid_to:
+            raise ValueError("valid_from must be <= valid_to")
+        return self
+
+
+# ---------------------------------------------------------------------------
+# Nodes
+# ---------------------------------------------------------------------------
+
+class Market(_VersionedNode):
+    """Scope boundary for every query. One market per ontology in v1."""
+    id: str
+    name: str
+    definition: str
+    geography: Optional[str] = None
+    industry_codes: list[str] = Field(default_factory=list)
+    # Context factors folded in as flexible props for v1.
+    # In v2, these become first-class ContextFactor nodes.
+    context_factors: dict[str, Any] = Field(default_factory=dict)
+    period: Optional[str] = None
+
+
+class Stage(_VersionedNode):
+    id: str
+    name: StageName
+    definition: str
+
+
+class Transition(_VersionedNode):
+    id: str
+    name: str
+    from_stage_id: str
+    to_stage_id: str
+    definition: str
+
+
+class StakeholderArchetype(_VersionedNode):
+    id: str
+    name: str
+    archetype_type: ArchetypeType
+    # Traits folded into JSONB-style props for v1. In v2, Trait becomes a node.
+    traits: dict[str, Any] = Field(default_factory=dict)
+    role: Optional[str] = None
+    segment: Optional[str] = None
+    industry: Optional[str] = None
+    company_size_band: Optional[str] = None
+    definition: Optional[str] = None
+
+
+class Offering(_VersionedNode):
+    id: str
+    name: str
+    # company_name is a string prop in v1 with a Splink dedupe pass.
+    # In v2, Organization becomes a node.
+    company_name: str
+    is_competitor: bool = False
+    category: Optional[str] = None
+    definition: Optional[str] = None
+
+
+class Attribute(_VersionedNode):
+    """A dimension of an Offering that can be varied in an experiment."""
+    id: str
+    name: str
+    data_type: AttributeDataType
+    unit: Optional[str] = None
+    definition: str
+    # Subconscious API typically populates this.
+
+
+class AttributeLevel(_VersionedNode, _TemporallyValid):
+    """A plausible level for an Attribute in a Market/period."""
+    id: str
+    attribute_id: str
+    market_id: str
+    value: Any  # coerced to str/float/bool by data_type on the Attribute
+    label: Optional[str] = None
+    is_status_quo: bool = False
+
+
+class Evidence(_VersionedNode):
+    id: str
+    source_type: EvidenceSourceType
+    source_ref: str  # e.g. "sec://company-x/s1/2026-02-14"
+    source_url: Optional[str] = None
+    excerpt: Optional[str] = None
+    extracted_claim: Optional[str] = None  # structured claim, not prose
+    retrieval_query: Optional[str] = None
+    extractor_version: Optional[str] = None
+    confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+    period_observed: Optional[str] = None
+
+
+class Estimate(_VersionedNode, _TemporallyValid):
+    """Results returned from Subconscious experiments."""
+    id: str
+    estimate_type: EstimateType
+    value: float
+    ci_low: Optional[float] = None
+    ci_high: Optional[float] = None
+    standard_error: Optional[float] = None
+    subconscious_experiment_id: str
+    model_version: str
+    ontology_snapshot_hash: str
+    estimated_at: datetime
+
+
+# ---------------------------------------------------------------------------
+# Edges
+# ---------------------------------------------------------------------------
+
+class _Edge(BaseModel):
+    start_id: str
+    end_id: str
+    schema_version: str = SCHEMA_VERSION
+
+
+class EdgeFrom(_Edge):
+    """Transition -[:FROM]-> Stage"""
+    label: Literal["FROM"] = "FROM"
+
+
+class EdgeTo(_Edge):
+    """Transition -[:TO]-> Stage"""
+    label: Literal["TO"] = "TO"
+
+
+class EdgeInMarket(_Edge):
+    """Transition -[:IN_MARKET]-> Market"""
+    label: Literal["IN_MARKET"] = "IN_MARKET"
+
+
+class EdgeRelevantTo(_Edge):
+    """Transition -[:RELEVANT_TO]-> StakeholderArchetype"""
+    label: Literal["RELEVANT_TO"] = "RELEVANT_TO"
+    confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+
+
+class EdgeAbout(_Edge):
+    """Transition -[:ABOUT]-> Offering, or Estimate -[:ABOUT]-> any node."""
+    label: Literal["ABOUT"] = "ABOUT"
+    target_node_type: Optional[str] = None  # for Estimate-ABOUT polymorphism
+
+
+class EdgeHasAttribute(_Edge):
+    """Offering -[:HAS_ATTRIBUTE]-> Attribute"""
+    label: Literal["HAS_ATTRIBUTE"] = "HAS_ATTRIBUTE"
+
+
+class EdgeHasLevel(_Edge):
+    """Attribute -[:HAS_LEVEL]-> AttributeLevel"""
+    label: Literal["HAS_LEVEL"] = "HAS_LEVEL"
+
+
+class EdgeRelevantAt(_Edge, _TemporallyValid):
+    """Attribute -[:RELEVANT_AT]-> Stage.
+
+    Temporal relevance score for which AARRR stages an attribute matters at.
+    """
+    label: Literal["RELEVANT_AT"] = "RELEVANT_AT"
+    score: float = Field(ge=0.0, le=1.0)
+    evidence_ids: list[str] = Field(default_factory=list)
+
+
+class EdgeSupports(_Edge):
+    """Evidence -[:SUPPORTS]-> any node."""
+    label: Literal["SUPPORTS"] = "SUPPORTS"
+    target_node_type: Optional[str] = None
+    confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+    support_type: Optional[str] = None  # "direct" | "benchmark" | "inferred"
+
+
+# ---------------------------------------------------------------------------
+# Convenience: registry for writers/importers
+# ---------------------------------------------------------------------------
+
+NODE_MODELS: dict[str, type[BaseModel]] = {
+    "Market": Market,
+    "Stage": Stage,
+    "Transition": Transition,
+    "StakeholderArchetype": StakeholderArchetype,
+    "Offering": Offering,
+    "Attribute": Attribute,
+    "AttributeLevel": AttributeLevel,
+    "Evidence": Evidence,
+    "Estimate": Estimate,
+}
+
+EDGE_MODELS: dict[str, type[BaseModel]] = {
+    "FROM": EdgeFrom,
+    "TO": EdgeTo,
+    "IN_MARKET": EdgeInMarket,
+    "RELEVANT_TO": EdgeRelevantTo,
+    "ABOUT": EdgeAbout,
+    "HAS_ATTRIBUTE": EdgeHasAttribute,
+    "HAS_LEVEL": EdgeHasLevel,
+    "RELEVANT_AT": EdgeRelevantAt,
+    "SUPPORTS": EdgeSupports,
+}
+
+
+def validate_node(label: str, payload: dict) -> BaseModel:
+    model = NODE_MODELS.get(label)
+    if model is None:
+        raise ValueError(f"Unknown node label: {label}")
+    return model(**payload)
+
+
+def validate_edge(label: str, payload: dict) -> BaseModel:
+    model = EDGE_MODELS.get(label)
+    if model is None:
+        raise ValueError(f"Unknown edge label: {label}")
+    return model(**payload)
