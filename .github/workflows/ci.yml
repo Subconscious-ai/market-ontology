@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate schema and kg_seed fixtures
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install runtime deps
+        run: pip install 'pydantic>=2'
+
+      - name: JSON syntax check (node/edge schemas)
+        run: |
+          python -c "import json; [json.load(open(p)) for p in ('poc_v1/ontology/node_schemas.json','poc_v1/ontology/edge_schemas.json')]; print('[json-check] OK')"
+
+      - name: Validate kg_seed fixtures against Pydantic schema
+        run: python scripts/validate_kg_seed.py
+
+      - name: Import schema module cleanly
+        run: |
+          cd poc_v1 && python -c "import sys; sys.path.insert(0, 'ontology'); import schema; print(f'[import] schema v{schema.SCHEMA_VERSION}, {len(schema.NODE_MODELS)} nodes, {len(schema.EDGE_MODELS)} edges')"
