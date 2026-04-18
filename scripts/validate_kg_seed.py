@@ -60,6 +60,15 @@ def main() -> int:
     errors: list[str] = []
     checked = 0
 
+    # Catch new fixture files that haven't been mapped to a model yet.
+    on_disk = {p.name for p in KG_SEED_DIR.glob("*.jsonl")}
+    unmapped = sorted(on_disk - set(FIXTURES))
+    if unmapped:
+        errors.append(
+            f"kg_seed/ has unmapped fixture file(s): {unmapped}. "
+            "Add them to FIXTURES in scripts/validate_kg_seed.py."
+        )
+
     for fname, (label, is_edge) in FIXTURES.items():
         path = KG_SEED_DIR / fname
         if not path.exists():

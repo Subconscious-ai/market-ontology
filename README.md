@@ -1,6 +1,6 @@
 Full path 
   ~/subconscious-ai/
-  ├── spice-harvester/        ← ~/.hermes/clude-harvester/ (still there; move when convenient)
+  ├── spice-harvester/        ← bash + python research pipeline
   │                             github.com/Subconscious-ai/spice-harvester
   │                             • ingest / query / lint / interview / interview-merge
   │                             • docs/INTEGRATION.md ← points at market-ontology

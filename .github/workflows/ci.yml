@@ -30,3 +30,6 @@ jobs:
       - name: Import schema module cleanly
         run: |
           cd poc_v1 && python -c "import sys; sys.path.insert(0, 'ontology'); import schema; print(f'[import] schema v{schema.SCHEMA_VERSION}, {len(schema.NODE_MODELS)} nodes, {len(schema.EDGE_MODELS)} edges')"
+
+      - name: Doc-rot check
+        run: bash scripts/check-doc-rot.sh
