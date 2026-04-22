@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "v1 POC Node Schemas",
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "type": "object",
   "properties": {
     "Market": {
@@ -16,7 +16,8 @@
         "context_factors": {"type": "object"},
         "period": {"type": ["string", "null"]},
         "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"},
+        "discovered_via": {"type": ["string", "null"]}
       },
       "additionalProperties": false
     },
@@ -31,7 +32,8 @@
         },
         "definition": {"type": "string"},
         "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"},
+        "discovered_via": {"type": ["string", "null"]}
       },
       "additionalProperties": false
     },
@@ -45,7 +47,8 @@
         "to_stage_id": {"type": "string"},
         "definition": {"type": "string"},
         "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"},
+        "discovered_via": {"type": ["string", "null"]}
       },
       "additionalProperties": false
     },
@@ -66,7 +69,8 @@
         "company_size_band": {"type": ["string", "null"]},
         "definition": {"type": ["string", "null"]},
         "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"},
+        "discovered_via": {"type": ["string", "null"]}
       },
       "additionalProperties": false
     },
@@ -81,7 +85,8 @@
         "category": {"type": ["string", "null"]},
         "definition": {"type": ["string", "null"]},
         "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"},
+        "discovered_via": {"type": ["string", "null"]}
       },
       "additionalProperties": false
     },
@@ -98,7 +103,8 @@
         "unit": {"type": ["string", "null"]},
         "definition": {"type": "string"},
         "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"},
+        "discovered_via": {"type": ["string", "null"]}
       },
       "additionalProperties": false
     },
@@ -115,7 +121,8 @@
         "valid_from": {"type": ["string", "null"], "format": "date"},
         "valid_to": {"type": ["string", "null"], "format": "date"},
         "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"},
+        "discovered_via": {"type": ["string", "null"]}
       },
       "additionalProperties": false
     },
@@ -137,7 +144,8 @@
         "confidence": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
         "period_observed": {"type": ["string", "null"]},
         "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"},
+        "discovered_via": {"type": ["string", "null"]}
       },
       "additionalProperties": false
     },
@@ -169,7 +177,8 @@
         "valid_from": {"type": ["string", "null"], "format": "date"},
         "valid_to": {"type": ["string", "null"], "format": "date"},
         "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "ingested_at": {"type": ["string", "null"], "format": "date-time"},
+        "discovered_via": {"type": ["string", "null"]}
       },
       "additionalProperties": false
     }

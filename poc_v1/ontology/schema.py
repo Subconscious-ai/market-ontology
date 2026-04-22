@@ -7,7 +7,7 @@ This is the single source of truth for the schema. Keep it aligned with:
   - ontology/edge_schemas.json
   - neo4j/constraints.cypher
 
-Schema version: 1.0.0
+Schema version: 1.1.0
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field, model_validator
 
-SCHEMA_VERSION = "1.0.0"
+SCHEMA_VERSION = "1.1.0"
 
 
 # ---------------------------------------------------------------------------
@@ -74,6 +74,12 @@ class EstimateType(str, Enum):
 class _VersionedNode(BaseModel):
     schema_version: str = SCHEMA_VERSION
     ingested_at: Optional[datetime] = None
+    # Provenance tag for nodes that came from a deep-research agent lane
+    # (e.g. "perplexity", "grok", "claude_agent") rather than a scrape lane.
+    # None for default-ingest nodes; set on DR-originated nodes by
+    # spice-harvester's novelty filter. UI uses this to tint discovered
+    # nodes; it is metadata, not a correctness-affecting field.
+    discovered_via: Optional[str] = None
 
 
 class _TemporallyValid(BaseModel):
@@ -197,6 +203,10 @@ class _Edge(BaseModel):
     start_id: str
     end_id: str
     schema_version: str = SCHEMA_VERSION
+    # Same deep-research provenance tag as nodes. An edge can be novel
+    # even when both endpoints pre-existed (new relationship discovered
+    # between known entities), so edges need this independently of nodes.
+    discovered_via: Optional[str] = None
 
 
 class EdgeFrom(_Edge):

@@ -1,6 +1,31 @@
-# Migration — v0 to v1
+# Migration — v0 to v1 (and v1.0 → v1.1)
 
 This document records what changed between the initial POC scaffolding and the v1 ontology, and why. Keep this file. Future schema migrations should follow the same pattern.
+
+## v1.0 → v1.1 (2026-04-22) — add `discovered_via`
+
+**Backwards-compatible.** No fixture rewrites required; existing `kg_seed/*.jsonl` continues to validate.
+
+### Change
+
+Added `discovered_via: Optional[str] = None` to every node type (via `_VersionedNode` mixin) and every edge type (via `_Edge` mixin). Pydantic schema + `node_schemas.json` + `edge_schemas.json` all updated. `SCHEMA_VERSION` bumped `1.0.0 → 1.1.0`.
+
+### Why
+
+The `spice-harvester` pipeline is gaining **deep-research lanes** — Perplexity, Grok, Claude-agent, Gemini-grounded, OpenAI `o1-deep-research`. Each DR provider is a new lane that emits ontology records into `kg_seed/`. We need to tag the records that came from a DR source so the UI can surface "what did deep research unlock vs. the 13 shallow lanes" without re-computing novelty at render time.
+
+### Mechanics for consumers
+
+- **spice-harvester:** writers that originate from a DR lane set `properties.discovered_via = "<provider>"` (e.g. `"perplexity"`). Shallow-lane writers leave it unset.
+- **ai-chatbot:** graph renderer tints nodes with `discovered_via != null`. A filter chip lets operators hide or highlight them.
+- **Neo4j:** no migration needed — optional property, missing values are fine.
+- **Record-level novelty:** the presence of `discovered_via` is **metadata**, not the correctness-critical invariant. Novelty is enforced by id-absence-in-pre-DR-snapshot in `spice-harvester/lib/deep_research/novelty.py` (or wherever the filter lands). Treat `discovered_via` as provenance, not authorization.
+
+### Non-goals
+
+- No `discovered_via` enum — free-form string so new providers can land without schema bumps.
+- No "confidence" or "recency" alongside this field — those are Evidence/Estimate concerns.
+- Does not replace `Evidence.source_type="research_agent"` — Evidence nodes can still represent an individual DR citation; `discovered_via` lives on the ontology node/edge that was synthesized from DR content.
 
 ## Summary
 

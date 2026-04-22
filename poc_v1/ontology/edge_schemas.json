@@ -1,28 +1,31 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "v1 POC Edge Schemas",
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "type": "object",
   "properties": {
     "FROM": {
       "from": "Transition",
       "to": "Stage",
       "properties": {
-        "schema_version": {"type": "string"}
+        "schema_version": {"type": "string"},
+        "discovered_via": {"type": ["string", "null"]}
       }
     },
     "TO": {
       "from": "Transition",
       "to": "Stage",
       "properties": {
-        "schema_version": {"type": "string"}
+        "schema_version": {"type": "string"},
+        "discovered_via": {"type": ["string", "null"]}
       }
     },
     "IN_MARKET": {
       "from": "Transition",
       "to": "Market",
       "properties": {
-        "schema_version": {"type": "string"}
+        "schema_version": {"type": "string"},
+        "discovered_via": {"type": ["string", "null"]}
       }
     },
     "RELEVANT_TO": {
@@ -30,7 +33,8 @@
       "to": "StakeholderArchetype",
       "properties": {
         "confidence": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
-        "schema_version": {"type": "string"}
+        "schema_version": {"type": "string"},
+        "discovered_via": {"type": ["string", "null"]}
       }
     },
     "ABOUT": {
@@ -38,21 +42,24 @@
       "to": "*",
       "properties": {
         "target_node_type": {"type": ["string", "null"]},
-        "schema_version": {"type": "string"}
+        "schema_version": {"type": "string"},
+        "discovered_via": {"type": ["string", "null"]}
       }
     },
     "HAS_ATTRIBUTE": {
       "from": "Offering",
       "to": "Attribute",
       "properties": {
-        "schema_version": {"type": "string"}
+        "schema_version": {"type": "string"},
+        "discovered_via": {"type": ["string", "null"]}
       }
     },
     "HAS_LEVEL": {
       "from": "Attribute",
       "to": "AttributeLevel",
       "properties": {
-        "schema_version": {"type": "string"}
+        "schema_version": {"type": "string"},
+        "discovered_via": {"type": ["string", "null"]}
       }
     },
     "RELEVANT_AT": {
@@ -63,7 +70,8 @@
         "valid_from": {"type": ["string", "null"], "format": "date"},
         "valid_to": {"type": ["string", "null"], "format": "date"},
         "evidence_ids": {"type": "array", "items": {"type": "string"}},
-        "schema_version": {"type": "string"}
+        "schema_version": {"type": "string"},
+        "discovered_via": {"type": ["string", "null"]}
       }
     },
     "SUPPORTS": {
@@ -73,7 +81,8 @@
         "target_node_type": {"type": ["string", "null"]},
         "confidence": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
         "support_type": {"type": ["string", "null"]},
-        "schema_version": {"type": "string"}
+        "schema_version": {"type": "string"},
+        "discovered_via": {"type": ["string", "null"]}
       }
     }
   }
