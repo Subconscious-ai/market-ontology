@@ -7,7 +7,7 @@ This is the single source of truth for the schema. Keep it aligned with:
   - ontology/edge_schemas.json
   - neo4j/constraints.cypher
 
-Schema version: 1.0.0
+Schema version: 1.1.0
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field, model_validator
 
-SCHEMA_VERSION = "1.0.0"
+SCHEMA_VERSION = "1.1.0"
 
 
 # ---------------------------------------------------------------------------
@@ -134,11 +134,22 @@ class StakeholderArchetype(_VersionedNode):
 class Offering(_VersionedNode):
     id: str
     name: str
-    # company_name is a string prop in v1 with a Splink dedupe pass.
-    # In v2, Organization becomes a node.
+    # company_name is a string prop kept for backwards compat. As of v1.1
+    # the authoritative link is the OFFERED_BY edge to a Company node.
+    # Will be deprecated in v2.
     company_name: str
     is_competitor: bool = False
     category: Optional[str] = None
+    definition: Optional[str] = None
+
+
+class Company(_VersionedNode):
+    """The organization that offers one or more Offerings. Added in v1.1 to
+    give Offering→Company a proper edge for rollup queries. Minimal props;
+    add funding/size/industry in a later bump when a consumer needs them."""
+    id: str
+    name: str
+    domain: Optional[str] = None
     definition: Optional[str] = None
 
 
@@ -254,6 +265,13 @@ class EdgeSupports(_Edge):
     support_type: Optional[str] = None  # "direct" | "benchmark" | "inferred"
 
 
+class EdgeOfferedBy(_Edge):
+    """Offering -[:OFFERED_BY]-> Company. Introduced in v1.1 as the
+    programmatic rollup link. Consumers aggregating Attributes/Levels up
+    to the Company level traverse this edge."""
+    label: Literal["OFFERED_BY"] = "OFFERED_BY"
+
+
 # ---------------------------------------------------------------------------
 # Convenience: registry for writers/importers
 # ---------------------------------------------------------------------------
@@ -268,6 +286,7 @@ NODE_MODELS: dict[str, type[BaseModel]] = {
     "AttributeLevel": AttributeLevel,
     "Evidence": Evidence,
     "Estimate": Estimate,
+    "Company": Company,
 }
 
 EDGE_MODELS: dict[str, type[BaseModel]] = {
@@ -280,6 +299,7 @@ EDGE_MODELS: dict[str, type[BaseModel]] = {
     "HAS_LEVEL": EdgeHasLevel,
     "RELEVANT_AT": EdgeRelevantAt,
     "SUPPORTS": EdgeSupports,
+    "OFFERED_BY": EdgeOfferedBy,
 }
 
 

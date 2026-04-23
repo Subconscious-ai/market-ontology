@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "v1 POC Edge Schemas",
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "type": "object",
   "properties": {
     "FROM": {
@@ -73,6 +73,13 @@
         "target_node_type": {"type": ["string", "null"]},
         "confidence": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
         "support_type": {"type": ["string", "null"]},
+        "schema_version": {"type": "string"}
+      }
+    },
+    "OFFERED_BY": {
+      "from": "Offering",
+      "to": "Company",
+      "properties": {
         "schema_version": {"type": "string"}
       }
     }
