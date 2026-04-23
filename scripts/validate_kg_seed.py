@@ -52,6 +52,8 @@ FIXTURES = {
     "edges_attribute_has_level.jsonl":     ("HAS_LEVEL", True),
     "edges_attribute_relevant_at.jsonl":   ("RELEVANT_AT", True),
     "edges_evidence_supports.jsonl":       ("SUPPORTS", True),
+    "companies.jsonl":                     ("Company", False),
+    "edges_offering_offered_by.jsonl":     ("OFFERED_BY", True),
 }
 
 

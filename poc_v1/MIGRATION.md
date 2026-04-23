@@ -1,6 +1,32 @@
-# Migration — v0 to v1
+# Migration — v0 to v1 (and v1.0 → v1.1)
 
 This document records what changed between the initial POC scaffolding and the v1 ontology, and why. Keep this file. Future schema migrations should follow the same pattern.
+
+## v1.0 → v1.1 (2026-04-23) — add Company node + OFFERED_BY edge
+
+**Backwards-compatible.** No fixture rewrites required; existing `kg_seed/*.jsonl` continues to validate. `SCHEMA_VERSION` bumped `1.0.0 → 1.1.0`.
+
+### Change
+
+- New node type `Company` with minimal props (`id`, `name`, `domain?`, `definition?`). No funding / size / industry fields — add when a consumer query needs them.
+- New edge type `OFFERED_BY`: `Offering → Company`. This is the programmatic rollup link: `AttributeLevel → (HAS_LEVEL^-1) → Attribute → (HAS_ATTRIBUTE^-1) → Offering → (OFFERED_BY) → Company`.
+- `Offering.company_name` string prop is kept for backwards compat. It will be deprecated in v2 — consumers should start migrating to the edge-based lookup.
+
+### Why
+
+Rehoboam's `attributes-levels/orthogonal` endpoint generates Attributes+Levels per product. Downstream DCE queries aggregate those up to the Company level ("what are all of Acme's attributes across their full product portfolio?"). Doing this via `company_name` string matching is fragile; making Company a first-class node with `OFFERED_BY` edges gives us clean graph traversal and sets up proper entity resolution (Splink on Company.name later).
+
+### Mechanics for consumers
+
+- **spice-harvester:** `lib/emit_kg_seed.py` should derive Company + OFFERED_BY records from each Offering's existing `company_name` string on every write. No new LLM call required — pure transformation. (Paired PR lands at the same time as this bump.)
+- **ai-chatbot:** no immediate changes required. Graph renderer will start receiving Company nodes + OFFERED_BY edges as slugs re-ingest.
+- **Neo4j:** no migration needed — optional node type, missing values are fine.
+
+### Non-goals
+
+- Company-side props beyond `id / name / domain / definition`. YAGNI.
+- Removing `Offering.company_name`. Keep both; remove in v2 cleanup.
+- `Company → Market` edge. Add when a consumer query needs it.
 
 ## Summary
 
