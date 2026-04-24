@@ -1,0 +1,217 @@
+{
+  "schema_version": "1.1.0",
+  "nodes": {
+    "Market": {
+      "filename": "markets.jsonl",
+      "graph_type": "market"
+    },
+    "Stage": {
+      "filename": "stages.jsonl",
+      "graph_type": "stage"
+    },
+    "Transition": {
+      "filename": "transitions.jsonl",
+      "graph_type": "transition"
+    },
+    "StakeholderArchetype": {
+      "filename": "stakeholder_archetypes.jsonl",
+      "graph_type": "stakeholder"
+    },
+    "Offering": {
+      "filename": "offerings.jsonl",
+      "graph_type": "offering"
+    },
+    "Attribute": {
+      "filename": "attributes.jsonl",
+      "graph_type": "attribute"
+    },
+    "AttributeLevel": {
+      "filename": "attribute_levels.jsonl",
+      "graph_type": "attribute_level"
+    },
+    "Evidence": {
+      "filename": "evidence.jsonl",
+      "graph_type": "evidence"
+    },
+    "Estimate": {
+      "filename": "estimates.jsonl",
+      "graph_type": "estimate"
+    },
+    "Company": {
+      "filename": "companies.jsonl",
+      "graph_type": "company"
+    }
+  },
+  "edges": {
+    "FROM": {
+      "filename": "edges_transition_from_stage.jsonl",
+      "filenames": [
+        "edges_transition_from_stage.jsonl"
+      ],
+      "from": "Transition",
+      "to": "Stage"
+    },
+    "TO": {
+      "filename": "edges_transition_to_stage.jsonl",
+      "filenames": [
+        "edges_transition_to_stage.jsonl"
+      ],
+      "from": "Transition",
+      "to": "Stage"
+    },
+    "IN_MARKET": {
+      "filename": "edges_transition_in_market.jsonl",
+      "filenames": [
+        "edges_transition_in_market.jsonl"
+      ],
+      "from": "Transition",
+      "to": "Market"
+    },
+    "RELEVANT_TO": {
+      "filename": "edges_transition_relevant_to.jsonl",
+      "filenames": [
+        "edges_transition_relevant_to.jsonl"
+      ],
+      "from": "Transition",
+      "to": "StakeholderArchetype"
+    },
+    "ABOUT": {
+      "filename": "edges_transition_about_offering.jsonl",
+      "filenames": [
+        "edges_transition_about_offering.jsonl",
+        "edges_estimate_about.jsonl"
+      ],
+      "from": [
+        "Transition",
+        "Estimate"
+      ],
+      "to": "*"
+    },
+    "HAS_ATTRIBUTE": {
+      "filename": "edges_offering_has_attribute.jsonl",
+      "filenames": [
+        "edges_offering_has_attribute.jsonl"
+      ],
+      "from": "Offering",
+      "to": "Attribute"
+    },
+    "HAS_LEVEL": {
+      "filename": "edges_attribute_has_level.jsonl",
+      "filenames": [
+        "edges_attribute_has_level.jsonl"
+      ],
+      "from": "Attribute",
+      "to": "AttributeLevel"
+    },
+    "RELEVANT_AT": {
+      "filename": "edges_attribute_relevant_at.jsonl",
+      "filenames": [
+        "edges_attribute_relevant_at.jsonl"
+      ],
+      "from": "Attribute",
+      "to": "Stage"
+    },
+    "SUPPORTS": {
+      "filename": "edges_evidence_supports.jsonl",
+      "filenames": [
+        "edges_evidence_supports.jsonl"
+      ],
+      "from": "Evidence",
+      "to": "*"
+    },
+    "OFFERED_BY": {
+      "filename": "edges_offering_offered_by.jsonl",
+      "filenames": [
+        "edges_offering_offered_by.jsonl"
+      ],
+      "from": "Offering",
+      "to": "Company"
+    }
+  },
+  "files": {
+    "markets.jsonl": {
+      "kind": "node",
+      "label": "Market"
+    },
+    "stages.jsonl": {
+      "kind": "node",
+      "label": "Stage"
+    },
+    "transitions.jsonl": {
+      "kind": "node",
+      "label": "Transition"
+    },
+    "stakeholder_archetypes.jsonl": {
+      "kind": "node",
+      "label": "StakeholderArchetype"
+    },
+    "offerings.jsonl": {
+      "kind": "node",
+      "label": "Offering"
+    },
+    "attributes.jsonl": {
+      "kind": "node",
+      "label": "Attribute"
+    },
+    "attribute_levels.jsonl": {
+      "kind": "node",
+      "label": "AttributeLevel"
+    },
+    "evidence.jsonl": {
+      "kind": "node",
+      "label": "Evidence"
+    },
+    "estimates.jsonl": {
+      "kind": "node",
+      "label": "Estimate"
+    },
+    "edges_transition_from_stage.jsonl": {
+      "kind": "edge",
+      "label": "FROM"
+    },
+    "edges_transition_to_stage.jsonl": {
+      "kind": "edge",
+      "label": "TO"
+    },
+    "edges_transition_in_market.jsonl": {
+      "kind": "edge",
+      "label": "IN_MARKET"
+    },
+    "edges_transition_relevant_to.jsonl": {
+      "kind": "edge",
+      "label": "RELEVANT_TO"
+    },
+    "edges_transition_about_offering.jsonl": {
+      "kind": "edge",
+      "label": "ABOUT"
+    },
+    "edges_estimate_about.jsonl": {
+      "kind": "edge",
+      "label": "ABOUT"
+    },
+    "edges_offering_has_attribute.jsonl": {
+      "kind": "edge",
+      "label": "HAS_ATTRIBUTE"
+    },
+    "edges_attribute_has_level.jsonl": {
+      "kind": "edge",
+      "label": "HAS_LEVEL"
+    },
+    "edges_attribute_relevant_at.jsonl": {
+      "kind": "edge",
+      "label": "RELEVANT_AT"
+    },
+    "edges_evidence_supports.jsonl": {
+      "kind": "edge",
+      "label": "SUPPORTS"
+    },
+    "companies.jsonl": {
+      "kind": "node",
+      "label": "Company"
+    },
+    "edges_offering_offered_by.jsonl": {
+      "kind": "edge",
+      "label": "OFFERED_BY"
+    }
+  }
+}
