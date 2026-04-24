@@ -7,7 +7,7 @@
 ## What this repo is
 
 The canonical Pydantic schema for the Subconscious knowledge graph:
-**9 node types, 9 edge types**. Installed by sibling repos as
+**10 node types, 10 edge types**. Installed by sibling repos as
 `pip install "market-ontology @ git+https://github.com/Subconscious-ai/market-ontology"`.
 Load-bearing — every write across the stack validates through here.
 
@@ -16,7 +16,7 @@ Load-bearing — every write across the stack validates through here.
 | What | Where |
 |---|---|
 | Schema (Pydantic models, NODE_MODELS/EDGE_MODELS) | `poc_v1/ontology/schema.py` |
-| JSON schema dumps for TS/docs consumers | `poc_v1/ontology/{node,edge}_schemas.json` |
+| Generated contracts for consumers | `poc_v1/ontology/{node,edge}_schemas.json`, `poc_v1/ontology/kg_seed_contract.json` |
 | Reference fixtures (one JSONL per label) | `poc_v1/kg_seed/*.jsonl` |
 | Validator (CI entry point) | `scripts/validate_kg_seed.py` |
 | Doc-rot guard | `scripts/check-doc-rot.sh` |
@@ -27,6 +27,7 @@ Load-bearing — every write across the stack validates through here.
 
 ```bash
 python scripts/validate_kg_seed.py        # Pydantic-validates every kg_seed/*.jsonl
+python scripts/generate_kg_seed_contract.py --check  # validates generated consumer contract
 bash scripts/check-doc-rot.sh             # Markdown guard
 python -m py_compile poc_v1/ontology/schema.py   # import-time sanity
 ```
@@ -40,7 +41,8 @@ If any of these fail, do not open a PR. Fix first.
 2. Register it in `NODE_MODELS` and bump `SCHEMA_VERSION`.
 3. Create at least one fixture line in `poc_v1/kg_seed/<new_label>s.jsonl`.
 4. Map the filename in `scripts/validate_kg_seed.py::FIXTURES`.
-5. Run the verify loop above.
+5. Regenerate `poc_v1/ontology/kg_seed_contract.json`.
+6. Run the verify loop above.
 
 **Add a new edge type:** same pattern via `EDGE_MODELS` +
 `edges_<from>_<rel>_<to>.jsonl`.
@@ -52,8 +54,9 @@ in the same PR round.
 ## Architectural invariants (do not break)
 
 - **One source of truth for shape**: Pydantic models in `schema.py`. JSON
-  schema files under `poc_v1/ontology/*.json` are generated artifacts — if
-  they drift, regenerate from the Pydantic models; do not hand-edit.
+  schema files and `kg_seed_contract.json` under `poc_v1/ontology/` are
+  generated artifacts — if they drift, regenerate from the Pydantic models;
+  do not hand-edit.
 - **Fixtures must validate**: `scripts/validate_kg_seed.py` is CI's red button.
 - **No orphan fixtures**: every `kg_seed/*.jsonl` must be mapped in `FIXTURES`.
 - **Node records** are `{"id": ..., "properties": {...}}`. **Edge records**
