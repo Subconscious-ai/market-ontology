@@ -27,6 +27,14 @@ jobs:
       - name: Validate kg_seed fixtures against Pydantic schema
         run: python scripts/validate_kg_seed.py
 
+      - name: Validate generated contracts
+        run: |
+          python scripts/generate_kg_seed_contract.py --check
+          python scripts/generate_twenty_app.py --check
+
+      - name: Run projection tests
+        run: python -m unittest discover -s tests -v
+
       - name: Import schema module cleanly
         run: |
           cd poc_v1 && python -c "import sys; sys.path.insert(0, 'ontology'); import schema; print(f'[import] schema v{schema.SCHEMA_VERSION}, {len(schema.NODE_MODELS)} nodes, {len(schema.EDGE_MODELS)} edges')"

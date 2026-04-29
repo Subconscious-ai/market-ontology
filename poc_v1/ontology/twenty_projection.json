@@ -1,0 +1,310 @@
+{
+  "$schema": "https://subconscious.ai/schemas/twenty-projection-manifest.json",
+  "schema_version": "1.2.0",
+  "projection_version": "1.0.0",
+  "metadata_fields": [
+    {"name": "ontology_node_id", "type": "text", "required": true},
+    {"name": "ontology_node_type", "type": "text", "required": true},
+    {"name": "ontology_schema_version", "type": "text", "required": true},
+    {"name": "projection_version", "type": "text", "required": true},
+    {"name": "source_run_id", "type": "text", "required": true},
+    {"name": "ontology_snapshot_hash", "type": "text", "required": true},
+    {"name": "synced_at", "type": "datetime", "required": true},
+    {"name": "source_updated_at", "type": "datetime", "required": false}
+  ],
+  "sync_ledger": {
+    "stable_key_fields": [
+      "tenant_id",
+      "ontology_node_type",
+      "ontology_node_id",
+      "ontology_snapshot_hash"
+    ],
+    "description": "Downstream sync ledgers use these fields to map a tenant-scoped ontology node snapshot to a Twenty record."
+  },
+  "objects": [
+    {
+      "object_name": "company",
+      "display_name": "Company",
+      "ontology_node_type": "Company",
+      "surface": "primary",
+      "sync_ledger_key_fields": ["tenant_id", "ontology_node_type", "ontology_node_id", "ontology_snapshot_hash"],
+      "fields": [
+        {"name": "ontology_node_id", "type": "text", "required": true},
+        {"name": "ontology_node_type", "type": "text", "required": true},
+        {"name": "ontology_schema_version", "type": "text", "required": true},
+        {"name": "projection_version", "type": "text", "required": true},
+        {"name": "source_run_id", "type": "text", "required": true},
+        {"name": "ontology_snapshot_hash", "type": "text", "required": true},
+        {"name": "synced_at", "type": "datetime", "required": true},
+        {"name": "source_updated_at", "type": "datetime", "required": false},
+        {"name": "name", "type": "text", "required": true},
+        {"name": "domain", "type": "text", "required": false},
+        {"name": "definition", "type": "rich_text", "required": false}
+      ],
+      "relations": []
+    },
+    {
+      "object_name": "product",
+      "display_name": "Product",
+      "ontology_node_type": "Offering",
+      "surface": "primary",
+      "sync_ledger_key_fields": ["tenant_id", "ontology_node_type", "ontology_node_id", "ontology_snapshot_hash"],
+      "fields": [
+        {"name": "ontology_node_id", "type": "text", "required": true},
+        {"name": "ontology_node_type", "type": "text", "required": true},
+        {"name": "ontology_schema_version", "type": "text", "required": true},
+        {"name": "projection_version", "type": "text", "required": true},
+        {"name": "source_run_id", "type": "text", "required": true},
+        {"name": "ontology_snapshot_hash", "type": "text", "required": true},
+        {"name": "synced_at", "type": "datetime", "required": true},
+        {"name": "source_updated_at", "type": "datetime", "required": false},
+        {"name": "name", "type": "text", "required": true},
+        {"name": "company_name", "type": "text", "required": true},
+        {"name": "category", "type": "text", "required": false},
+        {"name": "is_competitor", "type": "boolean", "required": true},
+        {"name": "definition", "type": "rich_text", "required": false}
+      ],
+      "relations": [
+        {"name": "attributes", "edge_label": "HAS_ATTRIBUTE", "target_object": "attribute", "cardinality": "many"},
+        {"name": "company", "edge_label": "OFFERED_BY", "target_object": "company", "cardinality": "one"}
+      ]
+    },
+    {
+      "object_name": "persona",
+      "display_name": "Persona",
+      "ontology_node_type": "StakeholderArchetype",
+      "surface": "primary",
+      "sync_ledger_key_fields": ["tenant_id", "ontology_node_type", "ontology_node_id", "ontology_snapshot_hash"],
+      "fields": [
+        {"name": "ontology_node_id", "type": "text", "required": true},
+        {"name": "ontology_node_type", "type": "text", "required": true},
+        {"name": "ontology_schema_version", "type": "text", "required": true},
+        {"name": "projection_version", "type": "text", "required": true},
+        {"name": "source_run_id", "type": "text", "required": true},
+        {"name": "ontology_snapshot_hash", "type": "text", "required": true},
+        {"name": "synced_at", "type": "datetime", "required": true},
+        {"name": "source_updated_at", "type": "datetime", "required": false},
+        {"name": "name", "type": "text", "required": true},
+        {"name": "archetype_type", "type": "select", "required": true},
+        {"name": "role", "type": "text", "required": false},
+        {"name": "segment", "type": "text", "required": false},
+        {"name": "industry", "type": "text", "required": false},
+        {"name": "company_size_band", "type": "text", "required": false},
+        {"name": "definition", "type": "rich_text", "required": false}
+      ],
+      "relations": [
+        {"name": "traits", "edge_label": "HAS_TRAIT", "target_object": "trait", "cardinality": "many"}
+      ]
+    },
+    {
+      "object_name": "market",
+      "display_name": "Market",
+      "ontology_node_type": "Market",
+      "surface": "support",
+      "sync_ledger_key_fields": ["tenant_id", "ontology_node_type", "ontology_node_id", "ontology_snapshot_hash"],
+      "fields": [
+        {"name": "ontology_node_id", "type": "text", "required": true},
+        {"name": "ontology_node_type", "type": "text", "required": true},
+        {"name": "ontology_schema_version", "type": "text", "required": true},
+        {"name": "projection_version", "type": "text", "required": true},
+        {"name": "source_run_id", "type": "text", "required": true},
+        {"name": "ontology_snapshot_hash", "type": "text", "required": true},
+        {"name": "synced_at", "type": "datetime", "required": true},
+        {"name": "source_updated_at", "type": "datetime", "required": false},
+        {"name": "name", "type": "text", "required": true},
+        {"name": "definition", "type": "rich_text", "required": true},
+        {"name": "geography", "type": "text", "required": false},
+        {"name": "period", "type": "text", "required": false}
+      ],
+      "relations": []
+    },
+    {
+      "object_name": "stage",
+      "display_name": "Stage",
+      "ontology_node_type": "Stage",
+      "surface": "support",
+      "sync_ledger_key_fields": ["tenant_id", "ontology_node_type", "ontology_node_id", "ontology_snapshot_hash"],
+      "fields": [
+        {"name": "ontology_node_id", "type": "text", "required": true},
+        {"name": "ontology_node_type", "type": "text", "required": true},
+        {"name": "ontology_schema_version", "type": "text", "required": true},
+        {"name": "projection_version", "type": "text", "required": true},
+        {"name": "source_run_id", "type": "text", "required": true},
+        {"name": "ontology_snapshot_hash", "type": "text", "required": true},
+        {"name": "synced_at", "type": "datetime", "required": true},
+        {"name": "source_updated_at", "type": "datetime", "required": false},
+        {"name": "name", "type": "select", "required": true},
+        {"name": "definition", "type": "rich_text", "required": true}
+      ],
+      "relations": []
+    },
+    {
+      "object_name": "transition",
+      "display_name": "Transition",
+      "ontology_node_type": "Transition",
+      "surface": "support",
+      "sync_ledger_key_fields": ["tenant_id", "ontology_node_type", "ontology_node_id", "ontology_snapshot_hash"],
+      "fields": [
+        {"name": "ontology_node_id", "type": "text", "required": true},
+        {"name": "ontology_node_type", "type": "text", "required": true},
+        {"name": "ontology_schema_version", "type": "text", "required": true},
+        {"name": "projection_version", "type": "text", "required": true},
+        {"name": "source_run_id", "type": "text", "required": true},
+        {"name": "ontology_snapshot_hash", "type": "text", "required": true},
+        {"name": "synced_at", "type": "datetime", "required": true},
+        {"name": "source_updated_at", "type": "datetime", "required": false},
+        {"name": "name", "type": "text", "required": true},
+        {"name": "from_stage_id", "type": "text", "required": true},
+        {"name": "to_stage_id", "type": "text", "required": true},
+        {"name": "definition", "type": "rich_text", "required": true}
+      ],
+      "relations": [
+        {"name": "from_stage", "edge_label": "FROM", "target_object": "stage", "cardinality": "one"},
+        {"name": "to_stage", "edge_label": "TO", "target_object": "stage", "cardinality": "one"},
+        {"name": "personas", "edge_label": "RELEVANT_TO", "target_object": "persona", "cardinality": "many"},
+        {"name": "products", "edge_label": "ABOUT", "target_object": "product", "cardinality": "many"}
+      ]
+    },
+    {
+      "object_name": "attribute",
+      "display_name": "Attribute",
+      "ontology_node_type": "Attribute",
+      "surface": "support",
+      "sync_ledger_key_fields": ["tenant_id", "ontology_node_type", "ontology_node_id", "ontology_snapshot_hash"],
+      "fields": [
+        {"name": "ontology_node_id", "type": "text", "required": true},
+        {"name": "ontology_node_type", "type": "text", "required": true},
+        {"name": "ontology_schema_version", "type": "text", "required": true},
+        {"name": "projection_version", "type": "text", "required": true},
+        {"name": "source_run_id", "type": "text", "required": true},
+        {"name": "ontology_snapshot_hash", "type": "text", "required": true},
+        {"name": "synced_at", "type": "datetime", "required": true},
+        {"name": "source_updated_at", "type": "datetime", "required": false},
+        {"name": "name", "type": "text", "required": true},
+        {"name": "data_type", "type": "select", "required": true},
+        {"name": "unit", "type": "text", "required": false},
+        {"name": "definition", "type": "rich_text", "required": true}
+      ],
+      "relations": [
+        {"name": "levels", "edge_label": "HAS_LEVEL", "target_object": "attribute_level", "cardinality": "many"}
+      ]
+    },
+    {
+      "object_name": "attribute_level",
+      "display_name": "Attribute Level",
+      "ontology_node_type": "AttributeLevel",
+      "surface": "support",
+      "sync_ledger_key_fields": ["tenant_id", "ontology_node_type", "ontology_node_id", "ontology_snapshot_hash"],
+      "fields": [
+        {"name": "ontology_node_id", "type": "text", "required": true},
+        {"name": "ontology_node_type", "type": "text", "required": true},
+        {"name": "ontology_schema_version", "type": "text", "required": true},
+        {"name": "projection_version", "type": "text", "required": true},
+        {"name": "source_run_id", "type": "text", "required": true},
+        {"name": "ontology_snapshot_hash", "type": "text", "required": true},
+        {"name": "synced_at", "type": "datetime", "required": true},
+        {"name": "source_updated_at", "type": "datetime", "required": false},
+        {"name": "attribute_id", "type": "text", "required": true},
+        {"name": "market_id", "type": "text", "required": true},
+        {"name": "value", "type": "json", "required": true},
+        {"name": "label", "type": "text", "required": false},
+        {"name": "is_status_quo", "type": "boolean", "required": true}
+      ],
+      "relations": []
+    },
+    {
+      "object_name": "trait",
+      "display_name": "Trait",
+      "ontology_node_type": "Trait",
+      "surface": "support",
+      "sync_ledger_key_fields": ["tenant_id", "ontology_node_type", "ontology_node_id", "ontology_snapshot_hash"],
+      "fields": [
+        {"name": "ontology_node_id", "type": "text", "required": true},
+        {"name": "ontology_node_type", "type": "text", "required": true},
+        {"name": "ontology_schema_version", "type": "text", "required": true},
+        {"name": "projection_version", "type": "text", "required": true},
+        {"name": "source_run_id", "type": "text", "required": true},
+        {"name": "ontology_snapshot_hash", "type": "text", "required": true},
+        {"name": "synced_at", "type": "datetime", "required": true},
+        {"name": "source_updated_at", "type": "datetime", "required": false},
+        {"name": "name", "type": "text", "required": true},
+        {"name": "data_type", "type": "select", "required": true},
+        {"name": "unit", "type": "text", "required": false},
+        {"name": "definition", "type": "rich_text", "required": true}
+      ],
+      "relations": [
+        {"name": "levels", "edge_label": "HAS_LEVEL", "target_object": "trait_level", "cardinality": "many"}
+      ]
+    },
+    {
+      "object_name": "trait_level",
+      "display_name": "Trait Level",
+      "ontology_node_type": "TraitLevel",
+      "surface": "support",
+      "sync_ledger_key_fields": ["tenant_id", "ontology_node_type", "ontology_node_id", "ontology_snapshot_hash"],
+      "fields": [
+        {"name": "ontology_node_id", "type": "text", "required": true},
+        {"name": "ontology_node_type", "type": "text", "required": true},
+        {"name": "ontology_schema_version", "type": "text", "required": true},
+        {"name": "projection_version", "type": "text", "required": true},
+        {"name": "source_run_id", "type": "text", "required": true},
+        {"name": "ontology_snapshot_hash", "type": "text", "required": true},
+        {"name": "synced_at", "type": "datetime", "required": true},
+        {"name": "source_updated_at", "type": "datetime", "required": false},
+        {"name": "trait_id", "type": "text", "required": true},
+        {"name": "market_id", "type": "text", "required": true},
+        {"name": "value", "type": "json", "required": true},
+        {"name": "label", "type": "text", "required": false},
+        {"name": "is_status_quo", "type": "boolean", "required": true}
+      ],
+      "relations": []
+    },
+    {
+      "object_name": "evidence",
+      "display_name": "Evidence",
+      "ontology_node_type": "Evidence",
+      "surface": "support",
+      "sync_ledger_key_fields": ["tenant_id", "ontology_node_type", "ontology_node_id", "ontology_snapshot_hash"],
+      "fields": [
+        {"name": "ontology_node_id", "type": "text", "required": true},
+        {"name": "ontology_node_type", "type": "text", "required": true},
+        {"name": "ontology_schema_version", "type": "text", "required": true},
+        {"name": "projection_version", "type": "text", "required": true},
+        {"name": "source_run_id", "type": "text", "required": true},
+        {"name": "ontology_snapshot_hash", "type": "text", "required": true},
+        {"name": "synced_at", "type": "datetime", "required": true},
+        {"name": "source_updated_at", "type": "datetime", "required": false},
+        {"name": "source_type", "type": "select", "required": true},
+        {"name": "source_ref", "type": "text", "required": true},
+        {"name": "source_url", "type": "text", "required": false},
+        {"name": "excerpt", "type": "rich_text", "required": false},
+        {"name": "extracted_claim", "type": "rich_text", "required": false},
+        {"name": "confidence", "type": "number", "required": false}
+      ],
+      "relations": []
+    },
+    {
+      "object_name": "estimate",
+      "display_name": "Estimate",
+      "ontology_node_type": "Estimate",
+      "surface": "support",
+      "sync_ledger_key_fields": ["tenant_id", "ontology_node_type", "ontology_node_id", "ontology_snapshot_hash"],
+      "fields": [
+        {"name": "ontology_node_id", "type": "text", "required": true},
+        {"name": "ontology_node_type", "type": "text", "required": true},
+        {"name": "ontology_schema_version", "type": "text", "required": true},
+        {"name": "projection_version", "type": "text", "required": true},
+        {"name": "source_run_id", "type": "text", "required": true},
+        {"name": "ontology_snapshot_hash", "type": "text", "required": true},
+        {"name": "synced_at", "type": "datetime", "required": true},
+        {"name": "source_updated_at", "type": "datetime", "required": false},
+        {"name": "estimate_type", "type": "select", "required": true},
+        {"name": "value", "type": "number", "required": true},
+        {"name": "subconscious_experiment_id", "type": "text", "required": true},
+        {"name": "model_version", "type": "text", "required": true},
+        {"name": "estimated_at", "type": "datetime", "required": true}
+      ],
+      "relations": []
+    }
+  ]
+}

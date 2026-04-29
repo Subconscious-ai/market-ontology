@@ -45,7 +45,7 @@ Splink (separate job) for entity resolution on Offerings and StakeholderArchetyp
 APOC for JSONL import/export.
 Postgres + pg_vector (optional, separate) if the research agent needs semantic retrieval over Evidence excerpts.
 Graphiti is deliberately not in v1. Revisit in v2 if research-agent ingestion quality plateaus.
-Node types (9)
+Node types (12)
 Node	Purpose
 Market	Scope boundary for every query
 Stage	AARRR stage as a first-class node
@@ -54,9 +54,12 @@ StakeholderArchetype	Customer or competitor-side archetype
 Offering	Object of study (product, service, SKU)
 Attribute	Dimension of an Offering that can be varied
 AttributeLevel	Plausible level for an Attribute in a Market/period
+Trait	Dimension of a StakeholderArchetype used to describe a persona
+TraitLevel	Plausible level for a Trait in a Market/period
 Evidence	Source grounding for any node
 Estimate	Part-worth or other quantity returned from Subconscious
-Edge types (10)
+Company	Organization that offers one or more Offerings
+Edge types (11)
 Transition -[:FROM]-> Stage
 Transition -[:TO]-> Stage
 Transition -[:IN_MARKET]-> Market
@@ -65,6 +68,8 @@ Transition -[:ABOUT]-> Offering
 
 Offering -[:HAS_ATTRIBUTE]-> Attribute
 Attribute -[:HAS_LEVEL]-> AttributeLevel
+StakeholderArchetype -[:HAS_TRAIT]-> Trait
+Trait -[:HAS_LEVEL]-> TraitLevel
 Attribute -[:RELEVANT_AT {score, valid_from, valid_to, evidence_ids}]-> Stage
 
 Evidence -[:SUPPORTS]-> *
@@ -74,7 +79,7 @@ No probabilities or part-worths on ontology nodes. Those are Estimates. Estimate
 Competitor combinations, treatments, and choice tasks live in Subconscious, not here. The ontology provides attributes, levels, archetypes, and context. Subconscious composes experiments.
 If a value is conditional on model, period, or experiment, it is an Estimate.
 Every node has schema_version. Every Estimate has ontology_snapshot_hash.
-Temporal validity (valid_from, valid_to) applies to AttributeLevel, RELEVANT_AT edges, Estimate, and Evidence. Not to stable definitional nodes (Stage, Market scope, Transition definition).
+Temporal validity (valid_from, valid_to) applies to AttributeLevel, TraitLevel, RELEVANT_AT edges, Estimate, and Evidence. Not to stable definitional nodes (Stage, Market scope, Transition definition).
 Pipeline
 Research agent + executive interview extract node and edge candidates with evidence into JSONL.
 Pydantic validates at the write boundary.
@@ -88,4 +93,3 @@ See MIGRATION.md.
 
 What's cut and why
 See v2_spec.md.
-

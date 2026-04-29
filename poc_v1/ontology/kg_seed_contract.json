@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "nodes": {
     "Market": {
       "filename": "markets.jsonl",
@@ -28,6 +28,14 @@
     "AttributeLevel": {
       "filename": "attribute_levels.jsonl",
       "graph_type": "attribute_level"
+    },
+    "Trait": {
+      "filename": "traits.jsonl",
+      "graph_type": "trait"
+    },
+    "TraitLevel": {
+      "filename": "trait_levels.jsonl",
+      "graph_type": "trait_level"
     },
     "Evidence": {
       "filename": "evidence.jsonl",
@@ -98,10 +106,25 @@
     "HAS_LEVEL": {
       "filename": "edges_attribute_has_level.jsonl",
       "filenames": [
-        "edges_attribute_has_level.jsonl"
+        "edges_attribute_has_level.jsonl",
+        "edges_trait_has_level.jsonl"
       ],
-      "from": "Attribute",
-      "to": "AttributeLevel"
+      "from": [
+        "Attribute",
+        "Trait"
+      ],
+      "to": [
+        "AttributeLevel",
+        "TraitLevel"
+      ]
+    },
+    "HAS_TRAIT": {
+      "filename": "edges_persona_has_trait.jsonl",
+      "filenames": [
+        "edges_persona_has_trait.jsonl"
+      ],
+      "from": "StakeholderArchetype",
+      "to": "Trait"
     },
     "RELEVANT_AT": {
       "filename": "edges_attribute_relevant_at.jsonl",
@@ -157,6 +180,14 @@
       "kind": "node",
       "label": "AttributeLevel"
     },
+    "traits.jsonl": {
+      "kind": "node",
+      "label": "Trait"
+    },
+    "trait_levels.jsonl": {
+      "kind": "node",
+      "label": "TraitLevel"
+    },
     "evidence.jsonl": {
       "kind": "node",
       "label": "Evidence"
@@ -194,6 +225,14 @@
       "label": "HAS_ATTRIBUTE"
     },
     "edges_attribute_has_level.jsonl": {
+      "kind": "edge",
+      "label": "HAS_LEVEL"
+    },
+    "edges_persona_has_trait.jsonl": {
+      "kind": "edge",
+      "label": "HAS_TRAIT"
+    },
+    "edges_trait_has_level.jsonl": {
       "kind": "edge",
       "label": "HAS_LEVEL"
     },

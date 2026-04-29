@@ -25,6 +25,8 @@ GRAPH_TYPES = {
     "Offering": "offering",
     "Attribute": "attribute",
     "AttributeLevel": "attribute_level",
+    "Trait": "trait",
+    "TraitLevel": "trait_level",
     "Evidence": "evidence",
     "Estimate": "estimate",
     "Company": "company",

@@ -40,9 +40,9 @@ pip install -e /path/to/market-ontology
 
 `poc_v1/ontology/schema.py` defines Pydantic models, `NODE_MODELS` / `EDGE_MODELS` registries, and `SCHEMA_VERSION`.
 
-**9 node types:** `Market`, `Stage`, `Transition`, `StakeholderArchetype`, `Offering`, `Attribute`, `AttributeLevel`, `Evidence`, `Estimate`.
+**12 node types:** `Market`, `Stage`, `Transition`, `StakeholderArchetype`, `Offering`, `Attribute`, `AttributeLevel`, `Trait`, `TraitLevel`, `Evidence`, `Estimate`, `Company`.
 
-**10 edge types:**
+**11 edge types:**
 ```
 Transition -[:FROM]-> Stage
 Transition -[:TO]-> Stage
@@ -50,7 +50,8 @@ Transition -[:IN_MARKET]-> Market
 Transition -[:RELEVANT_TO]-> StakeholderArchetype {confidence}
 Transition -[:ABOUT]-> Offering
 Offering -[:HAS_ATTRIBUTE]-> Attribute
-Attribute -[:HAS_LEVEL]-> AttributeLevel
+Attribute/Trait -[:HAS_LEVEL]-> AttributeLevel/TraitLevel
+StakeholderArchetype -[:HAS_TRAIT]-> Trait
 Attribute -[:RELEVANT_AT {score, valid_from, valid_to, evidence_ids}]-> Stage
 Evidence -[:SUPPORTS]-> * {confidence, support_type}
 Estimate -[:ABOUT]-> * {target_node_type}
@@ -69,7 +70,9 @@ poc_v1/
 │   ├── node_schemas.json      ← Generated from schema.py
 │   ├── edge_schemas.json      ← Generated from schema.py
 │   ├── enums.yaml             ← Human reference enums (keep in sync with schema.py)
-│   ├── ontology_spec.md       ← Design doc: 9 nodes, 10 edges, ingestion rules
+│   ├── ontology_spec.md       ← Design doc: 12 nodes, 11 edges, ingestion rules
+│   ├── twenty_projection.json ← Source manifest for Twenty projection
+│   ├── twenty_app_contract.json ← Generated Twenty projection contract
 │   ├── v2_spec.md             ← Parking lot for things cut from v1
 │   └── MIGRATION.md           ← Changes from v0
 ├── kg_seed/                   ← Reference fixtures, one JSONL per node/edge label

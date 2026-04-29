@@ -7,7 +7,7 @@
 ## What this repo is
 
 The canonical Pydantic schema for the Subconscious knowledge graph:
-**10 node types, 10 edge types**. Installed by sibling repos as
+**12 node types, 11 edge types**. Installed by sibling repos as
 `pip install "market-ontology @ git+https://github.com/Subconscious-ai/market-ontology"`.
 Load-bearing — every write across the stack validates through here.
 
@@ -17,6 +17,7 @@ Load-bearing — every write across the stack validates through here.
 |---|---|
 | Schema (Pydantic models, NODE_MODELS/EDGE_MODELS) | `poc_v1/ontology/schema.py` |
 | Generated contracts for consumers | `poc_v1/ontology/{node,edge}_schemas.json`, `poc_v1/ontology/kg_seed_contract.json` |
+| Twenty projection manifest + generated contract | `poc_v1/ontology/twenty_projection.json`, `poc_v1/ontology/twenty_app_contract.json` |
 | Reference fixtures (one JSONL per label) | `poc_v1/kg_seed/*.jsonl` |
 | Validator (CI entry point) | `scripts/validate_kg_seed.py` |
 | Doc-rot guard | `scripts/check-doc-rot.sh` |
@@ -28,6 +29,8 @@ Load-bearing — every write across the stack validates through here.
 ```bash
 python scripts/validate_kg_seed.py        # Pydantic-validates every kg_seed/*.jsonl
 python scripts/generate_kg_seed_contract.py --check  # validates generated consumer contract
+python scripts/generate_twenty_app.py --check  # validates generated Twenty projection contract
+python -m unittest discover -s tests -v   # projection manifest/generator tests
 bash scripts/check-doc-rot.sh             # Markdown guard
 python -m py_compile poc_v1/ontology/schema.py   # import-time sanity
 ```

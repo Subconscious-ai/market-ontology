@@ -32,6 +32,14 @@ CALL apoc.load.json("file:///attribute_levels.jsonl") YIELD value
 MERGE (n:AttributeLevel {id: value.id})
 SET n += value.properties;
 
+CALL apoc.load.json("file:///traits.jsonl") YIELD value
+MERGE (n:Trait {id: value.id})
+SET n += value.properties;
+
+CALL apoc.load.json("file:///trait_levels.jsonl") YIELD value
+MERGE (n:TraitLevel {id: value.id})
+SET n += value.properties;
+
 CALL apoc.load.json("file:///evidence.jsonl") YIELD value
 MERGE (n:Evidence {id: value.id})
 SET n += value.properties;
@@ -81,6 +89,18 @@ SET r += value.properties;
 CALL apoc.load.json("file:///edges_attribute_has_level.jsonl") YIELD value
 MATCH (a:Attribute {id: value.start_id})
 MATCH (b:AttributeLevel {id: value.end_id})
+MERGE (a)-[r:HAS_LEVEL]->(b)
+SET r += value.properties;
+
+CALL apoc.load.json("file:///edges_persona_has_trait.jsonl") YIELD value
+MATCH (a:StakeholderArchetype {id: value.start_id})
+MATCH (b:Trait {id: value.end_id})
+MERGE (a)-[r:HAS_TRAIT]->(b)
+SET r += value.properties;
+
+CALL apoc.load.json("file:///edges_trait_has_level.jsonl") YIELD value
+MATCH (a:Trait {id: value.start_id})
+MATCH (b:TraitLevel {id: value.end_id})
 MERGE (a)-[r:HAS_LEVEL]->(b)
 SET r += value.properties;
 

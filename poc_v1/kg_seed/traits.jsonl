@@ -1,0 +1,2 @@
+{"id": "trait_ai_literacy", "properties": {"name": "ai_literacy", "data_type": "ordinal", "unit": "level", "definition": "Persona comfort with evaluating, operating, and trusting AI research software.", "schema_version": "1.2.0"}}
+{"id": "trait_buying_authority", "properties": {"name": "buying_authority", "data_type": "categorical", "definition": "Persona authority level in the buying process.", "schema_version": "1.2.0"}}

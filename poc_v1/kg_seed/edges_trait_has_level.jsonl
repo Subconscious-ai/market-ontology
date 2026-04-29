@@ -1,0 +1,4 @@
+{"start_id": "trait_ai_literacy", "end_id": "trl_ai_literacy_high", "properties": {"schema_version": "1.2.0"}}
+{"start_id": "trait_ai_literacy", "end_id": "trl_ai_literacy_medium", "properties": {"schema_version": "1.2.0"}}
+{"start_id": "trait_buying_authority", "end_id": "trl_buying_authority_influencer", "properties": {"schema_version": "1.2.0"}}
+{"start_id": "trait_buying_authority", "end_id": "trl_buying_authority_approver", "properties": {"schema_version": "1.2.0"}}

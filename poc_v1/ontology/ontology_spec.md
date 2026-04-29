@@ -20,7 +20,7 @@ AARRR stages as first-class nodes. Enables clean `FROM` / `TO` edges on transiti
 The state change being modeled (e.g., Consider → Choose). Holds no probabilities. All quantitative findings about a transition are Estimate nodes pointing at it.
 
 ### StakeholderArchetype
-Who moves through stages. Distinguished as `customer`, `competitor_buyer`, or `competitor_user` via `archetype_type`. Traits are JSONB-style props in v1; `Trait` becomes a node in v2.
+Who moves through stages. Distinguished as `customer`, `competitor_buyer`, or `competitor_user` via `archetype_type`. The `traits` dict remains as a backwards-compatible cache; the canonical persona-trait graph is `StakeholderArchetype -[:HAS_TRAIT]-> Trait -[:HAS_LEVEL]-> TraitLevel`.
 
 **No sensitivities as properties.** Price/brand/trust sensitivities are posterior quantities from choice models. They land as Estimate nodes with `ABOUT` edges to the archetype.
 
@@ -32,6 +32,12 @@ A dimension of an Offering that can be varied in a DCE. Typically populated by S
 
 ### AttributeLevel
 Plausible levels for an Attribute in a Market for a time window. Temporally valid.
+
+### Trait
+A dimension of a StakeholderArchetype used to describe a persona.
+
+### TraitLevel
+Plausible levels for a Trait in a Market for a time window. Temporally valid.
 
 ### Evidence
 Grounding for any node or edge. Required for every extracted fact per the ingestion rules.
@@ -49,7 +55,8 @@ Results returned from Subconscious. Every Estimate carries `ontology_snapshot_ha
 | RELEVANT_TO | Transition | StakeholderArchetype | Which archetypes participate in this transition |
 | ABOUT | Transition OR Estimate | * | Polymorphic |
 | HAS_ATTRIBUTE | Offering | Attribute | |
-| HAS_LEVEL | Attribute | AttributeLevel | |
+| HAS_LEVEL | Attribute OR Trait | AttributeLevel OR TraitLevel | |
+| HAS_TRAIT | StakeholderArchetype | Trait | |
 | RELEVANT_AT | Attribute | Stage | `{score, valid_from, valid_to, evidence_ids}` — temporal relevance |
 | SUPPORTS | Evidence | * | Polymorphic |
 
@@ -59,7 +66,8 @@ Results returned from Subconscious. Every Estimate carries `ontology_snapshot_ha
 - No choice sets, alternatives, or experiment designs — those live in Subconscious.
 - No metric formulas as prose — deferred to v2.
 - No treatments on nodes — Subconscious owns treatments.
-- No separate Organization/Trait/ContextFactor nodes in v1 — folded into props.
+- No separate ContextFactor nodes in v1 — folded into props.
+- Company/Product/Persona are the primary Twenty projection surfaces. Product maps to `Offering`; Persona maps to `StakeholderArchetype`. See `twenty_projection.md`.
 
 ## Ingestion rules
 
@@ -73,6 +81,7 @@ Results returned from Subconscious. Every Estimate carries `ontology_snapshot_ha
 
 Temporal validity (`valid_from`, `valid_to`) applies to:
 - `AttributeLevel` (levels shift as markets evolve)
+- `TraitLevel` (levels shift as markets evolve)
 - `RELEVANT_AT` edges (relevance of an attribute at a stage shifts over time)
 - `Estimate` (each has a validity window matching the experiment period)
 - `Evidence` (`period_observed`)
