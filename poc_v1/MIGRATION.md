@@ -1,6 +1,33 @@
-# Migration — v0 to v1 (and v1.0 → v1.1)
+# Migration — v0 to v1 (and v1.0 → v1.2)
 
 This document records what changed between the initial POC scaffolding and the v1 ontology, and why. Keep this file. Future schema migrations should follow the same pattern.
+
+## v1.1 → v1.2 (2026-04-28) — add Twenty projection contract and persona traits
+
+**Additive.** Existing v1.1 records continue to validate. `SCHEMA_VERSION` bumped `1.1.0 → 1.2.0`.
+
+### Change
+
+- New node types `Trait` and `TraitLevel`.
+- New edge type `HAS_TRAIT`: `StakeholderArchetype → Trait`.
+- Existing `HAS_LEVEL` now covers both `Attribute → AttributeLevel` and `Trait → TraitLevel`.
+- New `twenty_projection.json` manifest and generated `twenty_app_contract.json`.
+
+### Why
+
+Causl Market OS needs Twenty to be the customer-editable store for ontology data while keeping market-ontology as the executable contract. Company, Product, and Persona become primary user-facing surfaces in Twenty; linked support objects preserve provenance, attributes/levels, traits/levels, stages, transitions, evidence, and estimates.
+
+### Mechanics for consumers
+
+- **causl.io:** generate or validate Twenty object definitions from `twenty_app_contract.json`; sync ledger rows should use the manifest's stable key fields.
+- **ai-chatbot:** continue reading validated kg_seed output; when producing Causl proposals, use `Offering` for Product and `StakeholderArchetype` for Persona.
+- **spice-harvester:** can keep writing `StakeholderArchetype.traits` during transition, but new emitters should prefer first-class `Trait`/`TraitLevel` records and `HAS_TRAIT`/`HAS_LEVEL` edges.
+
+### Non-goals
+
+- Building Twenty runtime sync.
+- Building Causl UI tables.
+- Removing the backwards-compatible `StakeholderArchetype.traits` cache.
 
 ## v1.0 → v1.1 (2026-04-23) — add Company node + OFFERED_BY edge
 

@@ -27,7 +27,7 @@ The ontology is **context for the experiment**, not the experiment itself. Subco
 - **Postgres + pg_vector** (optional, separate) if the research agent needs semantic retrieval over Evidence excerpts.
 - **Graphiti is deliberately not in v1.** Revisit in v2 if research-agent ingestion quality plateaus.
 
-## Node types (9)
+## Node types (12)
 
 | Node | Purpose |
 |---|---|
@@ -38,10 +38,13 @@ The ontology is **context for the experiment**, not the experiment itself. Subco
 | Offering | Object of study (product, service, SKU) |
 | Attribute | Dimension of an Offering that can be varied |
 | AttributeLevel | Plausible level for an Attribute in a Market/period |
+| Trait | Dimension of a StakeholderArchetype used to describe a persona |
+| TraitLevel | Plausible level for a Trait in a Market/period |
 | Evidence | Source grounding for any node |
 | Estimate | Part-worth or other quantity returned from Subconscious |
+| Company | Organization that offers one or more Offerings |
 
-## Edge types (10)
+## Edge types (11)
 
 ```
 Transition -[:FROM]-> Stage
@@ -52,6 +55,8 @@ Transition -[:ABOUT]-> Offering
 
 Offering -[:HAS_ATTRIBUTE]-> Attribute
 Attribute -[:HAS_LEVEL]-> AttributeLevel
+StakeholderArchetype -[:HAS_TRAIT]-> Trait
+Trait -[:HAS_LEVEL]-> TraitLevel
 Attribute -[:RELEVANT_AT {score, valid_from, valid_to, evidence_ids}]-> Stage
 
 Evidence -[:SUPPORTS]-> *
@@ -64,7 +69,7 @@ Estimate -[:ABOUT]-> *
 2. **Competitor combinations, treatments, and choice tasks live in Subconscious, not here.** The ontology provides attributes, levels, archetypes, and context. Subconscious composes experiments.
 3. **If a value is conditional on model, period, or experiment, it is an Estimate.**
 4. **Every node has `schema_version`.** Every Estimate has `ontology_snapshot_hash`.
-5. **Temporal validity (`valid_from`, `valid_to`) applies to AttributeLevel, RELEVANT_AT edges, Estimate, and Evidence.** Not to stable definitional nodes (Stage, Market scope, Transition definition).
+5. **Temporal validity (`valid_from`, `valid_to`) applies to AttributeLevel, TraitLevel, RELEVANT_AT edges, Estimate, and Evidence.** Not to stable definitional nodes (Stage, Market scope, Transition definition).
 
 ## Pipeline
 
@@ -75,6 +80,10 @@ Estimate -[:ABOUT]-> *
 5. Customer reviews the graph in Bloom.
 6. Experiment context is projected to JSON (see `contracts/experiment_context.schema.json`) and sent to Subconscious.
 7. Subconscious returns results (see `contracts/experiment_results.schema.json`) which land as Estimate nodes.
+
+## Twenty projection
+
+`ontology/twenty_projection.json` is the source manifest for the Twenty projection. `ontology/twenty_app_contract.json` is generated from it and exposes Company, Product, and Persona as primary business surfaces while preserving support objects and sync metadata for provenance.
 
 ## What changed from v0
 

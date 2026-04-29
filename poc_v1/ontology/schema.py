@@ -7,7 +7,7 @@ This is the single source of truth for the schema. Keep it aligned with:
   - ontology/edge_schemas.json
   - neo4j/constraints.cypher
 
-Schema version: 1.1.0
+Schema version: 1.2.0
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field, model_validator
 
-SCHEMA_VERSION = "1.1.0"
+SCHEMA_VERSION = "1.2.0"
 
 
 # ---------------------------------------------------------------------------
@@ -122,7 +122,8 @@ class StakeholderArchetype(_VersionedNode):
     id: str
     name: str
     archetype_type: ArchetypeType
-    # Traits folded into JSONB-style props for v1. In v2, Trait becomes a node.
+    # Backwards-compatible cache. The canonical trait graph is
+    # StakeholderArchetype -[:HAS_TRAIT]-> Trait -[:HAS_LEVEL]-> TraitLevel.
     traits: dict[str, Any] = Field(default_factory=dict)
     role: Optional[str] = None
     segment: Optional[str] = None
@@ -169,6 +170,25 @@ class AttributeLevel(_VersionedNode, _TemporallyValid):
     attribute_id: str
     market_id: str
     value: Any  # coerced to str/float/bool by data_type on the Attribute
+    label: Optional[str] = None
+    is_status_quo: bool = False
+
+
+class Trait(_VersionedNode):
+    """A dimension of a StakeholderArchetype used to describe a persona."""
+    id: str
+    name: str
+    data_type: AttributeDataType
+    unit: Optional[str] = None
+    definition: str
+
+
+class TraitLevel(_VersionedNode, _TemporallyValid):
+    """A plausible value for a Trait in a Market/period."""
+    id: str
+    trait_id: str
+    market_id: str
+    value: Any
     label: Optional[str] = None
     is_status_quo: bool = False
 
@@ -243,8 +263,13 @@ class EdgeHasAttribute(_Edge):
 
 
 class EdgeHasLevel(_Edge):
-    """Attribute -[:HAS_LEVEL]-> AttributeLevel"""
+    """Attribute/Trait -[:HAS_LEVEL]-> AttributeLevel/TraitLevel"""
     label: Literal["HAS_LEVEL"] = "HAS_LEVEL"
+
+
+class EdgeHasTrait(_Edge):
+    """StakeholderArchetype -[:HAS_TRAIT]-> Trait"""
+    label: Literal["HAS_TRAIT"] = "HAS_TRAIT"
 
 
 class EdgeRelevantAt(_Edge, _TemporallyValid):
@@ -284,6 +309,8 @@ NODE_MODELS: dict[str, type[BaseModel]] = {
     "Offering": Offering,
     "Attribute": Attribute,
     "AttributeLevel": AttributeLevel,
+    "Trait": Trait,
+    "TraitLevel": TraitLevel,
     "Evidence": Evidence,
     "Estimate": Estimate,
     "Company": Company,
@@ -297,6 +324,7 @@ EDGE_MODELS: dict[str, type[BaseModel]] = {
     "ABOUT": EdgeAbout,
     "HAS_ATTRIBUTE": EdgeHasAttribute,
     "HAS_LEVEL": EdgeHasLevel,
+    "HAS_TRAIT": EdgeHasTrait,
     "RELEVANT_AT": EdgeRelevantAt,
     "SUPPORTS": EdgeSupports,
     "OFFERED_BY": EdgeOfferedBy,
