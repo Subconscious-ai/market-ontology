@@ -53,7 +53,7 @@ def build_contract() -> dict[str, Any]:
     return {
         "schema_version": manifest["schema_version"],
         "projection_version": manifest["projection_version"],
-        "manifest": str(MANIFEST_PATH.relative_to(ROOT)),
+        "manifest": MANIFEST_PATH.relative_to(ROOT).as_posix(),
         "sync_ledger": manifest["sync_ledger"],
         "objects": objects,
     }
