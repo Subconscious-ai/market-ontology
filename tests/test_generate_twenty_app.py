@@ -47,6 +47,10 @@ class GenerateTwentyAppTest(unittest.TestCase):
 
         self.assertEqual("1.2.0", contract["schema_version"])
         self.assertEqual("1.0.0", contract["projection_version"])
+        self.assertEqual(
+            "poc_v1/ontology/twenty_projection.json",
+            contract["manifest"],
+        )
         self.assertIn("ontology_node_id", product["fields"])
         self.assertIn("ontology_snapshot_hash", product["fields"])
         self.assertEqual(
