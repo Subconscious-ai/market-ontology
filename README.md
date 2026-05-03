@@ -1,3 +1,5 @@
+<!-- Symphony harness canary: BEC-1754 README marker (no-op) -->
+
 Full path 
   ~/subconscious-ai/
   ├── spice-harvester/        ← bash + python research pipeline
