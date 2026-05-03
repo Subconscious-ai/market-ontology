@@ -93,3 +93,6 @@ See MIGRATION.md.
 
 What's cut and why
 See v2_spec.md.
+
+---
+Symphony harness canary marker (BEC-1760): no-op change.
