@@ -93,3 +93,7 @@ See MIGRATION.md.
 
 What's cut and why
 See v2_spec.md.
+
+---
+
+Symphony canary static marker (BEC-1764).
