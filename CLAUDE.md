@@ -8,6 +8,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 One leg of the three-repo Subconscious stack ([spice-harvester](../spice-harvester/CLAUDE.md) writes → `market-ontology` validates → [ai-chatbot](../ai-chatbot/CLAUDE.md) reads). See `../ai-chatbot/docs/three-repo-handshake.md` for the full contract.
 
+## Setup
+
+One-time, in a venv at the repo root:
+
+```bash
+pip install -e .
+```
+
+This installs `market-ontology` (versioned from `SCHEMA_VERSION` in `schema.py`) and pins `pydantic>=2.5,<3`. Scripts and tests assume the package is on the import path.
+
 ## Commands
 
 ```bash
@@ -25,23 +35,20 @@ python -m unittest discover -s tests -v
 bash scripts/check-doc-rot.sh
 
 # Schema import sanity
-python -m py_compile poc_v1/ontology/schema.py
-
-# Generated JSON schema sanity
-python -c "import json; [json.load(open(p)) for p in ('poc_v1/ontology/node_schemas.json','poc_v1/ontology/edge_schemas.json')]"
+python -c "from poc_v1.ontology import schema; print(schema.SCHEMA_VERSION)"
 ```
 
-The full pre-PR loop is the seven commands above; CI in `.github/workflows/ci.yml` runs the same sequence (JSON syntax → kg_seed validation → generated-contract check → projection tests → schema import → doc-rot). If any fail, fix before opening a PR — do not `--no-verify`.
+CI in `.github/workflows/ci.yml` runs the same sequence (kg_seed validation → generated-contract check → projection tests → schema import → doc-rot). If any fail, fix before opening a PR — do not `--no-verify`.
 
-No `pyproject.toml` / `setup.py` / `package.json`. Only runtime dep is Pydantic ≥2.
-
-## Install as a dependency (from the other repos)
+## Install as a dependency (from sibling repos)
 
 ```bash
 pip install "market-ontology @ git+https://github.com/Subconscious-ai/market-ontology"
 # or local editable
 pip install -e /path/to/market-ontology
 ```
+
+Then `from poc_v1.ontology import schema` (or `from poc_v1.ontology.schema import NODE_MODELS, EDGE_MODELS, validate_node, validate_edge`).
 
 ## Architecture
 

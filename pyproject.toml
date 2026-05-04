@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "market-ontology"
+description = "Canonical Pydantic schema for the Subconscious knowledge graph."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+authors = [{ name = "Subconscious.ai" }]
+dependencies = [
+    "pydantic>=2.5,<3",
+    "networkx>=3",
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/Subconscious-ai/market-ontology"
+
+[tool.setuptools.dynamic]
+version = { attr = "poc_v1.ontology.schema.SCHEMA_VERSION" }
+
+[tool.setuptools.packages.find]
+include = ["poc_v1*"]
+
+[tool.setuptools.package-data]
+"poc_v1" = ["**/*.json", "**/*.yaml", "**/*.cypher", "**/*.jsonl"]

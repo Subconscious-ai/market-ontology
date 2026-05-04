@@ -6,6 +6,10 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
 jobs:
   validate:
     name: Validate schema and kg_seed fixtures
@@ -16,19 +20,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: pip
+          cache-dependency-path: pyproject.toml
 
-      - name: Install runtime deps
-        run: pip install 'pydantic>=2' 'networkx>=3'
+      - name: Install package
+        run: pip install -e .
 
       - name: Validate causal_dag_v1 fixtures
         run: python scripts/validate_causal_dag.py
 
       - name: Run causal_dag_v1 tests
         run: python -m unittest tests.test_causal_dag_v1 -v
-
-      - name: JSON syntax check (node/edge schemas)
-        run: |
-          python -c "import json; [json.load(open(p)) for p in ('poc_v1/ontology/node_schemas.json','poc_v1/ontology/edge_schemas.json')]; print('[json-check] OK')"
 
       - name: Validate kg_seed fixtures against Pydantic schema
         run: python scripts/validate_kg_seed.py
@@ -41,9 +43,8 @@ jobs:
       - name: Run projection tests
         run: python -m unittest discover -s tests -v
 
-      - name: Import schema module cleanly
-        run: |
-          cd poc_v1 && python -c "import sys; sys.path.insert(0, 'ontology'); import schema; print(f'[import] schema v{schema.SCHEMA_VERSION}, {len(schema.NODE_MODELS)} nodes, {len(schema.EDGE_MODELS)} edges')"
+      - name: Import schema module
+        run: python -c "from poc_v1.ontology import schema; print(f'[import] schema v{schema.SCHEMA_VERSION}, {len(schema.NODE_MODELS)} nodes, {len(schema.EDGE_MODELS)} edges')"
 
       - name: Doc-rot check
         run: bash scripts/check-doc-rot.sh

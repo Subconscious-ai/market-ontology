@@ -5,15 +5,15 @@ from __future__ import annotations
 
 import argparse
 import difflib
-import importlib.util
 import json
 import sys
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+from poc_v1.ontology import schema
+
 ROOT = Path(__file__).parent.parent
-SCHEMA_PATH = ROOT / "poc_v1" / "ontology" / "schema.py"
 EDGE_SCHEMA_PATH = ROOT / "poc_v1" / "ontology" / "edge_schemas.json"
 CONTRACT_PATH = ROOT / "poc_v1" / "ontology" / "kg_seed_contract.json"
 
@@ -33,14 +33,6 @@ GRAPH_TYPES = {
 }
 
 
-def _load_schema() -> Any:
-    spec = importlib.util.spec_from_file_location("schema", SCHEMA_PATH)
-    mod = importlib.util.module_from_spec(spec)
-    sys.modules["schema"] = mod
-    spec.loader.exec_module(mod)
-    return mod
-
-
 def _load_fixtures() -> dict[str, tuple[str, bool]]:
     scripts_dir = str(ROOT / "scripts")
     if scripts_dir not in sys.path:
@@ -51,7 +43,6 @@ def _load_fixtures() -> dict[str, tuple[str, bool]]:
 
 
 def build_contract() -> dict[str, Any]:
-    schema = _load_schema()
     fixtures = _load_fixtures()
     edge_schemas = json.loads(EDGE_SCHEMA_PATH.read_text())
     edge_props = edge_schemas["properties"]
