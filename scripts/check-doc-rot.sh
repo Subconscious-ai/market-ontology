@@ -29,18 +29,12 @@ FORBIDDEN=(
 
 for pattern in "${FORBIDDEN[@]}"; do
     # Skip:
-    # - node_modules / .git (noise)
-    # - archive/ and scar_tissue/ paths (historical record, not live docs)
-    # - agents/market-intel/ (itself a retired, preserved-as-is area)
+    # - .git (noise)
     # - this script (which must contain the pattern to search for it)
     # - any file whose first 3 lines contain `doc-rot-ok` (per-file opt-out
     #   for migration plans etc. that intentionally describe retired paths)
     hits=$(grep -rln --include="*.md" \
-        --exclude-dir=node_modules \
         --exclude-dir=.git \
-        --exclude-dir=archive \
-        --exclude-dir=scar_tissue \
-        --exclude-dir=market-intel \
         "$pattern" . 2>/dev/null \
         | grep -v "scripts/check-doc-rot.sh" \
         || true)

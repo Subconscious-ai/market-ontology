@@ -22,12 +22,6 @@ def load_schema():
     mod = importlib.util.module_from_spec(spec)
     sys.modules["schema"] = mod
     spec.loader.exec_module(mod)
-    for reg in (getattr(mod, "NODE_MODELS", {}), getattr(mod, "EDGE_MODELS", {})):
-        for cls in reg.values():
-            try:
-                cls.model_rebuild(_types_namespace={**vars(mod)})
-            except Exception:
-                pass
     return mod.validate_node, mod.validate_edge
 
 
