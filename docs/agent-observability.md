@@ -31,6 +31,7 @@ Each Symphony PR must expose:
 For canaries and real tasks, record these fields in the Linear workpad or the
 Symphony run trace:
 
+- canary marker: BEC-1794 merged harness proof
 - repo
 - Linear issue
 - branch
