@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 VALIDATE_FAST = ROOT / "scripts" / "agent" / "validate-fast.sh"
 KG_SEED_CONTRACT = ROOT / "poc_v1" / "ontology" / "kg_seed_contract.json"
+SYMPHONY_GATE_WORKFLOW = ROOT / ".github" / "workflows" / "symphony-gate.yml"
 
 
 class AgentHarnessContractTest(unittest.TestCase):
@@ -46,6 +47,32 @@ class AgentHarnessContractTest(unittest.TestCase):
             self.assertIn("kg_seed_contract.json", combined)
         finally:
             KG_SEED_CONTRACT.write_text(original_text)
+
+    def test_symphony_gate_runs_repo_owned_harness_entrypoints(self):
+        workflow = SYMPHONY_GATE_WORKFLOW.read_text()
+
+        self.assertIn("name: Symphony Gate", workflow)
+        self.assertIn("symphony-gate:", workflow)
+        self.assertIn("cancel-in-progress: true", workflow)
+        self.assertIn("permissions:\n  contents: read", workflow)
+        self.assertIn("timeout-minutes: 15", workflow)
+        self.assertIn("bash scripts/agent/preflight.sh", workflow)
+        self.assertIn("bash scripts/agent/validate-fast.sh", workflow)
+
+    def test_symphony_gate_pins_external_github_actions(self):
+        workflow = SYMPHONY_GATE_WORKFLOW.read_text()
+        action_refs = [
+            line.strip().removeprefix("- ").removeprefix("uses: ")
+            for line in workflow.splitlines()
+            if line.strip().startswith("uses: ") or line.strip().startswith("- uses: ")
+        ]
+
+        for action_ref in action_refs:
+            with self.subTest(action_ref=action_ref):
+                if action_ref.startswith("./"):
+                    continue
+                version = action_ref.split("@", 1)[1]
+                self.assertRegex(version, r"^[a-f0-9]{40}$")
 
 
 if __name__ == "__main__":
