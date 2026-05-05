@@ -1,9 +1,9 @@
-"""NetworkX-based DAG validator for causal_dag_v1.
+"""DAG validator for causal_dag_v1.
 
 Two functions:
 
   - is_dag(graph): True iff the graph is a directed acyclic graph
-    (no cycles, no self-loops). Built on networkx.is_directed_acyclic_graph.
+    (no cycles, no self-loops).
 
   - validate_graph(graph): Pydantic-validates every node and edge against
     NODE_MODELS / EDGE_MODELS, then runs is_dag. Returns (errors, ids).
@@ -14,9 +14,8 @@ unrolled in time (X_t → Y_t → X_{t+1}) or factored through Mediators.
 """
 from __future__ import annotations
 
+from collections import deque
 from typing import Any
-
-import networkx as nx
 
 from .edges import EDGE_MODELS
 from .nodes import NODE_MODELS
@@ -30,15 +29,33 @@ def is_dag(graph: dict[str, Any]) -> bool:
     structure (MODERATES and CONFOUNDED_BY are annotations on the
     causal chain, not part of it).
     """
-    g = nx.DiGraph()
     nodes_section = graph.get("nodes") or {}
     edges_section = graph.get("edges") or {}
 
-    for nodes in nodes_section.values():
-        for n in nodes:
-            nid = n.get("id")
-            if nid:
-                g.add_node(nid)
+    nodes: set[str] = set()
+    adjacency: dict[str, set[str]] = {}
+    indegree: dict[str, int] = {}
+
+    def _add_node(node_id: str) -> None:
+        if node_id in nodes:
+            return
+        nodes.add(node_id)
+        adjacency.setdefault(node_id, set())
+        indegree.setdefault(node_id, 0)
+
+    def _add_edge(start: str, end: str) -> None:
+        _add_node(start)
+        _add_node(end)
+        if end in adjacency[start]:
+            return
+        adjacency[start].add(end)
+        indegree[end] += 1
+
+    for rows in nodes_section.values():
+        for row in rows:
+            node_id = row.get("id")
+            if node_id:
+                _add_node(node_id)
 
     for label in ("CAUSES", "MEDIATES"):
         for e in edges_section.get(label) or []:
@@ -47,9 +64,20 @@ def is_dag(graph: dict[str, Any]) -> bool:
             if start and end:
                 if start == end:
                     return False  # self-loops are not DAGs
-                g.add_edge(start, end)
+                _add_edge(start, end)
 
-    return nx.is_directed_acyclic_graph(g)
+    # Kahn's algorithm for cycle detection.
+    queue = deque([n for n in nodes if indegree.get(n, 0) == 0])
+    visited = 0
+    while queue:
+        node = queue.popleft()
+        visited += 1
+        for nbr in adjacency.get(node, ()):
+            indegree[nbr] -= 1
+            if indegree[nbr] == 0:
+                queue.append(nbr)
+
+    return visited == len(nodes)
 
 
 def validate_graph(graph: dict[str, Any]) -> tuple[list[str], dict[str, list[str]]]:
