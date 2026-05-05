@@ -1,32 +1,41 @@
-# Market Simulation Ontology — v1 POC
+# Market Simulation Ontology - v1 POC
 
 ## Purpose
 
 This package is the minimal ontology that sits between:
 
-- A wiki-style market research agent (+ executive interview input)
+- A wiki-style market research agent plus executive interview input
 - The Subconscious.ai discrete choice experiment engine
 
-The ontology is **context for the experiment, not the experiment itself.** Subconscious owns experiment design and causal estimation. This repo owns the structured context that feeds Subconscious and the structured results that come back.
+The ontology is context for the experiment, not the experiment itself.
+Subconscious owns experiment design and causal estimation. This repo owns the
+structured context that feeds Subconscious and the structured results that come
+back.
 
 ## Scope
 
-Single customer, single company, 12-month horizon. POC-grade. See `poc_v1/v2_spec.md` for the parking lot of things deliberately cut.
+Single customer, single company, 12-month horizon. POC-grade. See
+`poc_v1/v2_spec.md` for the parking lot of things deliberately cut.
 
 ## Core model
 
-Stakeholder archetypes + Offering attributes + Market context → Transition between AARRR stages → Part-worth estimates back from Subconscious.
+Stakeholder archetypes plus persona traits, Offering attributes and levels, and
+Market/Transition context go into Subconscious experiments. W&B/SuperEgo run
+outputs come back as normalized `Estimate` nodes linked to the same ontology IDs
+through `ExperimentRun` lineage.
 
 ## Stack
 
-- **Neo4j** as the store. **Bloom** for customer-facing visualization.
-- **Pydantic** at the write boundary for schema enforcement.
-- **Splink** (separate job, in spice-harvester) for entity resolution on Offerings and StakeholderArchetypes.
-- **APOC** for JSONL import/export.
-- **Postgres + pgvector** (optional, separate) if the research agent needs semantic retrieval over Evidence excerpts.
-- **Graphiti** is deliberately not in v1. Revisit in v2 if research-agent ingestion quality plateaus.
+- FalkorDB-compatible property graph as the store.
+- Pydantic at the write boundary for schema enforcement.
+- Splink as a separate job for entity resolution on Offerings and StakeholderArchetypes.
+- Deployment-specific import/export over validated JSONL fixtures.
+- Postgres + pgvector as optional separate retrieval infrastructure for Evidence excerpts.
 
-## Node types (12)
+## Node Types
+
+The authoritative count is `len(NODE_MODELS)` in
+`poc_v1/ontology/schema.py`.
 
 | Node | Purpose |
 |---|---|
@@ -34,58 +43,60 @@ Stakeholder archetypes + Offering attributes + Market context → Transition bet
 | Stage | AARRR stage as a first-class node |
 | Transition | The state change being modeled |
 | StakeholderArchetype | Customer or competitor-side archetype |
-| Offering | Object of study (product, service, SKU) |
+| Offering | Object of study, such as product, service, or SKU |
 | Attribute | Dimension of an Offering that can be varied |
 | AttributeLevel | Plausible level for an Attribute in a Market/period |
 | Trait | Dimension of a StakeholderArchetype used to describe a persona |
 | TraitLevel | Plausible level for a Trait in a Market/period |
 | Evidence | Source grounding for any node |
-| Estimate | Part-worth or other quantity returned from Subconscious |
+| Estimate | Part-worth, AMCE, importance, or other returned quantity |
 | Company | Organization that offers one or more Offerings |
+| ExperimentRun | Execution record tying an ontology snapshot to SuperEgo/W&B artifacts |
 
-## Edge types
+## Edge Types
 
-The authoritative count is `len(EDGE_MODELS)` in `poc_v1/ontology/schema.py`.
+The authoritative count is `len(EDGE_MODELS)` in
+`poc_v1/ontology/schema.py`.
 
-```
+```text
 Transition -[:FROM]-> Stage
 Transition -[:TO]-> Stage
 Transition -[:IN_MARKET]-> Market
 Transition -[:RELEVANT_TO]-> StakeholderArchetype
 Transition -[:ABOUT]-> Offering
-
-Offering  -[:HAS_ATTRIBUTE]-> Attribute
-Offering  -[:OFFERED_BY]-> Company
+Offering -[:HAS_ATTRIBUTE]-> Attribute
+Offering -[:OFFERED_BY]-> Company
 Attribute -[:HAS_LEVEL]-> AttributeLevel
-Trait     -[:HAS_LEVEL]-> TraitLevel
+Trait -[:HAS_LEVEL]-> TraitLevel
 StakeholderArchetype -[:HAS_TRAIT]-> Trait
 Attribute -[:RELEVANT_AT {score, valid_from, valid_to, evidence_ids}]-> Stage
-
 Evidence -[:SUPPORTS]-> *
 Estimate -[:ABOUT]-> *
+ExperimentRun -[:CONSUMED]-> *
+ExperimentRun -[:PRODUCED]-> Estimate
 ```
 
-## Golden rules
+## Golden Rules
 
-1. **No probabilities or part-worths on ontology nodes.** Those are `Estimate`s. Estimates point at ontology nodes; they don't mutate them.
-2. **Competitor combinations, treatments, and choice tasks live in Subconscious, not here.** The ontology provides attributes, levels, archetypes, and context. Subconscious composes experiments.
-3. **If a value is conditional on model, period, or experiment, it is an `Estimate`.**
-4. **Every node has `schema_version`. Every `Estimate` has `ontology_snapshot_hash`.**
-5. **Temporal validity** (`valid_from`, `valid_to`) applies to `AttributeLevel`, `TraitLevel`, `RELEVANT_AT` edges, `Estimate`, and `Evidence`. Not to stable definitional nodes (`Stage`, `Market` scope, `Transition` definition).
+1. No probabilities or part-worths on ontology nodes. Those are `Estimate`s.
+2. Causal DAGs are projection artifacts over ontology IDs, not ontology edges.
+3. W&B stores experiment provenance and artifacts; the ontology stores stable IDs, lineage, and normalized estimates.
+4. Dependent variables, persona traits/levels, and attribute treatments/levels must enter experiments from ontology IDs.
+5. Run-local W&B/SuperEgo IDs must map back to ontology IDs through a versioned mapping artifact.
 
 ## Pipeline
 
-1. Research agent + executive interview extract node and edge candidates with evidence into JSONL.
-2. Pydantic validates at the write boundary.
-3. APOC imports validated JSONL into Neo4j.
-4. Splink runs entity resolution on Offerings and StakeholderArchetypes after each ingestion pass.
-5. Customer reviews the graph in Bloom.
-6. Experiment context is projected to JSON (see `poc_v1/contracts/experiment_context.schema.json`) and sent to Subconscious.
-7. Subconscious returns results (see `poc_v1/contracts/experiment_results.schema.json`) which land as `Estimate` nodes.
+1. Research agent and executive interview extract node and edge candidates with evidence into JSONL.
+2. Pydantic validates the ontology write boundary.
+3. The graph-store adapter imports validated JSONL into a FalkorDB-compatible property graph.
+4. Experiment context is projected from ontology IDs into SuperEgo/W&B contracts.
+5. SuperEgo/W&B run-local IDs are bound back to ontology IDs through `poc_v1/contracts/experiment_run_mapping.schema.json`.
+6. Normalized results from W&B artifacts become `Estimate` nodes and `ABOUT`/`PRODUCED` edges.
+7. Recommendations remain artifacts until promoted by a human or a later graph-native claim model.
 
-## See also
+## See Also
 
-- `CLAUDE.md` — agent guidance for Claude Code
-- `AGENTS.md` — agent guidance for Codex
-- `poc_v1/MIGRATION.md` — what changed from v0
-- `poc_v1/v2_spec.md` — what's deliberately cut from v1
+- `CLAUDE.md` - agent guidance
+- `AGENTS.md` - Codex harness pointer
+- `poc_v1/MIGRATION.md` - what changed from v0
+- `poc_v1/v2_spec.md` - what is deliberately cut from v1

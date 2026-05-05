@@ -10,7 +10,7 @@ import sys
 
 missing = [
     package
-    for package in ("pydantic", "networkx")
+    for package in ("pydantic", "networkx", "jsonschema")
     if importlib.util.find_spec(package) is None
 ]
 if missing:

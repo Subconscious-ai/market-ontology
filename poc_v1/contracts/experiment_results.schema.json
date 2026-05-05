@@ -32,7 +32,7 @@
         "properties": {
           "estimate_type": {
             "type": "string",
-            "enum": ["part_worth", "transition_probability", "wtp", "elasticity", "ate"]
+            "enum": ["part_worth", "transition_probability", "wtp", "elasticity", "ate", "amce", "importance"]
           },
           "value": {"type": "number"},
           "ci_low": {"type": ["number", "null"]},

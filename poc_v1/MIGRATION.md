@@ -1,6 +1,43 @@
-# Migration — v0 to v1 (and v1.0 → v1.2)
+# Migration — v0 to v1 (and v1.0 → v1.3.1)
 
 This document records what changed between the initial POC scaffolding and the v1 ontology, and why. Keep this file. Future schema migrations should follow the same pattern.
+
+## v1.3.0 → v1.3.1 (2026-05-05) — harden causal projection contracts
+
+**Additive.** Existing v1.3 graph records continue to validate. `SCHEMA_VERSION` bumped `1.3.0 → 1.3.1`.
+
+### Change
+
+- Added strict causal projection validation for contract shape, unknown DAG endpoints, cycles, topological order, EconML-style `Y/T/X/W` roles, and CausalFlow-style lag requirements.
+- Closed artifact schemas with `additionalProperties: false` and stricter ontology node type references.
+- Added static and time-series causal projection examples under `contracts/examples/`.
+- Added structured `wandb_artifacts` to `ExperimentRun` for immutable W&B artifact identity. Legacy `artifact_refs` remains for display/backward compatibility.
+- Runtime schema dependency stays Pydantic-only. `jsonschema[format]` and NetworkX are CI/dev validation dependencies.
+
+### Why
+
+The causal DAG projection must be reproducible across libraries. A valid artifact must not rely on NetworkX's implicit node creation, ambiguous estimator roles, mutable W&B aliases, or JSON Schema validators that ignore formats.
+
+## v1.2 → v1.3 (2026-05-05) — add ExperimentRun lineage and causal projection contracts
+
+**Additive.** Existing v1.2 records continue to validate. `SCHEMA_VERSION` bumped `1.2.0 → 1.3.0`.
+
+### Change
+
+- New node type `ExperimentRun`.
+- New edge types `CONSUMED`: `ExperimentRun → *` and `PRODUCED`: `ExperimentRun → Estimate`.
+- `EstimateType` now includes `amce` and `importance`.
+- New artifact contracts for causal DAG projections, SuperEgo/W&B run mappings, normalized experiment results, market signals, and recommendations.
+
+### Why
+
+The ontology needs to compound across experiments without turning causal assumptions into graph facts. `ExperimentRun` records lineage in the KG, while causal DAGs and recommendations remain versioned artifacts that reference ontology IDs and `ontology_snapshot_hash`.
+
+### Non-goals
+
+- Adding raw `CAUSES` or treatment/outcome graph edges.
+- Creating separate causal versions of Market, Transition, Persona, Attribute, or AttributeLevel.
+- Storing simulated respondents as graph nodes.
 
 ## v1.1 → v1.2 (2026-04-28) — add Twenty projection contract and persona traits
 
@@ -47,7 +84,7 @@ Rehoboam's `attributes-levels/orthogonal` endpoint generates Attributes+Levels p
 
 - **spice-harvester:** `lib/emit_kg_seed.py` should derive Company + OFFERED_BY records from each Offering's existing `company_name` string on every write. No new LLM call required — pure transformation. (Paired PR lands at the same time as this bump.)
 - **ai-chatbot:** no immediate changes required. Graph renderer will start receiving Company nodes + OFFERED_BY edges as slugs re-ingest.
-- **Neo4j:** no migration needed — optional node type, missing values are fine.
+- **Property graph:** no migration needed — optional node type, missing values are fine.
 
 ### Non-goals
 
@@ -81,7 +118,7 @@ Net effect: schema got tighter, moving parts reduced, boundary with Subconscious
 | `Context` (god-object with period + budget_state + regulatory_pressure + channel + treatment_label) | `Market` with `context_factors` JSONB + treatment moved out entirely | The v0 Context conflated environment, channel, time index, and experiment treatment. In v1, treatments are Subconscious's concern and never land on the ontology. |
 | Offering attributes as flat properties (`price`, `brand_strength`, `provenance_visibility`, `setup_days`) | `Attribute` and `AttributeLevel` nodes | Attributes and their levels are what DCE tests. Modeling them as first-class nodes lets evidence attach to specific levels and lets the experiment designer enumerate the design space. |
 | Stakeholder sensitivities as properties (`price_sensitivity`, `brand_sensitivity`, `trust_sensitivity`) | Removed. Sensitivities land as `Estimate` nodes. | These are posterior quantities from choice models. Storing them on ontology nodes violates the "no conditional values on ontology" rule. |
-| Stage as a string property on `Transition` | `Stage` as first-class node with FROM/TO edges | Enables attribute relevance queries keyed by stage. Clean Bloom UX. |
+| Stage as a string property on `Transition` | `Stage` as first-class node with FROM/TO edges | Enables attribute relevance queries keyed by stage. Clean graph UX. |
 | No market node; market implicit in Context | `Market` as first-class node | Every query is market-scoped. Making it explicit unlocks multi-market futures. |
 
 ## What was added
@@ -96,15 +133,15 @@ Net effect: schema got tighter, moving parts reduced, boundary with Subconscious
 | `ontology_snapshot_hash` on every Estimate | Results are always interpretable against the ontology state they were computed on. |
 | `schema_version` on every node and edge | Enables future migrations. |
 | `extracted_claim`, `retrieval_query`, `extractor_version` on Evidence | Better provenance for research-agent-driven ingestion. |
-| Pydantic validation at the write boundary (`ontology/schema.py`) | Single source of truth for the schema. No raw Cypher writes from the research agent. |
+| Pydantic validation at the write boundary (`ontology/schema.py`) | Single source of truth for the schema. No raw graph writes from the research agent. |
 | Contracts: `experiment_context.schema.json`, `experiment_results.schema.json` | Makes the Subconscious boundary explicit and versioned. |
 
 ## Things that stayed the same
 
 - `Evidence` as a node with `SUPPORTS` to any target.
 - Transition as a first-class node, not an edge.
-- APOC-based JSONL import pattern.
-- Neo4j + Bloom for visualization.
+- Validated JSONL import pattern.
+- FalkorDB-compatible property graph for persistence and visualization consumers.
 
 ## Tooling changes
 
@@ -115,11 +152,11 @@ Net effect: schema got tighter, moving parts reduced, boundary with Subconscious
 ## Migration steps for existing data (if any seed data was loaded)
 
 1. Drop the old database or migrate to a fresh one. The schema differences are too large to auto-migrate cleanly for POC seed data. Fresh start is faster and safer.
-2. Apply `neo4j/constraints.cypher`.
+2. Apply the deployment-specific property-graph constraints.
 3. Validate all seed JSONL through `ontology/schema.py` before loading.
-4. Run `neo4j/import_jsonl.cypher` with APOC.
+4. Run the deployment-specific property-graph importer.
 5. Run Splink dedupe on Offerings and StakeholderArchetypes.
-6. Open Bloom and confirm the search phrases in `neo4j/bloom_search_phrases.cypher` return expected results.
+6. Confirm the customer-facing graph queries return expected results.
 
 ## Breaking changes the research agent needs to handle
 

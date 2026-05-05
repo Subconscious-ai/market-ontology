@@ -1,0 +1,97 @@
+{
+  "projection_id": "proj_timeseries_market_signal_001",
+  "causal_dag_projection_version": "1.0.0",
+  "ontology_snapshot_hash": "sha256:demo",
+  "generated_at": "2026-05-05T12:00:00Z",
+  "question": "Do market signals about regulation change adoption movement after a lag?",
+  "outcome": {
+    "transition": {
+      "ontology_node_type": "Transition",
+      "ontology_node_id": "tr_consider_choose"
+    },
+    "stakeholder_archetype": {
+      "ontology_node_type": "StakeholderArchetype",
+      "ontology_node_id": "persona_security_buyer"
+    },
+    "description": "Daily movement from consideration to choice."
+  },
+  "variables": [
+    {
+      "variable_id": "signal_regulatory_pressure",
+      "role": "treatment",
+      "estimator_role": "T",
+      "ontology_node_type": "Evidence",
+      "ontology_node_id": "ev_regulatory_pressure",
+      "observed_column": "regulatory_signal_intensity",
+      "value_type": "continuous",
+      "label": "Regulatory market signal intensity"
+    },
+    {
+      "variable_id": "outcome_consider_choose",
+      "role": "outcome",
+      "estimator_role": "Y",
+      "ontology_node_type": "Transition",
+      "ontology_node_id": "tr_consider_choose",
+      "observed_column": "daily_choose_rate",
+      "value_type": "continuous",
+      "label": "Daily Consider to Choose rate"
+    },
+    {
+      "variable_id": "market_id",
+      "role": "context",
+      "estimator_role": "panel_id",
+      "ontology_node_type": "Market",
+      "ontology_node_id": "mkt_enterprise_ai_regulated",
+      "observed_column": "market_id",
+      "value_type": "categorical",
+      "state_space": ["mkt_enterprise_ai_regulated"],
+      "label": "Market panel"
+    },
+    {
+      "variable_id": "observed_at",
+      "role": "context",
+      "estimator_role": "time_index",
+      "ontology_node_type": "Market",
+      "ontology_node_id": "mkt_enterprise_ai_regulated",
+      "observed_column": "observed_at",
+      "value_type": "continuous",
+      "label": "Observation date"
+    }
+  ],
+  "estimation_target": {
+    "outcome_variable_id": "outcome_consider_choose",
+    "treatment_variable_ids": ["signal_regulatory_pressure"],
+    "effect_modifier_variable_ids": [],
+    "control_variable_ids": []
+  },
+  "causal_edges": [
+    {
+      "source_variable_id": "signal_regulatory_pressure",
+      "target_variable_id": "outcome_consider_choose",
+      "edge_source": "causal_discovery",
+      "lag": 2,
+      "rationale": "Time-series discovery proposed a two-day lag from market signal to adoption movement.",
+      "evidence_ids": ["ev_regulatory_pressure"]
+    }
+  ],
+  "assumptions": [
+    "Signals are observed before outcome movement.",
+    "Lagged links are generated from panel time-series data and require human review before causal interpretation."
+  ],
+  "time_series": {
+    "enabled": true,
+    "time_index_column": "observed_at",
+    "panel_id_column": "market_id",
+    "sampling_interval": "P1D",
+    "min_lag": 1,
+    "max_lag": 7,
+    "observation_window": {
+      "start": "2026-05-01T00:00:00Z",
+      "end": "2026-05-05T00:00:00Z"
+    }
+  },
+  "runtime": {
+    "library": "causalflow",
+    "version": "unverified"
+  }
+}

@@ -1,20 +1,22 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Experiment Context — ontology to Subconscious",
-  "description": "The projected context the ontology serves to Subconscious for experiment design.",
+  "title": "Experiment Context - ontology to Subconscious",
+  "description": "The projected ontology context served to Subconscious for experiment design. Dependent variable, persona trait levels, and attribute levels must originate from ontology IDs.",
   "type": "object",
+  "additionalProperties": false,
   "required": [
     "experiment_context_version",
     "ontology_snapshot_hash",
     "market",
     "transition",
+    "dependent_variable",
     "stakeholder_archetypes",
     "offering"
   ],
   "properties": {
     "experiment_context_version": {
       "type": "string",
-      "description": "Version of this contract schema, e.g. '1.0.0'"
+      "description": "Version of this contract schema, e.g. '1.1.0'"
     },
     "ontology_snapshot_hash": {
       "type": "string",
@@ -26,6 +28,7 @@
     },
     "market": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["id", "name", "period"],
       "properties": {
         "id": {"type": "string"},
@@ -37,34 +40,86 @@
     },
     "transition": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["id", "from_stage", "to_stage"],
       "properties": {
         "id": {"type": "string"},
-        "name": {"type": "string"},
+        "name": {"type": ["string", "null"]},
         "from_stage": {"type": "string"},
         "to_stage": {"type": "string"},
         "evidence_ids": {"type": "array", "items": {"type": "string"}}
       }
     },
-    "stakeholder_archetypes": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["id", "name", "archetype_type"],
-        "properties": {
-          "id": {"type": "string"},
-          "name": {"type": "string"},
-          "archetype_type": {
-            "type": "string",
-            "enum": ["customer", "competitor_buyer", "competitor_user"]
-          },
-          "traits": {"type": "object"},
-          "evidence_ids": {"type": "array", "items": {"type": "string"}}
-        }
+    "dependent_variable": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["transition_id"],
+      "properties": {
+        "transition_id": {"type": "string"},
+        "target_behavior": {"type": ["string", "null"]},
+        "respondent_prompt": {"type": ["string", "null"]},
+        "measurement_type": {
+          "type": ["string", "null"],
+          "enum": ["choice", "rating", "ranking", "transition", null]
+        },
+        "evidence_ids": {"type": "array", "items": {"type": "string"}}
       }
     },
-    "offering": {
+    "stakeholder_archetypes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/stakeholder_archetype_block"}
+    },
+    "offering": {"$ref": "#/$defs/offering_block"},
+    "competitor_offerings": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/offering_block"}
+    }
+  },
+  "$defs": {
+    "stakeholder_archetype_block": {
       "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "archetype_type", "trait_levels"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "archetype_type": {
+          "type": "string",
+          "enum": ["customer", "competitor_buyer", "competitor_user"]
+        },
+        "traits": {
+          "type": "object",
+          "description": "Backward-compatible denormalized trait cache. Canonical inputs are trait_levels."
+        },
+        "trait_levels": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/trait_level_block"}
+        },
+        "evidence_ids": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "trait_level_block": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["trait_id", "trait_level_id", "role"],
+      "properties": {
+        "trait_id": {"type": "string"},
+        "trait_name": {"type": ["string", "null"]},
+        "trait_level_id": {"type": "string"},
+        "trait_level_label": {"type": ["string", "null"]},
+        "value": {},
+        "role": {
+          "type": "string",
+          "enum": ["population_filter", "effect_modifier", "control", "context"]
+        },
+        "evidence_ids": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "offering_block": {
+      "type": "object",
+      "additionalProperties": false,
       "required": ["id", "name", "company_name", "attributes"],
       "properties": {
         "id": {"type": "string"},
@@ -72,30 +127,14 @@
         "company_name": {"type": "string"},
         "attributes": {
           "type": "array",
+          "minItems": 1,
           "items": {"$ref": "#/$defs/attribute_block"}
         }
       }
     },
-    "competitor_offerings": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["id", "name", "company_name", "attributes"],
-        "properties": {
-          "id": {"type": "string"},
-          "name": {"type": "string"},
-          "company_name": {"type": "string"},
-          "attributes": {
-            "type": "array",
-            "items": {"$ref": "#/$defs/attribute_block"}
-          }
-        }
-      }
-    }
-  },
-  "$defs": {
     "attribute_block": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["id", "name", "data_type", "levels"],
       "properties": {
         "id": {"type": "string"},
@@ -113,20 +152,22 @@
         "levels": {
           "type": "array",
           "minItems": 2,
-          "items": {
-            "type": "object",
-            "required": ["id", "value"],
-            "properties": {
-              "id": {"type": "string"},
-              "value": {},
-              "label": {"type": ["string", "null"]},
-              "is_status_quo": {"type": "boolean"},
-              "valid_from": {"type": ["string", "null"], "format": "date"},
-              "valid_to": {"type": ["string", "null"], "format": "date"}
-            }
-          }
+          "items": {"$ref": "#/$defs/attribute_level_block"}
         },
         "evidence_ids": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "attribute_level_block": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "value"],
+      "properties": {
+        "id": {"type": "string"},
+        "value": {},
+        "label": {"type": ["string", "null"]},
+        "is_status_quo": {"type": "boolean"},
+        "valid_from": {"type": ["string", "null"], "format": "date"},
+        "valid_to": {"type": ["string", "null"], "format": "date"}
       }
     }
   }

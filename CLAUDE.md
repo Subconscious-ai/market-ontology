@@ -1,161 +1,121 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to agents working in this repository.
 
 ## Repository Overview
 
-`market-ontology` is the canonical Pydantic schema enforcer for every Subconscious system — research pipeline, visualization, interview extraction, agent outputs, DB projection. It sits between a wiki-style research agent + executive interview (input) and the Subconscious.ai discrete choice experiment engine (consumer). The ontology is **context for the experiment, not the experiment itself.** Subconscious owns experiment design and causal estimation. This repo owns the structured context feeding Subconscious and the structured results coming back.
+`market-ontology` is the canonical Pydantic schema enforcer for the
+Subconscious knowledge graph. It sits between research/interview ingestion and
+the Subconscious.ai experiment engine.
 
-One leg of the three-repo Subconscious stack ([spice-harvester](../spice-harvester/CLAUDE.md) writes → `market-ontology` validates → [ai-chatbot](../ai-chatbot/CLAUDE.md) reads). See `../ai-chatbot/docs/three-repo-handshake.md` for the full contract.
+The ontology is context for experiments, not the experiment itself. Dependent
+variables, persona traits/levels, and offering attribute treatments/levels are
+projected from ontology IDs into SuperEgo/W&B. W&B outputs return as immutable
+artifact lineage plus normalized `Estimate` nodes linked back to those ontology
+IDs.
 
 ## Setup
 
 One-time, in a venv at the repo root:
 
 ```bash
-pip install -e .
+pip install -e ".[dev]"
 ```
 
-This installs `market-ontology` (versioned from `SCHEMA_VERSION` in `schema.py`) and pins `pydantic>=2.5,<3`. Scripts and tests assume the package is on the import path.
+This installs `market-ontology` and dev validation dependencies. The package
+version is read from `SCHEMA_VERSION` in `poc_v1/ontology/schema.py`.
 
 ## Commands
 
 ```bash
-# Pydantic-validate every kg_seed/*.jsonl fixture (CI red button)
+python scripts/validate_causal_dag.py
+python -m unittest tests.test_causal_dag_v1 -v
 python scripts/validate_kg_seed.py
-
-# Verify generated consumer contracts are in sync with schema.py (CI gate)
 python scripts/generate_kg_seed_contract.py --check
 python scripts/generate_twenty_app.py --check
-
-# Projection-manifest / portability tests
+python scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.static.valid.json
+python scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.timeseries.valid.json
 python -m unittest discover -s tests -v
-
-# Markdown doc-rot guard (fails on stale paths or forbidden substrings)
 bash scripts/check-doc-rot.sh
-
-# Schema import sanity
-python -c "from poc_v1.ontology import schema; print(schema.SCHEMA_VERSION)"
+python -m py_compile poc_v1/ontology/schema.py
 ```
 
-CI in `.github/workflows/ci.yml` runs the same sequence (kg_seed validation → generated-contract check → projection tests → schema import → doc-rot). If any fail, fix before opening a PR — do not `--no-verify`.
-
-## Install as a dependency (from sibling repos)
-
-```bash
-pip install "market-ontology @ git+https://github.com/Subconscious-ai/market-ontology"
-# or local editable
-pip install -e /path/to/market-ontology
-```
-
-Then `from poc_v1.ontology import schema` (or `from poc_v1.ontology.schema import NODE_MODELS, EDGE_MODELS, validate_node, validate_edge`).
+If any fail, fix before opening a PR. Do not use `--no-verify`.
 
 ## Architecture
 
-### Schema (the only source of truth)
+`poc_v1/ontology/schema.py` defines Pydantic models, `NODE_MODELS`,
+`EDGE_MODELS`, and `SCHEMA_VERSION`. It is the only source of truth for graph
+shape. Generated JSON files under `poc_v1/ontology/` must be regenerated from
+the schema and not hand-edited.
 
-`poc_v1/ontology/schema.py` defines Pydantic models, `NODE_MODELS` / `EDGE_MODELS` registries, and `SCHEMA_VERSION` (currently `1.2.0` — bump on every schema change).
+Current graph additions for experiment lineage are intentionally small:
 
-**12 node types:** `Market`, `Stage`, `Transition`, `StakeholderArchetype`, `Offering`, `Attribute`, `AttributeLevel`, `Trait`, `TraitLevel`, `Evidence`, `Estimate`, `Company`.
+- Node: `ExperimentRun`
+- Edges: `CONSUMED`, `PRODUCED`
 
-**Edges (one fixture per type in `poc_v1/kg_seed/edges_*.jsonl`):**
-```
-Transition -[:FROM]-> Stage
-Transition -[:TO]-> Stage
-Transition -[:IN_MARKET]-> Market
-Transition -[:RELEVANT_TO]-> StakeholderArchetype {confidence}
-Transition -[:ABOUT]-> Offering
-Offering  -[:HAS_ATTRIBUTE]-> Attribute
-Offering  -[:OFFERED_BY]-> Company                  # added in v1.1
-Attribute -[:HAS_LEVEL]-> AttributeLevel
-Trait     -[:HAS_LEVEL]-> TraitLevel
-StakeholderArchetype -[:HAS_TRAIT]-> Trait
-Attribute -[:RELEVANT_AT {score, valid_from, valid_to, evidence_ids}]-> Stage
-Evidence  -[:SUPPORTS]-> * {confidence, support_type}
-Estimate  -[:ABOUT]-> * {target_node_type}
-```
+Do not add raw causal graph edges such as `CAUSES`, `AFFECTS`,
+`HAS_TREATMENT`, or `HAS_OUTCOME` to the ontology. Causal assumptions live in
+projection artifacts.
 
-The authoritative count is `len(EDGE_MODELS)` in `schema.py` — trust the registry, not this list, if they ever disagree.
+## W&B/SuperEgo Loop
 
-Enums live in `poc_v1/ontology/enums.yaml` (StageName, ArchetypeType, AttributeDataType, EvidenceSourceType, EstimateType). Keep `enums.yaml` and `schema.py` in sync by hand — the YAML is human reference, the Python is authoritative.
+The loop is:
 
-`node_schemas.json`, `edge_schemas.json`, `kg_seed_contract.json`, and `twenty_app_contract.json` are **generated artifacts** consumed by sibling repos. Regenerate when schema changes; never hand-edit. The `--check` flag on the two `generate_*.py` scripts verifies they're in sync without writing.
+1. Ontology snapshot projects experiment inputs:
+   `Transition`, `StakeholderArchetype`, `Trait`, `TraitLevel`, `Attribute`,
+   and `AttributeLevel`.
+2. SuperEgo/W&B run-local IDs are written into
+   `poc_v1/contracts/experiment_run_mapping.schema.json`.
+3. W&B artifacts provide immutable provenance: entity, project, run id, artifact
+   name, type, version, digest, and file metadata. Aliases such as `latest` are
+   metadata only.
+4. Normalized AMCE/WTP/importance results become `Estimate` nodes and
+   `ABOUT`/`PRODUCED` edges.
 
-### Directory Layout
+## Directory Layout
 
-```
+```text
 poc_v1/
-├── ontology/
-│   ├── schema.py                 ← Pydantic models + NODE_MODELS/EDGE_MODELS + SCHEMA_VERSION (authoritative)
-│   ├── node_schemas.json         ← Generated from schema.py
-│   ├── edge_schemas.json         ← Generated from schema.py
-│   ├── kg_seed_contract.json     ← Generated; consumed by sibling repos as the kg_seed contract
-│   ├── enums.yaml                ← Human reference enums (keep in sync with schema.py)
-│   ├── ontology_spec.md          ← Design doc: 12 nodes, edges, ingestion rules
-│   ├── twenty_projection.json    ← Source manifest for Twenty projection
-│   ├── twenty_projection.md      ← Human-readable Twenty projection spec
-│   ├── twenty_app_contract.json  ← Generated Twenty projection contract
-│   ├── v2_spec.md                ← Parking lot for things cut from v1
-│   └── MIGRATION.md              ← Changes from v0
-├── kg_seed/                      ← Reference fixtures, one JSONL per node/edge label
-│   ├── markets.jsonl, stages.jsonl, transitions.jsonl, companies.jsonl, ...
-│   └── edges_transition_*.jsonl, edges_offering_offered_by.jsonl, edges_estimate_about.jsonl, ...
-├── contracts/                    ← Boundary contracts with Subconscious
-│   ├── experiment_context.schema.json  ← ontology → Subconscious
-│   └── experiment_results.schema.json  ← Subconscious → ontology
-└── neo4j/
-    ├── constraints.cypher, import_jsonl.cypher, bloom_search_phrases.cypher
-
+  ontology/
+    schema.py
+    node_schemas.json
+    edge_schemas.json
+    kg_seed_contract.json
+    twenty_projection.json
+    twenty_app_contract.json
+    super_ego_projection.json
+  kg_seed/
+    *.jsonl
+  contracts/
+    experiment_context.schema.json
+    experiment_results.schema.json
+    causal_dag_projection.schema.json
+    experiment_run_mapping.schema.json
+    normalized_experiment_results.schema.json
+    market_signal.schema.json
+    recommendation.schema.json
+  adapters/
+    legacy graph-store adapters
 scripts/
-├── validate_kg_seed.py           ← CI: iterates FIXTURES map, Pydantic-validates each JSONL
-├── generate_kg_seed_contract.py  ← Regenerates kg_seed_contract.json (--check verifies in-sync)
-├── generate_twenty_app.py        ← Regenerates twenty_app_contract.json (--check verifies in-sync)
-└── check-doc-rot.sh
-
-tests/                            ← Projection-manifest + repo-portability unit tests (unittest)
-├── test_generate_twenty_app.py
-├── test_repo_portability.py
-└── test_twenty_projection_manifest.py
-
-.github/workflows/ci.yml          ← 7 steps: setup → JSON syntax → kg_seed validation
-                                    → generated-contract check → projection tests
-                                    → schema import → doc-rot
+  validate_kg_seed.py
+  validate_causal_dag.py
+  validate_causal_projection.py
+  generate_kg_seed_contract.py
+  generate_twenty_app.py
+tests/
 ```
-
-### Write boundary (how kg_seed flows)
-
-spice-harvester emits `output/<slug>/kg_seed/*.jsonl` via its `lib/emit_kg_seed.py` → `python scripts/validate_kg_seed.py` Pydantic-validates → APOC imports the JSONL into Neo4j. Every node payload is `{"id": ..., "properties": {...}}`; every edge payload is `{"start_id": ..., "end_id": ..., "properties": {...}}`.
 
 ## Golden Rules
 
-1. **No probabilities or part-worths on ontology nodes.** Those are `Estimate` nodes. Estimates point at ontology nodes; they don't mutate them.
-2. **Competitor combinations, treatments, and choice tasks live in Subconscious, not here.** The ontology provides attributes, levels, archetypes, and context. Subconscious composes experiments.
-3. **If a value is conditional on model, period, or experiment, it is an `Estimate`.**
-4. **Every node has `schema_version`. Every `Estimate` has `ontology_snapshot_hash`.**
-5. **Temporal validity** (`valid_from`, `valid_to`) applies to `AttributeLevel`, `RELEVANT_AT` edges, `Estimate`, `Evidence`. Not to stable definitional nodes (`Stage`, `Market`, `Transition`, `Attribute`).
-
-## Extending the Schema
-
-1. Edit `poc_v1/ontology/schema.py`: add the Pydantic model, register in `NODE_MODELS` or `EDGE_MODELS`, bump `SCHEMA_VERSION`.
-2. Create a matching fixture at `poc_v1/kg_seed/<label>s.jsonl` (or `edges_<label>.jsonl`).
-3. Add the filename → model mapping to `scripts/validate_kg_seed.py::FIXTURES`. Unmapped files fail CI.
-4. Regenerate consumer contracts: `python scripts/generate_kg_seed_contract.py` and (if the change touches projected fields) `python scripts/generate_twenty_app.py`. Also regenerate `node_schemas.json` / `edge_schemas.json` if consumers depend on them.
-5. Run the full pre-PR loop in the Commands section. Do not `--no-verify`.
-6. Breaking schema changes require coordinated PRs in `spice-harvester` (update `lib/emit_kg_seed.py`) and `ai-chatbot` (update type hints in `app/(chat)/api/interview-sse/` and any graph renderers).
+1. No probabilities or part-worths on ontology nodes. Those are `Estimate`s.
+2. The ontology is not a causal DAG. DAGs are validated artifacts over ontology IDs.
+3. W&B is experiment provenance, not ontology truth.
+4. Every new fixture file must appear in `scripts/validate_kg_seed.py::FIXTURES`.
+5. Breaking schema changes require coordination with downstream writers/readers.
 
 ## Conventions
 
-- **Branches:** `feat/<short>`, `chore/<short>`, `fix/<short>`.
-- **One concern per PR:** schema change + fixture + validator test = one PR.
-- **No orphan fixtures** — every `kg_seed/*.jsonl` must appear in `FIXTURES`.
-- **Fixtures must validate before opening a PR.**
-
-`AGENTS.md` is a one-line pointer to this file so the Codex harness lands here too. Keep the agent guidance in this file only.
-
-## Stack (downstream, not implemented here)
-
-Consumers operate this stack on top of the schema:
-- **Neo4j** as the graph store. **Bloom** for customer-facing visualization. **APOC** for JSONL import/export.
-- **Splink** (separate job, in spice-harvester) for entity resolution on `Offering` and `StakeholderArchetype` after each ingestion pass.
-- **Postgres + pgvector** (optional, separate) if the research agent needs semantic retrieval over `Evidence` excerpts.
-- **Graphiti** is deliberately not in v1. Revisit in v2 if research-agent ingestion quality plateaus.
+- Branches normally use `codex/<short-slug>` for Codex work.
+- Keep PRs focused: schema change plus fixture plus validator tests is one PR.
+- Do not delete or rewrite user work to clean the tree; preserve it first.

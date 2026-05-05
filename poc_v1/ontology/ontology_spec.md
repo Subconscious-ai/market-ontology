@@ -6,7 +6,7 @@ Minimal, queryable context store for:
 
 1. Subconscious.ai discrete choice experiment spec generation.
 2. Wiki-style research agent ingestion with provenance.
-3. Customer-facing visualization in Neo4j Bloom.
+3. Customer-facing applications backed by a FalkorDB-compatible property graph.
 
 ## Objects
 
@@ -45,6 +45,9 @@ Grounding for any node or edge. Required for every extracted fact per the ingest
 ### Estimate
 Results returned from Subconscious. Every Estimate carries `ontology_snapshot_hash` so results are always interpretable against the ontology state they were computed on.
 
+### ExperimentRun
+Execution record tying an ontology snapshot to SuperEgo/W&B run and artifact metadata. It records lineage only; causal DAGs remain versioned artifacts that reference ontology node IDs.
+
 ## Edges
 
 | Edge | From | To | Notes |
@@ -55,10 +58,13 @@ Results returned from Subconscious. Every Estimate carries `ontology_snapshot_ha
 | RELEVANT_TO | Transition | StakeholderArchetype | Which archetypes participate in this transition |
 | ABOUT | Transition OR Estimate | * | Polymorphic |
 | HAS_ATTRIBUTE | Offering | Attribute | |
+| OFFERED_BY | Offering | Company | Canonical offering-to-company rollup link |
 | HAS_LEVEL | Attribute OR Trait | AttributeLevel OR TraitLevel | |
 | HAS_TRAIT | StakeholderArchetype | Trait | |
 | RELEVANT_AT | Attribute | Stage | `{score, valid_from, valid_to, evidence_ids}` — temporal relevance |
 | SUPPORTS | Evidence | * | Polymorphic |
+| CONSUMED | ExperimentRun | * | Ontology context consumed by a run |
+| PRODUCED | ExperimentRun | Estimate | Estimates produced by a run |
 
 ## Design boundaries (what stays out)
 
@@ -67,12 +73,14 @@ Results returned from Subconscious. Every Estimate carries `ontology_snapshot_ha
 - No metric formulas as prose — deferred to v2.
 - No treatments on nodes — Subconscious owns treatments.
 - No separate ContextFactor nodes in v1 — folded into props.
+- No causal edges in the core ontology — causal DAGs are projection artifacts over ontology IDs.
+- The ontology itself is not a DAG. Only causal projection artifacts must be acyclic.
 - Company/Product/Persona are the primary Twenty projection surfaces. Product maps to `Offering`; Persona maps to `StakeholderArchetype`. See `twenty_projection.md`.
 
 ## Ingestion rules
 
 1. Every node must have at least one `SUPPORTS` edge from Evidence, with the one exception of Stage (definitional).
-2. Pydantic validation at the write boundary is mandatory. No raw Cypher writes from the research agent.
+2. Pydantic validation at the write boundary is mandatory. No raw graph writes from the research agent.
 3. Splink entity resolution runs after each ingestion batch on Offerings and StakeholderArchetypes.
 4. Every write includes `schema_version`.
 5. Estimates always include `ontology_snapshot_hash` computed from the subgraph Subconscious consumed.
@@ -94,5 +102,6 @@ Does NOT apply to definitional nodes: `Stage`, `Market` scope, `Transition` defi
 2. "Given Transition X, which StakeholderArchetypes participate?"
 3. "Show all Estimates produced by Experiment E, with their ontology snapshot."
 4. "Show all Evidence supporting AttributeLevel L."
+5. "Show the ontology nodes consumed by ExperimentRun R and Estimates it produced."
 
-All four should be 3-hop or fewer Cypher queries.
+All five should be 3-hop or fewer property-graph queries.

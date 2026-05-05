@@ -11,9 +11,14 @@ license = { text = "Proprietary" }
 authors = [{ name = "Subconscious.ai" }]
 dependencies = [
     "pydantic>=2.5,<3",
-    "networkx>=3",
 ]
 dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+    "jsonschema[format]>=4",
+    "networkx>=3",
+]
 
 [project.urls]
 Homepage = "https://github.com/Subconscious-ai/market-ontology"

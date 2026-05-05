@@ -1,0 +1,105 @@
+{
+  "projection_id": "proj_static_consider_choose_001",
+  "causal_dag_projection_version": "1.0.0",
+  "ontology_snapshot_hash": "sha256:demo",
+  "generated_at": "2026-05-05T12:00:00Z",
+  "question": "Does high provenance visibility improve Consider to Choose movement?",
+  "outcome": {
+    "transition": {
+      "ontology_node_type": "Transition",
+      "ontology_node_id": "tr_consider_choose"
+    },
+    "stakeholder_archetype": {
+      "ontology_node_type": "StakeholderArchetype",
+      "ontology_node_id": "persona_security_buyer"
+    },
+    "description": "Persona moves from consideration to choice."
+  },
+  "variables": [
+    {
+      "variable_id": "treatment_provenance_visibility",
+      "role": "treatment",
+      "estimator_role": "T",
+      "ontology_node_type": "AttributeLevel",
+      "ontology_node_id": "attr_level_prov_high",
+      "observed_column": "provenance_visibility_high",
+      "value_type": "binary",
+      "state_space": [false, true],
+      "label": "High provenance visibility"
+    },
+    {
+      "variable_id": "outcome_consider_choose",
+      "role": "outcome",
+      "estimator_role": "Y",
+      "ontology_node_type": "Transition",
+      "ontology_node_id": "tr_consider_choose",
+      "observed_column": "moved_to_choose",
+      "value_type": "binary",
+      "state_space": [false, true],
+      "label": "Moved from Consider to Choose"
+    },
+    {
+      "variable_id": "persona_security_buyer",
+      "role": "moderator",
+      "estimator_role": "X",
+      "ontology_node_type": "StakeholderArchetype",
+      "ontology_node_id": "persona_security_buyer",
+      "observed_column": "persona_security_buyer",
+      "value_type": "categorical",
+      "state_space": ["security_buyer"],
+      "label": "Security buyer persona"
+    },
+    {
+      "variable_id": "market_regulatory_pressure",
+      "role": "adjustment",
+      "estimator_role": "W",
+      "ontology_node_type": "Market",
+      "ontology_node_id": "mkt_enterprise_ai_regulated",
+      "observed_column": "regulatory_pressure",
+      "value_type": "ordinal",
+      "state_space": ["low", "medium", "high"],
+      "label": "Regulatory pressure"
+    }
+  ],
+  "estimation_target": {
+    "outcome_variable_id": "outcome_consider_choose",
+    "treatment_variable_ids": ["treatment_provenance_visibility"],
+    "effect_modifier_variable_ids": ["persona_security_buyer"],
+    "control_variable_ids": ["market_regulatory_pressure"]
+  },
+  "causal_edges": [
+    {
+      "source_variable_id": "treatment_provenance_visibility",
+      "target_variable_id": "outcome_consider_choose",
+      "edge_source": "experiment_design",
+      "lag": null,
+      "rationale": "Treatment varies the proposed product attribute level.",
+      "evidence_ids": ["ev_provenance_visibility"]
+    },
+    {
+      "source_variable_id": "market_regulatory_pressure",
+      "target_variable_id": "outcome_consider_choose",
+      "edge_source": "expert",
+      "lag": null,
+      "rationale": "Regulated markets condition adoption behavior.",
+      "evidence_ids": ["ev_regulatory_pressure"]
+    }
+  ],
+  "assumptions": [
+    "Treatment assignment is randomized by experiment design.",
+    "Measured controls are pre-treatment."
+  ],
+  "time_series": {
+    "enabled": false,
+    "time_index_column": null,
+    "panel_id_column": null,
+    "sampling_interval": null,
+    "min_lag": null,
+    "max_lag": null,
+    "observation_window": null
+  },
+  "runtime": {
+    "library": "networkx",
+    "version": "3.x"
+  }
+}

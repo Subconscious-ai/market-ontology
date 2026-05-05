@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Market Signal - evidence-backed market change artifact",
+  "description": "A market/news signal that references ontology nodes. Signals are artifacts and do not directly mutate canonical ontology definitions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "market_signal_version",
+    "ontology_snapshot_hash",
+    "signal_id",
+    "summary",
+    "observed_at",
+    "affected_nodes",
+    "evidence_ids"
+  ],
+  "properties": {
+    "market_signal_version": {"type": "string"},
+    "ontology_snapshot_hash": {"type": "string"},
+    "signal_id": {"type": "string"},
+    "signal_type": {"type": ["string", "null"]},
+    "summary": {"type": "string"},
+    "observed_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": ["string", "null"], "format": "date-time"},
+    "confidence": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
+    "affected_nodes": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/ontology_ref"}
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  },
+  "$defs": {
+    "ontology_node_type": {
+      "type": "string",
+      "enum": [
+        "Market",
+        "Stage",
+        "Transition",
+        "StakeholderArchetype",
+        "Offering",
+        "Attribute",
+        "AttributeLevel",
+        "Trait",
+        "TraitLevel",
+        "Evidence",
+        "Estimate",
+        "Company",
+        "ExperimentRun"
+      ]
+    },
+    "ontology_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ontology_node_type", "ontology_node_id"],
+      "properties": {
+        "ontology_node_type": {"$ref": "#/$defs/ontology_node_type"},
+        "ontology_node_id": {"type": "string"}
+      }
+    }
+  }
+}

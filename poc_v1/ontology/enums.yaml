@@ -36,6 +36,8 @@ estimate_types:
 - wtp
 - elasticity
 - ate
+- amce
+- importance
 
 support_types:
 - direct
