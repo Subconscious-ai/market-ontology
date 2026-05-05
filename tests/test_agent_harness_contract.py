@@ -14,6 +14,7 @@ class AgentHarnessContractTest(unittest.TestCase):
     def test_validate_fast_includes_deterministic_validation_suite(self):
         text = VALIDATE_FAST.read_text()
         expected_lines = [
+            "bash scripts/agent/readiness.sh",
             "python3 scripts/validate_kg_seed.py",
             "python3 scripts/generate_kg_seed_contract.py --check",
             "python3 scripts/generate_twenty_app.py --check",
@@ -56,6 +57,7 @@ class AgentHarnessContractTest(unittest.TestCase):
         self.assertIn("cancel-in-progress: true", workflow)
         self.assertIn("permissions:\n  contents: read", workflow)
         self.assertIn("timeout-minutes: 15", workflow)
+        self.assertIn("bash scripts/agent/readiness.sh", workflow)
         self.assertIn("bash scripts/agent/preflight.sh", workflow)
         self.assertIn("bash scripts/agent/validate-fast.sh", workflow)
 
