@@ -8,8 +8,15 @@ python3 - <<'PY'
 import importlib.util
 import sys
 
-if importlib.util.find_spec("pydantic") is None:
-    sys.exit("pydantic is required; install repo dependencies before running agents")
+missing = [
+    package
+    for package in ("pydantic", "networkx")
+    if importlib.util.find_spec(package) is None
+]
+if missing:
+    sys.exit(
+        f"{', '.join(missing)} required; install repo dependencies before running agents"
+    )
 
 print(sys.version.split()[0])
 PY

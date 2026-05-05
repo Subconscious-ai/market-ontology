@@ -1,13 +1,12 @@
-import importlib.util
 import json
-import sys
 import unittest
 from pathlib import Path
+
+from poc_v1.ontology import schema
 
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "poc_v1" / "ontology" / "twenty_projection.json"
-SCHEMA_PATH = ROOT / "poc_v1" / "ontology" / "schema.py"
 
 REQUIRED_METADATA_FIELDS = {
     "ontology_node_id",
@@ -21,21 +20,12 @@ REQUIRED_METADATA_FIELDS = {
 }
 
 
-def load_schema():
-    spec = importlib.util.spec_from_file_location("schema", SCHEMA_PATH)
-    mod = importlib.util.module_from_spec(spec)
-    sys.modules["schema"] = mod
-    spec.loader.exec_module(mod)
-    return mod
-
-
 def load_manifest():
     return json.loads(MANIFEST_PATH.read_text())
 
 
 class TwentyProjectionManifestTest(unittest.TestCase):
     def test_manifest_covers_schema_and_declares_surfaces(self):
-        schema = load_schema()
         manifest = load_manifest()
         objects = {obj["object_name"]: obj for obj in manifest["objects"]}
         node_types = {obj["ontology_node_type"] for obj in objects.values()}
@@ -58,7 +48,6 @@ class TwentyProjectionManifestTest(unittest.TestCase):
         )
 
     def test_manifest_preserves_trait_and_level_as_first_class_schema(self):
-        schema = load_schema()
         manifest = load_manifest()
         support_types = {
             obj["ontology_node_type"]

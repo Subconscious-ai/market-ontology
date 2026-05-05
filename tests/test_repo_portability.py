@@ -14,14 +14,27 @@ class RepoPortabilityTest(unittest.TestCase):
             ROOT / "scripts" / "agent" / "validate-full.sh",
             ROOT / "scripts" / "agent" / "smoke.sh",
         ]
+        script_names = [str(path.relative_to(ROOT)).replace("\\", "/") for path in scripts]
 
         missing = [str(path.relative_to(ROOT)) for path in scripts if not path.exists()]
         self.assertEqual(missing, [], f"Missing harness script(s): {missing}")
 
+        result = subprocess.run(
+            ["git", "ls-files", "--stage", "--", *script_names],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        executable_modes = {
+            line.rsplit("\t", 1)[1]: line.split(maxsplit=1)[0]
+            for line in result.stdout.splitlines()
+            if line
+        }
         not_executable = [
-            str(path.relative_to(ROOT))
-            for path in scripts
-            if path.exists() and not path.stat().st_mode & 0o111
+            name
+            for name in script_names
+            if executable_modes.get(name) != "100755"
         ]
         self.assertEqual(
             not_executable, [], f"Harness script(s) not executable: {not_executable}"

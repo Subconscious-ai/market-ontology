@@ -6,29 +6,20 @@ schema in poc_v1/ontology/schema.py. Exits non-zero on any failure.
 This is the primary CI check — when the schema changes, fixtures drift,
 or a new node/edge type lands, this catches the mismatch before downstream
 consumers (spice-harvester, ai-chatbot) silently break.
+
+Works from an editable install or direct repo execution.
 """
-import importlib.util
 import json
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
-SCHEMA_PATH = ROOT / "poc_v1" / "ontology" / "schema.py"
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from poc_v1.ontology.schema import validate_edge, validate_node  # noqa: E402
+
 KG_SEED_DIR = ROOT / "poc_v1" / "kg_seed"
-
-
-def load_schema():
-    spec = importlib.util.spec_from_file_location("schema", SCHEMA_PATH)
-    mod = importlib.util.module_from_spec(spec)
-    sys.modules["schema"] = mod
-    spec.loader.exec_module(mod)
-    for reg in (getattr(mod, "NODE_MODELS", {}), getattr(mod, "EDGE_MODELS", {})):
-        for cls in reg.values():
-            try:
-                cls.model_rebuild(_types_namespace={**vars(mod)})
-            except Exception:
-                pass
-    return mod.validate_node, mod.validate_edge
 
 
 # Filename → (label, is_edge)
@@ -62,7 +53,6 @@ FIXTURES = {
 
 
 def main() -> int:
-    validate_node, validate_edge = load_schema()
     errors: list[str] = []
     checked = 0
 
