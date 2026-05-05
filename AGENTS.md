@@ -15,6 +15,8 @@ Symphony/Codex PRs must use `codex/<issue-id>-<short-slug>` branches, open
 draft PRs, add the `symphony` label, link the Linear issue, and record the
 validation command/result plus check evidence in Linear. Treat schema changes
 as cross-repo contract work and coordinate dependent PRs.
+Exact validation ladder, known secrets, deploy evidence rules, and failure
+buckets live in `docs/agent-harness.md`.
 
 > Short table of contents for agents. The authoritative source for any claim
 > below is the file or command it points to. If a pointer is wrong, fix the
