@@ -27,8 +27,8 @@
       "additionalProperties": false,
       "required": ["transition"],
       "properties": {
-        "transition": {"$ref": "#/$defs/ontology_ref"},
-        "stakeholder_archetype": {"$ref": "#/$defs/ontology_ref"},
+        "transition": {"$ref": "#/$defs/transition_ref"},
+        "stakeholder_archetype": {"$ref": "#/$defs/stakeholder_archetype_ref"},
         "description": {"type": ["string", "null"]}
       }
     },
@@ -46,14 +46,17 @@
         "treatment_variable_ids": {
           "type": "array",
           "minItems": 1,
+          "uniqueItems": true,
           "items": {"type": "string"}
         },
         "effect_modifier_variable_ids": {
           "type": "array",
+          "uniqueItems": true,
           "items": {"type": "string"}
         },
         "control_variable_ids": {
           "type": "array",
+          "uniqueItems": true,
           "items": {"type": "string"}
         }
       }
@@ -99,12 +102,21 @@
         "ExperimentRun"
       ]
     },
-    "ontology_ref": {
+    "transition_ref": {
       "type": "object",
       "additionalProperties": false,
       "required": ["ontology_node_type", "ontology_node_id"],
       "properties": {
-        "ontology_node_type": {"$ref": "#/$defs/ontology_node_type"},
+        "ontology_node_type": {"const": "Transition"},
+        "ontology_node_id": {"type": "string"}
+      }
+    },
+    "stakeholder_archetype_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ontology_node_type", "ontology_node_id"],
+      "properties": {
+        "ontology_node_type": {"const": "StakeholderArchetype"},
         "ontology_node_id": {"type": "string"}
       }
     },
