@@ -116,6 +116,7 @@ tests/
 
 ## Conventions
 
-- Branches normally use `codex/<short-slug>` for Codex work.
+- Branches normally use `codex/<issue-id>-<short-slug>` for Codex work so
+  PRs can be traced back to their driving issue.
 - Keep PRs focused: schema change plus fixture plus validator tests is one PR.
 - Do not delete or rewrite user work to clean the tree; preserve it first.

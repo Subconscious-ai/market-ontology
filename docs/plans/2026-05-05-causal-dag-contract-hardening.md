@@ -370,7 +370,8 @@ def normalize_projection(projection: dict) -> dict:
 Run:
 
 ```bash
-python scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.valid.json
+python scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.static.valid.json
+python scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.timeseries.valid.json
 ```
 
 Expected:
@@ -631,7 +632,13 @@ Expected: all pass.
 Run:
 
 ```bash
-Select-String -Path poc_v1/ontology/schema.py,poc_v1/ontology/edge_schemas.json,poc_v1/contracts/*.json -Pattern 'CAUSES|HAS_TREATMENT|HAS_OUTCOME|AFFECTS|SUPPORTED_BY|RECOMMENDS_CHANGE_TO'
+if grep -E -R 'CAUSES|HAS_TREATMENT|HAS_OUTCOME|AFFECTS|SUPPORTED_BY|RECOMMENDS_CHANGE_TO' \
+  poc_v1/ontology/schema.py \
+  poc_v1/ontology/edge_schemas.json \
+  poc_v1/contracts/*.json; then
+  echo "forbidden causal edge label found" >&2
+  exit 1
+fi
 ```
 
 Expected: no output.

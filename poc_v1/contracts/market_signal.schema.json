@@ -24,10 +24,12 @@
     "confidence": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
     "affected_nodes": {
       "type": "array",
+      "minItems": 1,
       "items": {"$ref": "#/$defs/ontology_ref"}
     },
     "evidence_ids": {
       "type": "array",
+      "minItems": 1,
       "items": {"type": "string"}
     }
   },

@@ -38,10 +38,15 @@
     "support": {
       "type": "object",
       "additionalProperties": false,
+      "anyOf": [
+        {"required": ["estimate_ids"]},
+        {"required": ["evidence_ids"]},
+        {"required": ["market_signal_ids"]}
+      ],
       "properties": {
-        "estimate_ids": {"type": "array", "items": {"type": "string"}},
-        "evidence_ids": {"type": "array", "items": {"type": "string"}},
-        "market_signal_ids": {"type": "array", "items": {"type": "string"}}
+        "estimate_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "evidence_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "market_signal_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}}
       }
     }
   },

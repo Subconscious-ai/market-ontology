@@ -373,6 +373,10 @@
           "required": true,
           "type": "select"
         },
+        "subconscious_experiment_id": {
+          "required": false,
+          "type": "text"
+        },
         "super_ego_run_id": {
           "required": false,
           "type": "text"

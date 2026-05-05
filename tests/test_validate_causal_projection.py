@@ -181,18 +181,21 @@ class ValidateCausalProjectionTest(unittest.TestCase):
 
     def test_valid_projection_emits_topological_order(self):
         validator = load_validator()
+        projection = valid_projection()
 
-        normalized = validator.normalize_projection(valid_projection())
+        normalized = validator.normalize_projection(projection)
+        order = normalized["topological_order"]
+        order_index = {variable_id: index for index, variable_id in enumerate(order)}
 
-        self.assertEqual(
-            [
-                "treatment_provenance_visibility",
-                "persona_security_buyer",
-                "market_regulatory_pressure",
-                "outcome_consider_choose",
-            ],
-            normalized["topological_order"],
+        self.assertCountEqual(
+            [variable["variable_id"] for variable in projection["variables"]],
+            order,
         )
+        for edge in projection["causal_edges"]:
+            self.assertLess(
+                order_index[edge["source_variable_id"]],
+                order_index[edge["target_variable_id"]],
+            )
 
     def test_timeseries_projection_requires_lagged_edges(self):
         validator = load_validator()
@@ -218,8 +221,8 @@ class ValidateCausalProjectionTest(unittest.TestCase):
     def test_cli_validates_projection_file(self):
         validator = load_validator()
         with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as handle:
-            json.dump(valid_projection(), handle)
             path = Path(handle.name)
+            json.dump(valid_projection(), handle)
 
         try:
             self.assertEqual(0, validator.main([str(path)]))

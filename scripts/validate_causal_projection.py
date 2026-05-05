@@ -12,6 +12,7 @@ import argparse
 import copy
 import json
 import sys
+from collections import deque
 from pathlib import Path
 from typing import Any
 
@@ -88,11 +89,11 @@ def _topological_order_without_networkx(
         outgoing[source].append(target)
         indegree[target] += 1
 
-    queue = [variable_id for variable_id in variables if indegree[variable_id] == 0]
+    queue = deque(variable_id for variable_id in variables if indegree[variable_id] == 0)
     order: list[str] = []
 
     while queue:
-        variable_id = queue.pop(0)
+        variable_id = queue.popleft()
         order.append(variable_id)
         for target in outgoing[variable_id]:
             indegree[target] -= 1
@@ -214,7 +215,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("projection", help="Path to causal DAG projection JSON")
     args = parser.parse_args(argv)
 
-    projection = json.loads(Path(args.projection).read_text(encoding="utf-8"))
+    try:
+        projection = json.loads(Path(args.projection).read_text(encoding="utf-8"))
+    except (FileNotFoundError, OSError, json.JSONDecodeError) as exc:
+        print(f"[causal-projection] ERROR: could not read projection: {exc}", file=sys.stderr)
+        return 1
+
     errors = validate_projection(projection)
     if errors:
         for error in errors:

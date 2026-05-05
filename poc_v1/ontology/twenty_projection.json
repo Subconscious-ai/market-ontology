@@ -322,6 +322,7 @@
         {"name": "synced_at", "type": "datetime", "required": true},
         {"name": "source_updated_at", "type": "datetime", "required": false},
         {"name": "super_ego_run_id", "type": "text", "required": false},
+        {"name": "subconscious_experiment_id", "type": "text", "required": false},
         {"name": "wandb_project", "type": "text", "required": false},
         {"name": "wandb_run_id", "type": "text", "required": false},
         {"name": "wandb_run_name", "type": "text", "required": false},

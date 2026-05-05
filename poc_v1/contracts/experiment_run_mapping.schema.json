@@ -282,7 +282,8 @@
       "properties": {
         "mapping_key": {
           "type": "string",
-          "description": "Deterministic key derived from source_system, source_field, and run_local_id."
+          "pattern": "^(super_ego|wandb):[^:]+:.+$",
+          "description": "Deterministic key formatted as source_system:source_field:run_local_id."
         },
         "source_system": {
           "type": "string",

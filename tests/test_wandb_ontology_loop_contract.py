@@ -18,11 +18,15 @@ def load_example(name: str) -> dict:
 
 
 def validate(instance: dict, schema_name: str) -> list[str]:
+    return [error.message for error in validation_errors(instance, schema_name)]
+
+
+def validation_errors(instance: dict, schema_name: str):
     schema = load_contract(schema_name)
     Draft202012Validator.check_schema(schema)
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
     return [
-        error.message
+        error
         for error in sorted(validator.iter_errors(instance), key=lambda err: list(err.path))
     ]
 
@@ -56,7 +60,6 @@ class WandbOntologyLoopContractTest(unittest.TestCase):
                 "to_stage": "retention",
             },
             "dependent_variable": {
-                "transition_id": "transition_patient_prefers_telemedicine",
                 "target_behavior": "patient preference for telemedicine services over in-person visits",
                 "respondent_prompt": (
                     "Please indicate which healthcare provider you would choose "
@@ -108,6 +111,20 @@ class WandbOntologyLoopContractTest(unittest.TestCase):
         }
 
         self.assertEqual([], validate(context, "experiment_context.schema.json"))
+
+        duplicated_transition_id = json.loads(json.dumps(context))
+        duplicated_transition_id["dependent_variable"][
+            "transition_id"
+        ] = "transition_patient_prefers_telemedicine"
+        self.assertTrue(
+            any(
+                "Additional properties" in error
+                for error in validate(
+                    duplicated_transition_id,
+                    "experiment_context.schema.json",
+                )
+            )
+        )
 
         missing_dependent_variable = dict(context)
         missing_dependent_variable.pop("dependent_variable")
@@ -261,44 +278,60 @@ class WandbOntologyLoopContractTest(unittest.TestCase):
         wrong_outcome["experiment_inputs"]["dependent_variable"]["ontology_ref"][
             "ontology_node_type"
         ] = "Market"
-        self.assertTrue(
-            any("'Transition' was expected" in error for error in validate(
-                wrong_outcome,
-                "experiment_run_mapping.schema.json",
-            ))
+        self.assert_const_error(
+            wrong_outcome,
+            ["experiment_inputs", "dependent_variable", "ontology_ref", "ontology_node_type"],
+            "Transition",
         )
 
         wrong_persona = json.loads(json.dumps(mapping))
         wrong_persona["experiment_inputs"]["persona"]["ontology_ref"][
             "ontology_node_type"
         ] = "Trait"
-        self.assertTrue(
-            any("'StakeholderArchetype' was expected" in error for error in validate(
-                wrong_persona,
-                "experiment_run_mapping.schema.json",
-            ))
+        self.assert_const_error(
+            wrong_persona,
+            ["experiment_inputs", "persona", "ontology_ref", "ontology_node_type"],
+            "StakeholderArchetype",
         )
 
         wrong_treatment = json.loads(json.dumps(mapping))
         wrong_treatment["experiment_inputs"]["treatments"][0]["attribute"][
             "ontology_node_type"
         ] = "Trait"
-        self.assertTrue(
-            any("'Attribute' was expected" in error for error in validate(
-                wrong_treatment,
-                "experiment_run_mapping.schema.json",
-            ))
+        self.assert_const_error(
+            wrong_treatment,
+            ["experiment_inputs", "treatments", 0, "attribute", "ontology_node_type"],
+            "Attribute",
         )
 
         wrong_level = json.loads(json.dumps(mapping))
         wrong_level["experiment_inputs"]["treatments"][0]["levels"][0][
             "attribute_level"
         ]["ontology_node_type"] = "Attribute"
+        self.assert_const_error(
+            wrong_level,
+            [
+                "experiment_inputs",
+                "treatments",
+                0,
+                "levels",
+                0,
+                "attribute_level",
+                "ontology_node_type",
+            ],
+            "AttributeLevel",
+        )
+
+    def assert_const_error(self, payload: dict, path: list, expected_value: str):
+        errors = validation_errors(payload, "experiment_run_mapping.schema.json")
         self.assertTrue(
-            any("'AttributeLevel' was expected" in error for error in validate(
-                wrong_level,
-                "experiment_run_mapping.schema.json",
-            ))
+            any(
+                list(error.absolute_path) == path
+                and error.validator == "const"
+                and error.validator_value == expected_value
+                for error in errors
+            ),
+            [error.message for error in errors],
         )
 
     def test_mapping_rejects_run_local_treatments_without_ontology_refs(self):

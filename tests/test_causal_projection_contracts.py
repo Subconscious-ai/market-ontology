@@ -1,14 +1,13 @@
-import importlib.util
 import json
-import sys
 import unittest
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
+from poc_v1.ontology import schema as ontology_schema
+
 
 ROOT = Path(__file__).resolve().parents[1]
-SCHEMA_PATH = ROOT / "poc_v1" / "ontology" / "schema.py"
 CONTRACTS_DIR = ROOT / "poc_v1" / "contracts"
 
 BASE_NODE_TYPES = {
@@ -51,11 +50,7 @@ FORBIDDEN_CAUSAL_EDGE_TYPES = {
 
 
 def load_schema():
-    spec = importlib.util.spec_from_file_location("schema", SCHEMA_PATH)
-    mod = importlib.util.module_from_spec(spec)
-    sys.modules["schema"] = mod
-    spec.loader.exec_module(mod)
-    return mod
+    return ontology_schema
 
 
 def load_contract(name: str) -> dict:
@@ -105,6 +100,29 @@ class CausalProjectionContractsTest(unittest.TestCase):
         )
         self.assertEqual("sha256:demo", run.ontology_snapshot_hash)
         self.assertEqual("sha256:fixture", run.wandb_artifacts[0].digest)
+        self.assertEqual(schema.ExperimentRunStatus.FINISHED, run.status)
+
+        with self.assertRaises(ValueError):
+            schema.validate_node(
+                "ExperimentRun",
+                {
+                    "id": "experiment_run_bad_status",
+                    "ontology_snapshot_hash": "sha256:demo",
+                    "status": "done",
+                },
+            )
+
+        with self.assertRaises(ValueError):
+            schema.validate_node(
+                "ExperimentRun",
+                {
+                    "id": "experiment_run_bad_dates",
+                    "ontology_snapshot_hash": "sha256:demo",
+                    "status": "finished",
+                    "started_at": "2026-05-05T12:00:00Z",
+                    "completed_at": "2026-05-05T11:00:00Z",
+                },
+            )
 
         amce = schema.validate_node(
             "Estimate",
@@ -169,6 +187,62 @@ class CausalProjectionContractsTest(unittest.TestCase):
         self.assertIn("estimation_target", dag_props)
         self.assertIn("time_series", dag_props)
 
+    def test_artifact_contracts_reject_empty_evidence_and_result_payloads(self):
+        market_signal_contract = load_contract("market_signal.schema.json")
+        recommendation_contract = load_contract("recommendation.schema.json")
+        results_contract = load_contract("normalized_experiment_results.schema.json")
+
+        market_signal = {
+            "market_signal_version": "1.0.0",
+            "ontology_snapshot_hash": "sha256:demo",
+            "signal_id": "signal_empty",
+            "summary": "Empty signal should fail.",
+            "observed_at": "2026-05-05T12:00:00Z",
+            "affected_nodes": [],
+            "evidence_ids": [],
+        }
+        self.assertTrue(
+            list(Draft202012Validator(market_signal_contract).iter_errors(market_signal))
+        )
+
+        recommendation = {
+            "recommendation_version": "1.0.0",
+            "ontology_snapshot_hash": "sha256:demo",
+            "recommendation_id": "rec_empty",
+            "target_role": "product_manager",
+            "summary": "Unsupported recommendation should fail.",
+            "recommended_change": {
+                "target": {
+                    "ontology_node_type": "Attribute",
+                    "ontology_node_id": "attr_demo",
+                }
+            },
+            "support": {},
+        }
+        self.assertTrue(
+            list(Draft202012Validator(recommendation_contract).iter_errors(recommendation))
+        )
+
+        results = {
+            "normalized_experiment_results_version": "1.0.0",
+            "ontology_snapshot_hash": "sha256:demo",
+            "experiment_run_id": "experiment_run_demo",
+            "subconscious_experiment_id": "sub_exp_demo",
+            "model_version": "hb-demo",
+            "estimated_at": "2026-05-05T12:00:00Z",
+            "outcome": {
+                "ontology_node_type": "Transition",
+                "ontology_node_id": "tr_demo",
+            },
+            "wandb_run": {
+                "entity": "why-earth",
+                "project": "dev-subconscious-ai",
+                "run_id": "run_demo",
+            },
+            "estimates": [],
+        }
+        self.assertTrue(list(Draft202012Validator(results_contract).iter_errors(results)))
+
     def test_super_ego_projection_links_to_causal_artifact_contracts(self):
         projection = json.loads(
             (ROOT / "poc_v1" / "ontology" / "super_ego_projection.json").read_text(
@@ -177,7 +251,7 @@ class CausalProjectionContractsTest(unittest.TestCase):
         )
 
         self.assertEqual("1.3.1", projection["schema_version"])
-        self.assertEqual(
+        self.assertCountEqual(
             [
                 "poc_v1/contracts/causal_dag_projection.schema.json",
                 "poc_v1/contracts/experiment_run_mapping.schema.json",
@@ -193,7 +267,7 @@ class CausalProjectionContractsTest(unittest.TestCase):
 
         self.assertIn("ontology_mappings", mapping_contract["required"])
         mapping_def = mapping_contract["$defs"]["ontology_mapping"]
-        self.assertEqual(
+        self.assertCountEqual(
             [
                 "mapping_key",
                 "source_system",
@@ -204,6 +278,10 @@ class CausalProjectionContractsTest(unittest.TestCase):
                 "role",
             ],
             mapping_def["required"],
+        )
+        self.assertEqual(
+            "^(super_ego|wandb):[^:]+:.+$",
+            mapping_def["properties"]["mapping_key"]["pattern"],
         )
 
         sample_mappings = [
@@ -243,7 +321,7 @@ class CausalProjectionContractsTest(unittest.TestCase):
         self.assertIn("subconscious_experiment_id", results_contract["required"])
         self.assertIn("model_version", results_contract["required"])
         estimate_def = results_contract["$defs"]["normalized_estimate"]
-        self.assertEqual(
+        self.assertCountEqual(
             [
                 "estimate_id",
                 "estimate_type",
@@ -257,7 +335,7 @@ class CausalProjectionContractsTest(unittest.TestCase):
             ],
             estimate_def["required"],
         )
-        self.assertEqual(
+        self.assertCountEqual(
             [
                 "part_worth",
                 "transition_probability",

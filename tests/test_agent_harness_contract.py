@@ -16,15 +16,16 @@ class AgentHarnessContractTest(unittest.TestCase):
         text = VALIDATE_FAST.read_text()
         expected_lines = [
             "bash scripts/agent/readiness.sh",
-            "python3 scripts/validate_causal_dag.py",
-            "python3 scripts/validate_kg_seed.py",
-            "python3 scripts/generate_kg_seed_contract.py --check",
-            "python3 scripts/generate_twenty_app.py --check",
-            "python3 scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.static.valid.json",
-            "python3 scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.timeseries.valid.json",
-            "python3 -m unittest discover -s tests -v",
+            "bash scripts/agent/preflight.sh",
+            '"$PYTHON_BIN" scripts/validate_causal_dag.py',
+            '"$PYTHON_BIN" scripts/validate_kg_seed.py',
+            '"$PYTHON_BIN" scripts/generate_kg_seed_contract.py --check',
+            '"$PYTHON_BIN" scripts/generate_twenty_app.py --check',
+            '"$PYTHON_BIN" scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.static.valid.json',
+            '"$PYTHON_BIN" scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.timeseries.valid.json',
+            '"$PYTHON_BIN" -m unittest discover -s tests -v',
             "bash scripts/check-doc-rot.sh",
-            "python3 -m py_compile poc_v1/ontology/schema.py",
+            '"$PYTHON_BIN" -m py_compile poc_v1/ontology/schema.py',
         ]
 
         for line in expected_lines:

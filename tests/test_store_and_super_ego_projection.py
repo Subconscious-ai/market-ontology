@@ -2,6 +2,8 @@ import json
 import unittest
 from pathlib import Path
 
+from poc_v1.ontology.schema import SCHEMA_VERSION
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SUPER_EGO_PROJECTION_PATH = ROOT / "poc_v1" / "ontology" / "super_ego_projection.json"
@@ -49,7 +51,7 @@ class StoreAndSuperEgoProjectionTest(unittest.TestCase):
     def test_super_ego_projection_maps_ontology_to_api_and_wandb(self):
         projection = json.loads(SUPER_EGO_PROJECTION_PATH.read_text(encoding="utf-8"))
 
-        self.assertEqual("1.3.1", projection["schema_version"])
+        self.assertEqual(SCHEMA_VERSION, projection["schema_version"])
         self.assertEqual("https://api.subconscious.ai", projection["api"]["base_url"])
         self.assertEqual("why-earth", projection["wandb"]["entity"])
         self.assertEqual("dev-subconscious-ai", projection["wandb"]["project"])

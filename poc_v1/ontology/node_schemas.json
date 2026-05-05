@@ -231,7 +231,10 @@
         "wandb_project": {"type": ["string", "null"]},
         "wandb_run_id": {"type": ["string", "null"]},
         "wandb_run_name": {"type": ["string", "null"]},
-        "status": {"type": "string"},
+        "status": {
+          "type": "string",
+          "enum": ["pending", "running", "finished", "failed", "cancelled"]
+        },
         "artifact_refs": {"type": "array", "items": {"type": "string"}},
         "wandb_artifacts": {
           "type": "array",

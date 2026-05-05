@@ -29,6 +29,7 @@
     "wandb_run": {"$ref": "#/$defs/wandb_run_ref"},
     "estimates": {
       "type": "array",
+      "minItems": 1,
       "items": {"$ref": "#/$defs/normalized_estimate"}
     }
   },

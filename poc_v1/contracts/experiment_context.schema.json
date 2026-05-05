@@ -53,9 +53,7 @@
     "dependent_variable": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["transition_id"],
       "properties": {
-        "transition_id": {"type": "string"},
         "target_behavior": {"type": ["string", "null"]},
         "respondent_prompt": {"type": ["string", "null"]},
         "measurement_type": {

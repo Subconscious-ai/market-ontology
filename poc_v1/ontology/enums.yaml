@@ -39,6 +39,13 @@ estimate_types:
 - amce
 - importance
 
+experiment_run_statuses:
+- pending
+- running
+- finished
+- failed
+- cancelled
+
 support_types:
 - direct
 - benchmark

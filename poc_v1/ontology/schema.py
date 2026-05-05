@@ -69,6 +69,14 @@ class EstimateType(str, Enum):
     IMPORTANCE = "importance"
 
 
+class ExperimentRunStatus(str, Enum):
+    PENDING = "pending"
+    RUNNING = "running"
+    FINISHED = "finished"
+    FAILED = "failed"
+    CANCELLED = "cancelled"
+
+
 # ---------------------------------------------------------------------------
 # Common mixins
 # ---------------------------------------------------------------------------
@@ -245,13 +253,19 @@ class ExperimentRun(_VersionedNode):
     wandb_project: Optional[str] = None
     wandb_run_id: Optional[str] = None
     wandb_run_name: Optional[str] = None
-    status: str
+    status: ExperimentRunStatus
     artifact_refs: list[str] = Field(default_factory=list)
     wandb_artifacts: list[WandbArtifactRef] = Field(default_factory=list)
     model_versions: dict[str, str] = Field(default_factory=dict)
     sample_size: Optional[int] = None
     started_at: Optional[datetime] = None
     completed_at: Optional[datetime] = None
+
+    @model_validator(mode="after")
+    def _check_run_time_range(self):
+        if self.started_at and self.completed_at and self.started_at > self.completed_at:
+            raise ValueError("started_at must be <= completed_at")
+        return self
 
 
 # ---------------------------------------------------------------------------
