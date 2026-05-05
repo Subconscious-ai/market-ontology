@@ -1,0 +1,1 @@
+{"id": "effect_dc_adoption", "properties": {"name": "Data-center NVIDIA adoption rate", "description": "Quarterly net-new GPU racks deployed in hyperscaler DCs.", "source": "interview", "confidence": 0.6, "metric": "racks_per_quarter"}}

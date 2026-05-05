@@ -18,7 +18,13 @@ jobs:
           python-version: "3.11"
 
       - name: Install runtime deps
-        run: pip install 'pydantic>=2'
+        run: pip install 'pydantic>=2' 'networkx>=3'
+
+      - name: Validate causal_dag_v1 fixtures
+        run: python scripts/validate_causal_dag.py
+
+      - name: Run causal_dag_v1 tests
+        run: python -m unittest tests.test_causal_dag_v1 -v
 
       - name: JSON syntax check (node/edge schemas)
         run: |

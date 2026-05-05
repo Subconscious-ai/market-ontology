@@ -1,0 +1,1 @@
+{"id": "cause_perf_per_watt", "properties": {"name": "Power efficiency improvement", "description": "Reduction in W per FLOP for AI training workloads.", "source": "interview", "confidence": 0.7, "manipulable": true}}

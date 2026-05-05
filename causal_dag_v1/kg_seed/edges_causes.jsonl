@@ -1,0 +1,1 @@
+{"start_id": "cause_perf_per_watt", "end_id": "effect_dc_adoption", "properties": {"direction": "pos", "effect_size": 0.43, "ci_low": 0.21, "ci_high": 0.65, "intervention": "observe", "confidence": 0.6}}
