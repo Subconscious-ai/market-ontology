@@ -1,4 +1,7 @@
 Full path 
+
+Symphony gate canary marker: BEC-1784.
+
   ~/subconscious-ai/
   ├── spice-harvester/        ← bash + python research pipeline
   │                             github.com/Subconscious-ai/spice-harvester
