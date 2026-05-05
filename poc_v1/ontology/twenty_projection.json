@@ -1,6 +1,6 @@
 {
   "$schema": "https://subconscious.ai/schemas/twenty-projection-manifest.json",
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.1",
   "projection_version": "1.0.0",
   "metadata_fields": [
     {"name": "ontology_node_id", "type": "text", "required": true},
@@ -305,6 +305,34 @@
         {"name": "estimated_at", "type": "datetime", "required": true}
       ],
       "relations": []
+    },
+    {
+      "object_name": "experiment_run",
+      "display_name": "Experiment Run",
+      "ontology_node_type": "ExperimentRun",
+      "surface": "support",
+      "sync_ledger_key_fields": ["tenant_id", "ontology_node_type", "ontology_node_id", "ontology_snapshot_hash"],
+      "fields": [
+        {"name": "ontology_node_id", "type": "text", "required": true},
+        {"name": "ontology_node_type", "type": "text", "required": true},
+        {"name": "ontology_schema_version", "type": "text", "required": true},
+        {"name": "projection_version", "type": "text", "required": true},
+        {"name": "source_run_id", "type": "text", "required": true},
+        {"name": "ontology_snapshot_hash", "type": "text", "required": true},
+        {"name": "synced_at", "type": "datetime", "required": true},
+        {"name": "source_updated_at", "type": "datetime", "required": false},
+        {"name": "super_ego_run_id", "type": "text", "required": false},
+        {"name": "subconscious_experiment_id", "type": "text", "required": false},
+        {"name": "wandb_project", "type": "text", "required": false},
+        {"name": "wandb_run_id", "type": "text", "required": false},
+        {"name": "wandb_run_name", "type": "text", "required": false},
+        {"name": "status", "type": "select", "required": true},
+        {"name": "sample_size", "type": "number", "required": false},
+        {"name": "completed_at", "type": "datetime", "required": false}
+      ],
+      "relations": [
+        {"name": "estimates", "edge_label": "PRODUCED", "target_object": "estimate", "cardinality": "many"}
+      ]
     }
   ]
 }

@@ -24,7 +24,7 @@ jobs:
           cache-dependency-path: pyproject.toml
 
       - name: Install package
-        run: pip install -e .
+        run: pip install -e ".[dev]"
 
       - name: Validate causal_dag_v1 fixtures
         run: python scripts/validate_causal_dag.py
@@ -39,6 +39,11 @@ jobs:
         run: |
           python scripts/generate_kg_seed_contract.py --check
           python scripts/generate_twenty_app.py --check
+
+      - name: Validate causal projection examples
+        run: |
+          python scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.static.valid.json
+          python scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.timeseries.valid.json
 
       - name: Run projection tests
         run: python -m unittest discover -s tests -v

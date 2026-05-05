@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Recommendation - user-facing action artifact",
+  "description": "A recommendation artifact that cites estimates, evidence, market signals, and ontology IDs. Recommendations are not graph truth.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "recommendation_version",
+    "ontology_snapshot_hash",
+    "recommendation_id",
+    "target_role",
+    "summary",
+    "recommended_change",
+    "support"
+  ],
+  "properties": {
+    "recommendation_version": {"type": "string"},
+    "ontology_snapshot_hash": {"type": "string"},
+    "recommendation_id": {"type": "string"},
+    "target_role": {
+      "type": "string",
+      "enum": ["designer", "product_manager", "strategy_officer"]
+    },
+    "summary": {"type": "string"},
+    "confidence": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
+    "expires_at": {"type": ["string", "null"], "format": "date-time"},
+    "recommended_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target"],
+      "properties": {
+        "target": {"$ref": "#/$defs/ontology_ref"},
+        "from": {},
+        "to": {},
+        "rationale": {"type": ["string", "null"]}
+      }
+    },
+    "support": {
+      "type": "object",
+      "additionalProperties": false,
+      "anyOf": [
+        {"required": ["estimate_ids"]},
+        {"required": ["evidence_ids"]},
+        {"required": ["market_signal_ids"]}
+      ],
+      "properties": {
+        "estimate_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "evidence_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "market_signal_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      }
+    }
+  },
+  "$defs": {
+    "ontology_node_type": {
+      "type": "string",
+      "enum": [
+        "Market",
+        "Stage",
+        "Transition",
+        "StakeholderArchetype",
+        "Offering",
+        "Attribute",
+        "AttributeLevel",
+        "Trait",
+        "TraitLevel",
+        "Evidence",
+        "Estimate",
+        "Company",
+        "ExperimentRun"
+      ]
+    },
+    "ontology_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ontology_node_type", "ontology_node_id"],
+      "properties": {
+        "ontology_node_type": {"$ref": "#/$defs/ontology_node_type"},
+        "ontology_node_id": {"type": "string"}
+      }
+    }
+  }
+}

@@ -35,6 +35,7 @@ FIXTURES = {
     "trait_levels.jsonl":                  ("TraitLevel", False),
     "evidence.jsonl":                      ("Evidence", False),
     "estimates.jsonl":                     ("Estimate", False),
+    "experiment_runs.jsonl":               ("ExperimentRun", False),
     "edges_transition_from_stage.jsonl":   ("FROM", True),
     "edges_transition_to_stage.jsonl":     ("TO", True),
     "edges_transition_in_market.jsonl":    ("IN_MARKET", True),
@@ -49,6 +50,8 @@ FIXTURES = {
     "edges_evidence_supports.jsonl":       ("SUPPORTS", True),
     "companies.jsonl":                     ("Company", False),
     "edges_offering_offered_by.jsonl":     ("OFFERED_BY", True),
+    "edges_experiment_run_consumed.jsonl": ("CONSUMED", True),
+    "edges_experiment_run_produced.jsonl": ("PRODUCED", True),
 }
 
 

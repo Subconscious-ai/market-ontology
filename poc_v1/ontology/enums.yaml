@@ -36,6 +36,15 @@ estimate_types:
 - wtp
 - elasticity
 - ate
+- amce
+- importance
+
+experiment_run_statuses:
+- pending
+- running
+- finished
+- failed
+- cancelled
 
 support_types:
 - direct

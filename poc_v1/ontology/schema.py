@@ -1,13 +1,13 @@
 """
 v1 POC ontology — Pydantic models for write-boundary validation.
 
-Every node or edge written to Neo4j must first validate through these models.
+Every node or edge written to the property graph must first validate through these models.
 This is the single source of truth for the schema. Keep it aligned with:
   - ontology/node_schemas.json
   - ontology/edge_schemas.json
-  - neo4j/constraints.cypher
+  - graph-store adapter constraints/import scripts
 
-Schema version: 1.2.0
+Schema version: 1.3.1
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field, model_validator
 
-SCHEMA_VERSION = "1.2.0"
+SCHEMA_VERSION = "1.3.1"
 
 
 # ---------------------------------------------------------------------------
@@ -65,6 +65,16 @@ class EstimateType(str, Enum):
     WTP = "wtp"
     ELASTICITY = "elasticity"
     ATE = "ate"
+    AMCE = "amce"
+    IMPORTANCE = "importance"
+
+
+class ExperimentRunStatus(str, Enum):
+    PENDING = "pending"
+    RUNNING = "running"
+    FINISHED = "finished"
+    FAILED = "failed"
+    CANCELLED = "cancelled"
 
 
 # ---------------------------------------------------------------------------
@@ -220,6 +230,44 @@ class Estimate(_VersionedNode, _TemporallyValid):
     estimated_at: datetime
 
 
+class WandbArtifactRef(BaseModel):
+    entity: str
+    project: str
+    run_id: Optional[str] = None
+    name: str
+    type: str
+    version: str
+    digest: str
+    qualified_name: Optional[str] = None
+    aliases: list[str] = Field(default_factory=list)
+    url: Optional[str] = None
+    files: list[dict[str, Any]] = Field(default_factory=list)
+
+
+class ExperimentRun(_VersionedNode):
+    """Experiment execution record tying a snapshot to SuperEgo/W&B artifacts."""
+    id: str
+    ontology_snapshot_hash: str
+    super_ego_run_id: Optional[str] = None
+    wandb_entity: Optional[str] = None
+    wandb_project: Optional[str] = None
+    wandb_run_id: Optional[str] = None
+    wandb_run_name: Optional[str] = None
+    status: ExperimentRunStatus
+    artifact_refs: list[str] = Field(default_factory=list)
+    wandb_artifacts: list[WandbArtifactRef] = Field(default_factory=list)
+    model_versions: dict[str, str] = Field(default_factory=dict)
+    sample_size: Optional[int] = None
+    started_at: Optional[datetime] = None
+    completed_at: Optional[datetime] = None
+
+    @model_validator(mode="after")
+    def _check_run_time_range(self):
+        if self.started_at and self.completed_at and self.started_at > self.completed_at:
+            raise ValueError("started_at must be <= completed_at")
+        return self
+
+
 # ---------------------------------------------------------------------------
 # Edges
 # ---------------------------------------------------------------------------
@@ -297,6 +345,17 @@ class EdgeOfferedBy(_Edge):
     label: Literal["OFFERED_BY"] = "OFFERED_BY"
 
 
+class EdgeConsumed(_Edge):
+    """ExperimentRun -[:CONSUMED]-> any ontology context node."""
+    label: Literal["CONSUMED"] = "CONSUMED"
+    target_node_type: Optional[str] = None
+
+
+class EdgeProduced(_Edge):
+    """ExperimentRun -[:PRODUCED]-> Estimate."""
+    label: Literal["PRODUCED"] = "PRODUCED"
+
+
 # ---------------------------------------------------------------------------
 # Convenience: registry for writers/importers
 # ---------------------------------------------------------------------------
@@ -314,6 +373,7 @@ NODE_MODELS: dict[str, type[BaseModel]] = {
     "Evidence": Evidence,
     "Estimate": Estimate,
     "Company": Company,
+    "ExperimentRun": ExperimentRun,
 }
 
 EDGE_MODELS: dict[str, type[BaseModel]] = {
@@ -328,6 +388,8 @@ EDGE_MODELS: dict[str, type[BaseModel]] = {
     "RELEVANT_AT": EdgeRelevantAt,
     "SUPPORTS": EdgeSupports,
     "OFFERED_BY": EdgeOfferedBy,
+    "CONSUMED": EdgeConsumed,
+    "PRODUCED": EdgeProduced,
 }
 
 

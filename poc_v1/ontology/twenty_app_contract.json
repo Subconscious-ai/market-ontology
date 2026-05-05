@@ -330,6 +330,91 @@
         "ontology_snapshot_hash"
       ]
     },
+    "experiment_run": {
+      "display_name": "Experiment Run",
+      "fields": {
+        "completed_at": {
+          "required": false,
+          "type": "datetime"
+        },
+        "ontology_node_id": {
+          "required": true,
+          "type": "text"
+        },
+        "ontology_node_type": {
+          "required": true,
+          "type": "text"
+        },
+        "ontology_schema_version": {
+          "required": true,
+          "type": "text"
+        },
+        "ontology_snapshot_hash": {
+          "required": true,
+          "type": "text"
+        },
+        "projection_version": {
+          "required": true,
+          "type": "text"
+        },
+        "sample_size": {
+          "required": false,
+          "type": "number"
+        },
+        "source_run_id": {
+          "required": true,
+          "type": "text"
+        },
+        "source_updated_at": {
+          "required": false,
+          "type": "datetime"
+        },
+        "status": {
+          "required": true,
+          "type": "select"
+        },
+        "subconscious_experiment_id": {
+          "required": false,
+          "type": "text"
+        },
+        "super_ego_run_id": {
+          "required": false,
+          "type": "text"
+        },
+        "synced_at": {
+          "required": true,
+          "type": "datetime"
+        },
+        "wandb_project": {
+          "required": false,
+          "type": "text"
+        },
+        "wandb_run_id": {
+          "required": false,
+          "type": "text"
+        },
+        "wandb_run_name": {
+          "required": false,
+          "type": "text"
+        }
+      },
+      "ontology_node_type": "ExperimentRun",
+      "relations": [
+        {
+          "cardinality": "many",
+          "edge_label": "PRODUCED",
+          "name": "estimates",
+          "target_object": "estimate"
+        }
+      ],
+      "surface": "support",
+      "sync_ledger_key_fields": [
+        "tenant_id",
+        "ontology_node_type",
+        "ontology_node_id",
+        "ontology_snapshot_hash"
+      ]
+    },
     "market": {
       "display_name": "Market",
       "fields": {
@@ -830,7 +915,7 @@
     }
   },
   "projection_version": "1.0.0",
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.1",
   "sync_ledger": {
     "description": "Downstream sync ledgers use these fields to map a tenant-scoped ontology node snapshot to a Twenty record.",
     "stable_key_fields": [

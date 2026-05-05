@@ -20,14 +20,14 @@ The ontology is **context for the experiment**, not the experiment itself. Subco
 
 ## Stack
 
-- **Neo4j** as the store. Bloom for customer-facing visualization.
+- **FalkorDB-compatible property graph** as the store.
 - **Pydantic** at the write boundary for schema enforcement.
 - **Splink** (separate job) for entity resolution on Offerings and StakeholderArchetypes.
-- **APOC** for JSONL import/export.
+- Deployment-specific import/export over validated JSONL fixtures.
 - **Postgres + pg_vector** (optional, separate) if the research agent needs semantic retrieval over Evidence excerpts.
 - **Graphiti is deliberately not in v1.** Revisit in v2 if research-agent ingestion quality plateaus.
 
-## Node types (12)
+## Node types (13)
 
 | Node | Purpose |
 |---|---|
@@ -43,8 +43,9 @@ The ontology is **context for the experiment**, not the experiment itself. Subco
 | Evidence | Source grounding for any node |
 | Estimate | Part-worth or other quantity returned from Subconscious |
 | Company | Organization that offers one or more Offerings |
+| ExperimentRun | Execution record tying an ontology snapshot to SuperEgo/W&B artifacts |
 
-## Edge types (11)
+## Edge types (13)
 
 ```
 Transition -[:FROM]-> Stage
@@ -54,6 +55,7 @@ Transition -[:RELEVANT_TO]-> StakeholderArchetype
 Transition -[:ABOUT]-> Offering
 
 Offering -[:HAS_ATTRIBUTE]-> Attribute
+Offering -[:OFFERED_BY]-> Company
 Attribute -[:HAS_LEVEL]-> AttributeLevel
 StakeholderArchetype -[:HAS_TRAIT]-> Trait
 Trait -[:HAS_LEVEL]-> TraitLevel
@@ -61,6 +63,8 @@ Attribute -[:RELEVANT_AT {score, valid_from, valid_to, evidence_ids}]-> Stage
 
 Evidence -[:SUPPORTS]-> *
 Estimate -[:ABOUT]-> *
+ExperimentRun -[:CONSUMED]-> *
+ExperimentRun -[:PRODUCED]-> Estimate
 ```
 
 ## Golden rules
@@ -75,15 +79,26 @@ Estimate -[:ABOUT]-> *
 
 1. Research agent + executive interview extract node and edge candidates with evidence into JSONL.
 2. Pydantic validates at the write boundary.
-3. APOC imports validated JSONL into Neo4j.
+3. The graph-store adapter imports validated JSONL into FalkorDB.
 4. Splink runs entity resolution on Offerings and StakeholderArchetypes after each ingestion pass.
-5. Customer reviews the graph in Bloom.
+5. Customer-facing products read from the property graph.
 6. Experiment context is projected to JSON (see `contracts/experiment_context.schema.json`) and sent to Subconscious.
-7. Subconscious returns results (see `contracts/experiment_results.schema.json`) which land as Estimate nodes.
+7. SuperEgo/W&B run-local IDs are bound back to ontology IDs through `contracts/experiment_run_mapping.schema.json`.
+8. Subconscious returns results (see `contracts/experiment_results.schema.json`) which land as Estimate nodes linked to an ExperimentRun.
 
 ## Twenty projection
 
 `ontology/twenty_projection.json` is the source manifest for the Twenty projection. `ontology/twenty_app_contract.json` is generated from it and exposes Company, Product, and Persona as primary business surfaces while preserving support objects and sync metadata for provenance.
+
+## SuperEgo projection
+
+`ontology/super_ego_projection.json` maps ontology nodes to SuperEgo API surfaces and W&B run/artifact metadata. It is an integration contract only; API credentials stay outside this repo.
+
+## Causal projection artifacts
+
+Causal DAGs, market signals, normalized experiment results, and recommendations are versioned artifacts under `contracts/`. They reference ontology node IDs and `ontology_snapshot_hash`; they do not add causal edges to the core graph.
+
+`../docs/causal_projection_library_grounding.md` defines how these artifacts map to NetworkX, CausalNex, EconML, CausalFlow, RDF/RDFLib, W&B, and FalkorDB. The repo uses `jsonschema[format]` and NetworkX for CI/dev validation only; the heavier causal libraries are not core runtime dependencies.
 
 ## What changed from v0
 

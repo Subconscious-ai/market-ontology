@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Normalized Experiment Results - SuperEgo/W&B to ontology",
+  "description": "Experiment results normalized against an experiment run mapping. Records are ready to become Estimate nodes and ABOUT/PRODUCED edges.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "normalized_experiment_results_version",
+    "ontology_snapshot_hash",
+    "experiment_run_id",
+    "subconscious_experiment_id",
+    "model_version",
+    "estimated_at",
+    "outcome",
+    "wandb_run",
+    "estimates"
+  ],
+  "properties": {
+    "normalized_experiment_results_version": {"type": "string"},
+    "ontology_snapshot_hash": {"type": "string"},
+    "experiment_run_id": {"type": "string"},
+    "subconscious_experiment_id": {"type": "string"},
+    "model_version": {"type": "string"},
+    "estimated_at": {"type": "string", "format": "date-time"},
+    "super_ego_run_id": {"type": ["string", "null"]},
+    "wandb_run_id": {"type": ["string", "null"]},
+    "completed_at": {"type": ["string", "null"], "format": "date-time"},
+    "outcome": {"$ref": "#/$defs/transition_ref"},
+    "wandb_run": {"$ref": "#/$defs/wandb_run_ref"},
+    "estimates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/normalized_estimate"}
+    }
+  },
+  "$defs": {
+    "ontology_node_type": {
+      "type": "string",
+      "enum": [
+        "Market",
+        "Stage",
+        "Transition",
+        "StakeholderArchetype",
+        "Offering",
+        "Attribute",
+        "AttributeLevel",
+        "Trait",
+        "TraitLevel",
+        "Evidence",
+        "Estimate",
+        "Company",
+        "ExperimentRun"
+      ]
+    },
+    "ontology_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ontology_node_type", "ontology_node_id"],
+      "properties": {
+        "ontology_node_type": {"$ref": "#/$defs/ontology_node_type"},
+        "ontology_node_id": {"type": "string"}
+      }
+    },
+    "transition_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ontology_node_type", "ontology_node_id"],
+      "properties": {
+        "ontology_node_type": {"const": "Transition"},
+        "ontology_node_id": {"type": "string"}
+      }
+    },
+    "wandb_run_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entity", "project", "run_id"],
+      "properties": {
+        "entity": {"type": "string"},
+        "project": {"type": "string"},
+        "run_id": {"type": "string"},
+        "run_name": {"type": ["string", "null"]},
+        "url": {"type": ["string", "null"]}
+      }
+    },
+    "wandb_estimate_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_name",
+        "artifact_type",
+        "artifact_version",
+        "artifact_digest",
+        "file_path",
+        "row_key"
+      ],
+      "properties": {
+        "artifact_name": {"type": "string"},
+        "artifact_type": {"type": "string"},
+        "artifact_version": {"type": "string"},
+        "artifact_digest": {"type": "string"},
+        "file_path": {"type": "string"},
+        "row_key": {"type": "string"},
+        "run_local_attribute_id": {"type": ["string", "integer", "null"]},
+        "run_local_level_id": {"type": ["string", "integer", "null"]},
+        "run_local_persona_id": {"type": ["string", "integer", "null"]}
+      }
+    },
+    "normalized_estimate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "estimate_id",
+        "estimate_type",
+        "value",
+        "about",
+        "subconscious_experiment_id",
+        "model_version",
+        "ontology_snapshot_hash",
+        "estimated_at",
+        "source_wandb"
+      ],
+      "properties": {
+        "estimate_id": {"type": "string"},
+        "estimate_type": {
+          "type": "string",
+          "enum": ["part_worth", "transition_probability", "wtp", "elasticity", "ate", "amce", "importance"]
+        },
+        "value": {"type": "number"},
+        "ci_low": {"type": ["number", "null"]},
+        "ci_high": {"type": ["number", "null"]},
+        "standard_error": {"type": ["number", "null"]},
+        "subconscious_experiment_id": {"type": "string"},
+        "model_version": {"type": "string"},
+        "ontology_snapshot_hash": {"type": "string"},
+        "estimated_at": {"type": "string", "format": "date-time"},
+        "about": {"$ref": "#/$defs/ontology_ref"},
+        "conditioned_on": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/ontology_ref"}
+        },
+        "source_rows": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "source_wandb": {"$ref": "#/$defs/wandb_estimate_source"}
+      }
+    }
+  }
+}

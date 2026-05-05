@@ -1,0 +1,115 @@
+{
+  "experiment_run_mapping_version": "1.0.0",
+  "ontology_snapshot_hash": "sha256:telemedicine-demo",
+  "experiment_run": {
+    "experiment_run_id": "experiment_run_reaction_20260505",
+    "super_ego_run_id": null,
+    "wandb_entity": "why-earth",
+    "wandb_project": "dev-subconscious-ai",
+    "wandb_run_id": "e467562c-8b76-451a-9228-d28fbed927e5",
+    "wandb_run_name": "reaction-26-05-05-14-35-57-804"
+  },
+  "experiment_inputs": {
+    "dependent_variable": {
+      "ontology_ref": {
+        "ontology_node_type": "Transition",
+        "ontology_node_id": "transition_patient_prefers_telemedicine"
+      },
+      "source_fields": [
+        "experiment_definition.respondent_dependent_variable",
+        "experiment_definition.target_behavior"
+      ],
+      "target_behavior_text": "patient preference for telemedicine services over in-person visits",
+      "respondent_dependent_variable_text": "Please indicate which healthcare provider you would choose for your routine check-ups."
+    },
+    "persona": {
+      "ontology_ref": {
+        "ontology_node_type": "StakeholderArchetype",
+        "ontology_node_id": "persona_us_routine_checkup_patient"
+      },
+      "source_fields": [
+        "calculations.Ind_Est_2.HB_Data.Demographics"
+      ],
+      "trait_levels": [
+        {
+          "trait": {
+            "ontology_node_type": "Trait",
+            "ontology_node_id": "trait_health_anxiety_sensitivity"
+          },
+          "trait_level": {
+            "ontology_node_type": "TraitLevel",
+            "ontology_node_id": "trait_level_health_anxiety_medium"
+          },
+          "role": "effect_modifier",
+          "observed_column": "Health Anxiety Sensitivity",
+          "run_local_value": "Medium",
+          "label": "Health Anxiety Sensitivity: Medium"
+        }
+      ]
+    },
+    "treatments": [
+      {
+        "attribute": {
+          "ontology_node_type": "Attribute",
+          "ontology_node_id": "attr_app_access_speed"
+        },
+        "run_local_attribute_id": 0,
+        "attribute_text": "App Access Speed",
+        "levels": [
+          {
+            "attribute_level": {
+              "ontology_node_type": "AttributeLevel",
+              "ontology_node_id": "attr_level_app_access_0_2s"
+            },
+            "run_local_level_id": 2,
+            "level_text": "0-2s Response Time",
+            "is_base_level": false
+          }
+        ]
+      }
+    ],
+    "context": [
+      {
+        "ontology_node_type": "Market",
+        "ontology_node_id": "market_us_telemedicine_2026"
+      }
+    ]
+  },
+  "wandb_artifacts": [
+    {
+      "entity": "why-earth",
+      "project": "dev-subconscious-ai",
+      "run_id": "e467562c-8b76-451a-9228-d28fbed927e5",
+      "name": "experiment_beta_amce_reaction-26-05-05-14-35-57-804",
+      "type": "analytics_output",
+      "version": "v0",
+      "digest": "98450ba043482ceb54ddc4d0c9401a00",
+      "aliases": ["latest"],
+      "files": [
+        {
+          "path": "amce_reaction-26-05-05-14-35-57-804.json",
+          "md5": "x4CO/bPQE94gsDrD5rWh0Q==",
+          "size_bytes": 8525
+        }
+      ]
+    }
+  ],
+  "ontology_mappings": [],
+  "attribute_mappings": [
+    {
+      "ontology_attribute_id": "attr_app_access_speed",
+      "super_ego_attribute_id": 0,
+      "attribute_text": "App Access Speed"
+    }
+  ],
+  "level_mappings": [
+    {
+      "ontology_attribute_id": "attr_app_access_speed",
+      "ontology_attribute_level_id": "attr_level_app_access_0_2s",
+      "super_ego_attribute_id": 0,
+      "super_ego_level_id": 2,
+      "level_text": "0-2s Response Time",
+      "match_confidence": 1.0
+    }
+  ]
+}

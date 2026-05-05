@@ -1,0 +1,51 @@
+{
+  "normalized_experiment_results_version": "1.0.0",
+  "ontology_snapshot_hash": "sha256:telemedicine-demo",
+  "experiment_run_id": "experiment_run_reaction_20260505",
+  "subconscious_experiment_id": "e467562c-8b76-451a-9228-d28fbed927e5",
+  "model_version": "hb-amce-importance",
+  "estimated_at": "2026-05-05T14:35:58Z",
+  "outcome": {
+    "ontology_node_type": "Transition",
+    "ontology_node_id": "transition_patient_prefers_telemedicine"
+  },
+  "wandb_run": {
+    "entity": "why-earth",
+    "project": "dev-subconscious-ai",
+    "run_id": "e467562c-8b76-451a-9228-d28fbed927e5",
+    "run_name": "reaction-26-05-05-14-35-57-804"
+  },
+  "estimates": [
+    {
+      "estimate_id": "estimate_amce_app_access_0_2s",
+      "estimate_type": "amce",
+      "value": -0.55,
+      "ci_low": -0.64,
+      "ci_high": -0.4,
+      "about": {
+        "ontology_node_type": "AttributeLevel",
+        "ontology_node_id": "attr_level_app_access_0_2s"
+      },
+      "conditioned_on": [
+        {
+          "ontology_node_type": "StakeholderArchetype",
+          "ontology_node_id": "persona_us_routine_checkup_patient"
+        }
+      ],
+      "source_wandb": {
+        "artifact_name": "experiment_beta_amce_reaction-26-05-05-14-35-57-804",
+        "artifact_type": "analytics_output",
+        "artifact_version": "v0",
+        "artifact_digest": "98450ba043482ceb54ddc4d0c9401a00",
+        "file_path": "amce_reaction-26-05-05-14-35-57-804.json",
+        "row_key": "attribute_id=0;level_ids=2",
+        "run_local_attribute_id": 0,
+        "run_local_level_id": 2
+      },
+      "subconscious_experiment_id": "e467562c-8b76-451a-9228-d28fbed927e5",
+      "model_version": "hb-amce-importance",
+      "ontology_snapshot_hash": "sha256:telemedicine-demo",
+      "estimated_at": "2026-05-05T14:35:58Z"
+    }
+  ]
+}

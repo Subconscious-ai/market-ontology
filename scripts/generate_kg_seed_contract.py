@@ -33,6 +33,7 @@ GRAPH_TYPES = {
     "Evidence": "evidence",
     "Estimate": "estimate",
     "Company": "company",
+    "ExperimentRun": "experiment_run",
 }
 
 

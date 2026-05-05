@@ -2,7 +2,7 @@
 
 `twenty_projection.json` is the source manifest for projecting the ontology into Twenty. `twenty_app_contract.json` is generated from that manifest by `scripts/generate_twenty_app.py`; do not edit the generated contract by hand.
 
-The projection keeps one shared ontology schema for every customer. It exposes `Company`, `Offering`, and `StakeholderArchetype` as the primary Twenty surfaces named `company`, `product`, and `persona`. Support objects stay linked rather than flattened away: products link to `Attribute` and `AttributeLevel`; personas link to `Trait` and `TraitLevel`; transitions, stages, evidence, estimates, and markets remain support records for provenance and experiment context.
+The projection keeps one shared ontology schema for every customer. It exposes `Company`, `Offering`, and `StakeholderArchetype` as the primary Twenty surfaces named `company`, `product`, and `persona`. Support objects stay linked rather than flattened away: products link to `Attribute` and `AttributeLevel`; personas link to `Trait` and `TraitLevel`; transitions, stages, evidence, estimates, experiment runs, and markets remain support records for provenance and experiment context.
 
 Every projected object carries the same sync metadata:
 

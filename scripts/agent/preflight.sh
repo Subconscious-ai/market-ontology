@@ -4,13 +4,22 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$ROOT"
 
-python3 - <<'PY'
+PYTHON_BIN="${PYTHON:-}"
+if [ -z "$PYTHON_BIN" ]; then
+  if command -v python >/dev/null 2>&1; then
+    PYTHON_BIN="python"
+  else
+    PYTHON_BIN="python3"
+  fi
+fi
+
+"$PYTHON_BIN" - <<'PY'
 import importlib.util
 import sys
 
 missing = [
     package
-    for package in ("pydantic", "networkx")
+    for package in ("pydantic", "networkx", "jsonschema")
     if importlib.util.find_spec(package) is None
 ]
 if missing:

@@ -44,8 +44,10 @@ class GenerateTwentyAppTest(unittest.TestCase):
         contract = generator.build_contract()
         product = contract["objects"]["product"]
         persona = contract["objects"]["persona"]
+        estimate = contract["objects"]["estimate"]
+        experiment_run = contract["objects"]["experiment_run"]
 
-        self.assertEqual("1.2.0", contract["schema_version"])
+        self.assertEqual("1.3.1", contract["schema_version"])
         self.assertEqual("1.0.0", contract["projection_version"])
         self.assertEqual(
             "poc_v1/ontology/twenty_projection.json",
@@ -63,6 +65,15 @@ class GenerateTwentyAppTest(unittest.TestCase):
             product["relations"][0],
         )
         self.assertEqual("trait", persona["relations"][0]["target_object"])
+        self.assertIn("estimated_at", estimate["fields"])
+        self.assertIn("subconscious_experiment_id", experiment_run["fields"])
+        self.assertTrue(
+            any(
+                relation["edge_label"] == "PRODUCED"
+                and relation["target_object"] == "estimate"
+                for relation in experiment_run["relations"]
+            )
+        )
         self.assertEqual(
             [
                 "tenant_id",

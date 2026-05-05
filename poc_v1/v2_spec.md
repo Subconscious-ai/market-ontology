@@ -67,13 +67,13 @@ Everything we deliberately cut from v1 to ship faster. Each item has a **trigger
 
 ---
 
-### `Experiment` as a node
+### Rich `Experiment` design metadata
 
-**Current (v1):** `subconscious_experiment_id` is a string on every Estimate.
+**Current (v1.3):** `ExperimentRun` is a first-class lineage node tying an ontology snapshot to SuperEgo/W&B run and artifact IDs. Rich experiment design details stay in versioned projection artifacts.
 
-**Proposed (v2):** `Experiment` node with research question, design metadata, and `PRODUCES` edges to Estimates.
+**Proposed (v2):** Promote selected design metadata to graph properties or a richer experiment node only if customers need to query it directly.
 
-**Why defer:** For 1-2 experiments per month at POC scale, the string ID is fine.
+**Why defer:** Artifacts preserve full reproducibility without expanding the core ontology into a causal modeling system.
 
 **Triggering condition:**
 - You run >10 experiments and need to query experiment metadata.
@@ -154,7 +154,7 @@ Currently: AttributeLevel, Estimate, Evidence, RELEVANT_AT edges.
 
 **Current:** One ontology per customer, one customer per deployment.
 
-**Proposed (v2):** Neo4j database-per-tenant or strict labeling for multi-tenant isolation.
+**Proposed (v2):** FalkorDB graph-per-tenant or strict tenant-scoped labels/properties for multi-tenant isolation.
 
 **Triggering condition:** You take on a second customer. This is not optional — plan for it before signing the second deal.
 
@@ -162,11 +162,11 @@ Currently: AttributeLevel, Estimate, Evidence, RELEVANT_AT edges.
 
 **Why defer:** Not needed if the research agent doesn't do heavy semantic retrieval over Evidence.
 
-**Triggering condition:** The research agent needs vector search over Evidence excerpts or extracted claims. At that point, stand up Postgres alongside Neo4j and sync Evidence to it.
+**Triggering condition:** The research agent needs vector search over Evidence excerpts or extracted claims. At that point, stand up Postgres alongside the property graph and sync Evidence to it.
 
-### TerminusDB or Stardog instead of Neo4j
+### TerminusDB or Stardog instead of the property graph
 
-**Why defer:** Neo4j + Bloom covers current needs. Switching costs are high.
+**Why defer:** FalkorDB-compatible property graph storage covers current needs. Switching costs are high.
 
 **Triggering condition:**
 - You need OWL reasoning (subsumption, consistency checking).
