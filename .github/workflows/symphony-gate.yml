@@ -29,6 +29,9 @@ jobs:
       - name: Install runtime dependencies
         run: python -m pip install 'pydantic>=2' 'networkx>=3'
 
+      - name: Readiness
+        run: bash scripts/agent/readiness.sh
+
       - name: Preflight
         run: bash scripts/agent/preflight.sh
 
