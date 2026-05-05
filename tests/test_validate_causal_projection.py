@@ -161,6 +161,46 @@ class ValidateCausalProjectionTest(unittest.TestCase):
 
         self.assertTrue(any("unknown target_variable_id" in error for error in errors))
 
+    def test_rejects_outcome_transition_with_wrong_ontology_type(self):
+        validator = load_validator()
+        projection = valid_projection()
+        projection["outcome"]["transition"]["ontology_node_type"] = "Market"
+
+        errors = validator.validate_projection(projection)
+
+        self.assertTrue(any("Transition" in error for error in errors))
+
+    def test_rejects_outcome_transition_mismatched_with_y_variable(self):
+        validator = load_validator()
+        projection = valid_projection()
+        projection["outcome"]["transition"]["ontology_node_id"] = "tr_other"
+
+        errors = validator.validate_projection(projection)
+
+        self.assertTrue(any("outcome.transition" in error for error in errors))
+
+    def test_rejects_estimation_target_role_collision(self):
+        validator = load_validator()
+        projection = valid_projection()
+        projection["estimation_target"]["treatment_variable_ids"].append(
+            "market_regulatory_pressure"
+        )
+
+        errors = validator.validate_projection(projection)
+
+        self.assertTrue(any("multiple estimation roles" in error for error in errors))
+
+    def test_rejects_duplicate_estimation_target_ids_within_role(self):
+        validator = load_validator()
+        projection = valid_projection()
+        projection["estimation_target"]["treatment_variable_ids"].append(
+            "treatment_provenance_visibility"
+        )
+
+        errors = validator.validate_projection(projection)
+
+        self.assertTrue(any("non-unique elements" in error for error in errors))
+
     def test_rejects_cycles(self):
         validator = load_validator()
         projection = valid_projection()

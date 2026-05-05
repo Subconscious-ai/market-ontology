@@ -124,26 +124,69 @@ def _estimation_target_errors(
     errors: list[str] = []
     target = projection.get("estimation_target", {})
 
-    expected_roles = {
-        target.get("outcome_variable_id"): "Y",
-        **{variable_id: "T" for variable_id in target.get("treatment_variable_ids", [])},
-        **{variable_id: "X" for variable_id in target.get("effect_modifier_variable_ids", [])},
-        **{variable_id: "W" for variable_id in target.get("control_variable_ids", [])},
-    }
+    role_groups = [
+        ("Y", [target.get("outcome_variable_id")]),
+        ("T", target.get("treatment_variable_ids") or []),
+        ("X", target.get("effect_modifier_variable_ids") or []),
+        ("W", target.get("control_variable_ids") or []),
+    ]
+    seen_roles: dict[str, str] = {}
 
-    for variable_id, expected_role in expected_roles.items():
-        if not variable_id:
-            continue
-        variable = variables.get(variable_id)
-        if variable is None:
-            errors.append(f"estimation_target unknown variable_id: {variable_id}")
-            continue
-        actual_role = variable.get("estimator_role")
-        if actual_role != expected_role:
-            errors.append(
-                f"estimation_target variable {variable_id} expected estimator_role "
-                f"{expected_role}, found {actual_role}"
-            )
+    for expected_role, variable_ids in role_groups:
+        for variable_id in variable_ids:
+            if not variable_id:
+                continue
+            previous_role = seen_roles.get(variable_id)
+            if previous_role is not None:
+                errors.append(
+                    f"estimation_target variable {variable_id} has multiple estimation roles: "
+                    f"{previous_role} and {expected_role}"
+                )
+                continue
+            seen_roles[variable_id] = expected_role
+
+            variable = variables.get(variable_id)
+            if variable is None:
+                errors.append(f"estimation_target unknown variable_id: {variable_id}")
+                continue
+            actual_role = variable.get("estimator_role")
+            if actual_role != expected_role:
+                errors.append(
+                    f"estimation_target variable {variable_id} expected estimator_role "
+                    f"{expected_role}, found {actual_role}"
+                )
+
+    return errors
+
+
+def _outcome_errors(
+    projection: dict[str, Any],
+    variables: dict[str, dict[str, Any]],
+) -> list[str]:
+    errors: list[str] = []
+    target = projection.get("estimation_target", {})
+    outcome_variable_id = target.get("outcome_variable_id")
+    if not outcome_variable_id:
+        return errors
+
+    outcome_variable = variables.get(outcome_variable_id)
+    if outcome_variable is None:
+        return errors
+
+    transition = (projection.get("outcome") or {}).get("transition") or {}
+    if transition.get("ontology_node_type") not in (None, "Transition"):
+        errors.append("outcome.transition must reference ontology_node_type Transition")
+    if outcome_variable.get("ontology_node_type") != "Transition":
+        errors.append(
+            f"outcome variable {outcome_variable_id} must reference ontology_node_type Transition"
+        )
+        return errors
+
+    transition_id = transition.get("ontology_node_id")
+    if transition_id and outcome_variable.get("ontology_node_id") != transition_id:
+        errors.append(
+            "outcome.transition ontology_node_id must match estimation_target outcome variable"
+        )
 
     return errors
 
@@ -185,6 +228,7 @@ def validate_projection(projection: dict[str, Any]) -> list[str]:
     errors.extend(variable_errors)
     errors.extend(_endpoint_errors(projection, variables))
     errors.extend(_estimation_target_errors(projection, variables))
+    errors.extend(_outcome_errors(projection, variables))
     errors.extend(_time_series_errors(projection))
 
     if not errors:
