@@ -16,6 +16,7 @@ class AgentHarnessContractTest(unittest.TestCase):
         text = VALIDATE_FAST.read_text()
         expected_lines = [
             "bash scripts/agent/readiness.sh",
+            "python3 scripts/validate_causal_dag.py",
             "python3 scripts/validate_kg_seed.py",
             "python3 scripts/generate_kg_seed_contract.py --check",
             "python3 scripts/generate_twenty_app.py --check",

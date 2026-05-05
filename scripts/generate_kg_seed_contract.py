@@ -11,9 +11,12 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from poc_v1.ontology import schema
-
 ROOT = Path(__file__).parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from poc_v1.ontology import schema  # noqa: E402
+
 EDGE_SCHEMA_PATH = ROOT / "poc_v1" / "ontology" / "edge_schemas.json"
 CONTRACT_PATH = ROOT / "poc_v1" / "ontology" / "kg_seed_contract.json"
 

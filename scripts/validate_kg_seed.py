@@ -7,16 +7,18 @@ This is the primary CI check — when the schema changes, fixtures drift,
 or a new node/edge type lands, this catches the mismatch before downstream
 consumers (spice-harvester, ai-chatbot) silently break.
 
-Requires the package on the import path: run `pip install -e .` once at
-the repo root, or use `PYTHONPATH=. python3 scripts/validate_kg_seed.py`.
+Works from an editable install or direct repo execution.
 """
 import json
 import sys
 from pathlib import Path
 
-from poc_v1.ontology.schema import validate_edge, validate_node
-
 ROOT = Path(__file__).parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from poc_v1.ontology.schema import validate_edge, validate_node  # noqa: E402
+
 KG_SEED_DIR = ROOT / "poc_v1" / "kg_seed"
 
 
