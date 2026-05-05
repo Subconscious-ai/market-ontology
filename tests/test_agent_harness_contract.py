@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 VALIDATE_FAST = ROOT / "scripts" / "agent" / "validate-fast.sh"
+AGENT_OBSERVABILITY = ROOT / "docs" / "agent-observability.md"
 KG_SEED_CONTRACT = ROOT / "poc_v1" / "ontology" / "kg_seed_contract.json"
 SYMPHONY_GATE_WORKFLOW = ROOT / ".github" / "workflows" / "symphony-gate.yml"
 
@@ -25,6 +26,12 @@ class AgentHarnessContractTest(unittest.TestCase):
 
         for line in expected_lines:
             self.assertIn(line, text)
+
+    def test_agent_observability_documents_retry_metrics_contract(self):
+        text = AGENT_OBSERVABILITY.read_text()
+
+        self.assertIn("manual_rescue_count", text)
+        self.assertIn("retry_count", text)
 
     def test_validate_fast_fails_on_generated_contract_drift(self):
         original_text = KG_SEED_CONTRACT.read_text()
