@@ -3,6 +3,8 @@
 This document is the agent-facing contract for Symphony/Codex work in this repo.
 Keep `AGENTS.md` as the map and use this file for operational detail.
 
+Repair loop proof marker: BEC-1825
+
 ## Symphony Readiness Contract
 
 Every Symphony task must end with:
