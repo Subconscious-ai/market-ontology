@@ -40,7 +40,8 @@ Symphony run trace:
 - uncached tokens
 - total tokens
 - tool-call count
-- retry count
+- retry_count
+- manual_rescue_count
 - failure bucket
 - final Linear state
 
