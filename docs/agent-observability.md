@@ -44,6 +44,10 @@ Symphony run trace:
 - failure bucket
 - final Linear state
 
+## Static Proof Markers
+
+- BEC-1805: removable Symphony harness observability marker.
+
 ## Failure Buckets
 
 Use the buckets from `docs/agent-harness.md`. Do not invent new labels unless
