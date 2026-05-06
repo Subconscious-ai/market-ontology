@@ -284,6 +284,5 @@
       "kind": "edge",
       "label": "PRODUCED"
     }
-  },
-  "generated_by": "intentional-clean-ci-repair-proof"
+  }
 }
