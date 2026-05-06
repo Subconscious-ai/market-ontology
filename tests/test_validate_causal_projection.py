@@ -1,4 +1,6 @@
 import importlib.util
+import contextlib
+import io
 import json
 import sys
 import tempfile
@@ -268,6 +270,27 @@ class ValidateCausalProjectionTest(unittest.TestCase):
             self.assertEqual(0, validator.main([str(path)]))
         finally:
             path.unlink(missing_ok=True)
+
+    def test_cli_reports_json_schema_error_path(self):
+        validator = load_validator()
+        projection = valid_projection()
+        projection["generated_at"] = "not-a-date"
+        stderr = io.StringIO()
+
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as handle:
+            path = Path(handle.name)
+            json.dump(projection, handle)
+
+        try:
+            with contextlib.redirect_stderr(stderr):
+                self.assertEqual(1, validator.main([str(path)]))
+        finally:
+            path.unlink(missing_ok=True)
+
+        self.assertIn(
+            "[causal-projection] ERROR: $.generated_at: 'not-a-date' is not a 'date-time'",
+            stderr.getvalue(),
+        )
 
 
 if __name__ == "__main__":

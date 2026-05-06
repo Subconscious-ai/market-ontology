@@ -26,10 +26,20 @@ def _load_schema() -> dict[str, Any]:
     return json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
 
 
+def _json_path(path) -> str:
+    rendered = "$"
+    for segment in path:
+        if isinstance(segment, int):
+            rendered += f"[{segment}]"
+        else:
+            rendered += f".{segment}"
+    return rendered
+
+
 def validate_json_schema(instance: dict[str, Any], schema: dict[str, Any]) -> list[str]:
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
     return [
-        error.message
+        f"{_json_path(error.path)}: {error.message}"
         for error in sorted(validator.iter_errors(instance), key=lambda err: list(err.path))
     ]
 
