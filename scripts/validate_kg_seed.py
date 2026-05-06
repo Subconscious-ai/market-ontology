@@ -57,6 +57,7 @@ FIXTURES = {
 
 def main() -> int:
     errors: list[str] = []
+    seen_node_locations: dict[str, str] = {}
     checked = 0
 
     # Catch new fixture files that haven't been mapped to a model yet.
@@ -88,6 +89,17 @@ def main() -> int:
                     validate_edge(label, payload)
                 else:
                     payload = {**props, "id": rec["id"]}
+                    node_id = payload["id"]
+                    if isinstance(node_id, str):
+                        location = f"{fname}:{lineno}"
+                        first_location = seen_node_locations.get(node_id)
+                        if first_location is None:
+                            seen_node_locations[node_id] = location
+                        else:
+                            errors.append(
+                                f"{location}: duplicate node id {node_id!r}; "
+                                f"first seen at {first_location}"
+                            )
                     validate_node(label, payload)
                 checked += 1
             except Exception as e:
