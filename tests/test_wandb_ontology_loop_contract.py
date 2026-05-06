@@ -414,10 +414,6 @@ class WandbOntologyLoopContractTest(unittest.TestCase):
                         "run_local_attribute_id": 0,
                         "run_local_level_id": 2,
                     },
-                    "subconscious_experiment_id": "e467562c-8b76-451a-9228-d28fbed927e5",
-                    "model_version": "hb-amce-importance",
-                    "ontology_snapshot_hash": "sha256:telemedicine-demo",
-                    "estimated_at": "2026-05-05T14:35:58Z",
                 }
             ],
         }
@@ -431,6 +427,18 @@ class WandbOntologyLoopContractTest(unittest.TestCase):
                 "'source_wandb' is a required property" in error
                 for error in validate(
                     missing_wandb_source,
+                    "normalized_experiment_results.schema.json",
+                )
+            )
+        )
+
+        duplicate_lineage = json.loads(json.dumps(normalized))
+        duplicate_lineage["estimates"][0]["ontology_snapshot_hash"] = "sha256:different"
+        self.assertTrue(
+            any(
+                "Additional properties" in error
+                for error in validate(
+                    duplicate_lineage,
                     "normalized_experiment_results.schema.json",
                 )
             )

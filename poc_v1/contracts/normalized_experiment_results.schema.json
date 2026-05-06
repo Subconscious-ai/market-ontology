@@ -113,10 +113,6 @@
         "estimate_type",
         "value",
         "about",
-        "subconscious_experiment_id",
-        "model_version",
-        "ontology_snapshot_hash",
-        "estimated_at",
         "source_wandb"
       ],
       "properties": {
@@ -129,10 +125,6 @@
         "ci_low": {"type": ["number", "null"]},
         "ci_high": {"type": ["number", "null"]},
         "standard_error": {"type": ["number", "null"]},
-        "subconscious_experiment_id": {"type": "string"},
-        "model_version": {"type": "string"},
-        "ontology_snapshot_hash": {"type": "string"},
-        "estimated_at": {"type": "string", "format": "date-time"},
         "about": {"$ref": "#/$defs/ontology_ref"},
         "conditioned_on": {
           "type": "array",
