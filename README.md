@@ -84,6 +84,33 @@ ExperimentRun -[:PRODUCED]-> Estimate
 4. Dependent variables, persona traits/levels, and attribute treatments/levels must enter experiments from ontology IDs.
 5. Run-local W&B/SuperEgo IDs must map back to ontology IDs through a versioned mapping artifact.
 
+## Public modules (consumer imports)
+
+Three sibling modules, all under `poc_v1.ontology`, are the public API
+that downstream consumers (spice-harvester, burn-substrate Graphiti
+sidecar, twenty CRM, future research agents) import directly:
+
+```python
+from poc_v1.ontology.schema import (
+    NODE_MODELS, EDGE_MODELS, SCHEMA_VERSION,
+)
+from poc_v1.ontology.graphiti_views import (
+    ENTITY_TYPES,    # graphiti-compatible Pydantic view of NODE_MODELS
+    EDGE_TYPES,      # graphiti-compatible Pydantic view of EDGE_MODELS
+    EDGE_TYPE_MAP,   # dict[(src_label, tgt_label), list[predicate]]
+)
+from poc_v1.ontology.identity import (
+    CompanyIdentity, # dataclass(canonical_domain, route_slug, group_id)
+    to_identity,     # email/URL/domain/slug → identity (PSL-aware)
+    normalize_slug,  # boundary validator for HTTP routes (no PSL)
+)
+```
+
+Single source of truth — adding a new node/edge to `schema.py`
+automatically propagates to `graphiti_views`. Identity shape (the trio
+`canonical_domain` / `route_slug` / `group_id`) is part of "what
+defines a Company" so it lives next to the Pydantic Company model.
+
 ## Pipeline
 
 1. Research agent and executive interview extract node and edge candidates with evidence into JSONL.

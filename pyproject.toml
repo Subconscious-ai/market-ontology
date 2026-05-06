@@ -11,6 +11,7 @@ license = { text = "Proprietary" }
 authors = [{ name = "Subconscious.ai" }]
 dependencies = [
     "pydantic>=2.5,<3",
+    "tldextract>=5.0",
 ]
 dynamic = ["version"]
 
