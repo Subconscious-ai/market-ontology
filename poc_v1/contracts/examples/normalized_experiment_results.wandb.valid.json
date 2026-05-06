@@ -41,11 +41,7 @@
         "row_key": "attribute_id=0;level_ids=2",
         "run_local_attribute_id": 0,
         "run_local_level_id": 2
-      },
-      "subconscious_experiment_id": "e467562c-8b76-451a-9228-d28fbed927e5",
-      "model_version": "hb-amce-importance",
-      "ontology_snapshot_hash": "sha256:telemedicine-demo",
-      "estimated_at": "2026-05-05T14:35:58Z"
+      }
     }
   ]
 }

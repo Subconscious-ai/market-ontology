@@ -262,14 +262,13 @@ class CausalProjectionContractsTest(unittest.TestCase):
             projection["artifact_contracts"],
         )
 
-    def test_run_local_ids_map_deterministically_to_ontology_ids(self):
+    def test_run_local_mapping_keys_are_derived_not_stored(self):
         mapping_contract = load_contract("experiment_run_mapping.schema.json")
 
         self.assertIn("ontology_mappings", mapping_contract["required"])
         mapping_def = mapping_contract["$defs"]["ontology_mapping"]
         self.assertCountEqual(
             [
-                "mapping_key",
                 "source_system",
                 "source_field",
                 "run_local_id",
@@ -279,12 +278,14 @@ class CausalProjectionContractsTest(unittest.TestCase):
             ],
             mapping_def["required"],
         )
-        self.assertEqual(
-            "^(super_ego|wandb):[^:]+:.+$",
-            mapping_def["properties"]["mapping_key"]["pattern"],
-        )
+        self.assertNotIn("mapping_key", mapping_def["properties"])
 
-        sample_mappings = [
+        mapping = json.loads(
+            (CONTRACTS_DIR / "examples" / "experiment_run_mapping.wandb.valid.json").read_text(
+                encoding="utf-8",
+            ),
+        )
+        mapping["ontology_mappings"] = [
             {
                 "source_system": "super_ego",
                 "source_field": "target_behavior",
@@ -292,27 +293,13 @@ class CausalProjectionContractsTest(unittest.TestCase):
                 "ontology_node_type": "Transition",
                 "ontology_node_id": "tr_consider_choose",
                 "role": "outcome",
-            },
-            {
-                "source_system": "wandb",
-                "source_field": "analytics_artifact.amce.Features",
-                "run_local_id": "provenance_visibility=high",
-                "ontology_node_type": "AttributeLevel",
-                "ontology_node_id": "attr_level_prov_high",
-                "role": "treatment",
-            },
+            }
         ]
+        self.assertEqual([], list(Draft202012Validator(mapping_contract).iter_errors(mapping)))
 
-        keys = [
-            f"{row['source_system']}:{row['source_field']}:{row['run_local_id']}"
-            for row in sample_mappings
-        ]
-        keys_again = [
-            f"{row['source_system']}:{row['source_field']}:{row['run_local_id']}"
-            for row in sample_mappings
-        ]
-        self.assertEqual(keys, keys_again)
-        self.assertEqual(len(keys), len(set(keys)))
+        row = mapping["ontology_mappings"][0]
+        derived_key = f"{row['source_system']}:{row['source_field']}:{row['run_local_id']}"
+        self.assertEqual("super_ego:target_behavior:dv_001", derived_key)
 
     def test_normalized_amce_wtp_and_importance_become_estimates_about_existing_nodes(self):
         schema = load_schema()
@@ -327,14 +314,17 @@ class CausalProjectionContractsTest(unittest.TestCase):
                 "estimate_type",
                 "value",
                 "about",
-                "subconscious_experiment_id",
-                "model_version",
-                "ontology_snapshot_hash",
-                "estimated_at",
                 "source_wandb",
             ],
             estimate_def["required"],
         )
+        for inherited_field in (
+            "subconscious_experiment_id",
+            "model_version",
+            "ontology_snapshot_hash",
+            "estimated_at",
+        ):
+            self.assertNotIn(inherited_field, estimate_def["properties"])
         self.assertCountEqual(
             [
                 "part_worth",
@@ -358,39 +348,51 @@ class CausalProjectionContractsTest(unittest.TestCase):
                     "estimate_id": "estimate_amce_demo",
                     "estimate_type": "amce",
                     "value": 0.34,
-                    "subconscious_experiment_id": "super-ego-run-1",
-                    "model_version": "hb-amce-importance",
-                    "ontology_snapshot_hash": "sha256:demo",
-                    "estimated_at": "2026-05-04T19:26:21Z",
                     "about": {
                         "ontology_node_type": "AttributeLevel",
                         "ontology_node_id": "attr_level_prov_high",
+                    },
+                    "source_wandb": {
+                        "artifact_name": "amce-demo",
+                        "artifact_type": "analytics",
+                        "artifact_version": "v0",
+                        "artifact_digest": "sha256:fixture",
+                        "file_path": "amce.json",
+                        "row_key": "row-1",
                     },
                 },
                 {
                     "estimate_id": "estimate_wtp_demo",
                     "estimate_type": "wtp",
                     "value": 18000.0,
-                    "subconscious_experiment_id": "super-ego-run-1",
-                    "model_version": "hb-amce-importance",
-                    "ontology_snapshot_hash": "sha256:demo",
-                    "estimated_at": "2026-05-04T19:26:21Z",
                     "about": {
                         "ontology_node_type": "AttributeLevel",
                         "ontology_node_id": "attr_level_prov_high",
+                    },
+                    "source_wandb": {
+                        "artifact_name": "amce-demo",
+                        "artifact_type": "analytics",
+                        "artifact_version": "v0",
+                        "artifact_digest": "sha256:fixture",
+                        "file_path": "amce.json",
+                        "row_key": "row-2",
                     },
                 },
                 {
                     "estimate_id": "estimate_importance_demo",
                     "estimate_type": "importance",
                     "value": 0.42,
-                    "subconscious_experiment_id": "super-ego-run-1",
-                    "model_version": "hb-amce-importance",
-                    "ontology_snapshot_hash": "sha256:demo",
-                    "estimated_at": "2026-05-04T19:26:21Z",
                     "about": {
                         "ontology_node_type": "Transition",
                         "ontology_node_id": "tr_consider_choose",
+                    },
+                    "source_wandb": {
+                        "artifact_name": "importance-demo",
+                        "artifact_type": "analytics",
+                        "artifact_version": "v0",
+                        "artifact_digest": "sha256:fixture",
+                        "file_path": "importance.json",
+                        "row_key": "row-3",
                     },
                 },
             ],
