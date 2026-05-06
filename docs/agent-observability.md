@@ -40,7 +40,7 @@ Symphony run trace:
 - uncached tokens
 - total tokens
 - tool-call count
-- retry count
+- retry count (merge conflict proof marker for BEC-1811)
 - failure bucket
 - final Linear state
 
