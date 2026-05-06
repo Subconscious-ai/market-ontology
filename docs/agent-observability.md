@@ -48,6 +48,7 @@ Symphony run trace:
 ## Static Proof Markers
 
 - BEC-1805: removable Symphony harness observability marker.
+- BEC-1811: merge conflict recovery proof marker.
 
 ## Failure Buckets
 
