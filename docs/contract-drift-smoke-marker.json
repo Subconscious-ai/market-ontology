@@ -1,0 +1,9 @@
+{
+  "marker_name": "contract-drift-smoke-test",
+  "repository": "market-ontology",
+  "linear_issue": "BEC-1829",
+  "contract_surface": "poc_v1/ontology/kg_seed_contract.json",
+  "validation_command": "PYTHON=.venv/bin/python bash scripts/agent/validate-fast.sh",
+  "drift_gate": "scripts/generate_kg_seed_contract.py --check",
+  "product_behavior_change": false
+}

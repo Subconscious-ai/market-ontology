@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 VALIDATE_FAST = ROOT / "scripts" / "agent" / "validate-fast.sh"
 AGENT_OBSERVABILITY = ROOT / "docs" / "agent-observability.md"
+CONTRACT_DRIFT_SMOKE_MARKER = ROOT / "docs" / "contract-drift-smoke-marker.json"
 KG_SEED_CONTRACT = ROOT / "poc_v1" / "ontology" / "kg_seed_contract.json"
 SYMPHONY_GATE_WORKFLOW = ROOT / ".github" / "workflows" / "symphony-gate.yml"
 
@@ -37,6 +38,26 @@ class AgentHarnessContractTest(unittest.TestCase):
 
         self.assertIn("manual_rescue_count", text)
         self.assertIn("retry_count", text)
+
+    def test_contract_drift_smoke_marker_names_generated_contract_gate(self):
+        self.assertTrue(
+            CONTRACT_DRIFT_SMOKE_MARKER.exists(),
+            f"{CONTRACT_DRIFT_SMOKE_MARKER} must exist",
+        )
+        marker = json.loads(CONTRACT_DRIFT_SMOKE_MARKER.read_text(encoding="utf-8"))
+
+        self.assertEqual(
+            {
+                "marker_name": "contract-drift-smoke-test",
+                "repository": "market-ontology",
+                "linear_issue": "BEC-1829",
+                "contract_surface": "poc_v1/ontology/kg_seed_contract.json",
+                "validation_command": "PYTHON=.venv/bin/python bash scripts/agent/validate-fast.sh",
+                "drift_gate": "scripts/generate_kg_seed_contract.py --check",
+                "product_behavior_change": False,
+            },
+            marker,
+        )
 
     def test_validate_fast_fails_on_generated_contract_drift(self):
         original_text = KG_SEED_CONTRACT.read_text()
