@@ -27,9 +27,7 @@ jobs:
         run: pip install -e ".[dev]"
 
       - name: Validate causal_dag_v1 fixtures
-        run: |
-          echo "BEC-1832 seeded CI failure for Symphony repair proof"
-          exit 1
+        run: python scripts/validate_causal_dag.py
 
       - name: Run causal_dag_v1 tests
         run: python -m unittest tests.test_causal_dag_v1 -v
