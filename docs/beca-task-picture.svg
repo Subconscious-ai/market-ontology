@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">BEC-1852 picture</title>
+  <desc id="desc">A simple landscape picture with a sunrise, hills, water, and stars.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#12355b"/>
+      <stop offset="0.56" stop-color="#f49f68"/>
+      <stop offset="1" stop-color="#f7d488"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#1f6f8b"/>
+      <stop offset="1" stop-color="#64b6ac"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" fill="url(#sky)"/>
+  <circle cx="720" cy="156" r="74" fill="#ffe8a3"/>
+  <g fill="#ffffff" opacity="0.85">
+    <circle cx="118" cy="78" r="3"/>
+    <circle cx="214" cy="120" r="2.4"/>
+    <circle cx="335" cy="64" r="2.8"/>
+    <circle cx="472" cy="104" r="2.1"/>
+    <circle cx="594" cy="68" r="2.6"/>
+  </g>
+  <path d="M0 324 C132 236 236 274 360 208 C480 144 616 246 734 184 C822 138 900 172 960 132 L960 540 L0 540 Z" fill="#24503f"/>
+  <path d="M0 350 C114 298 242 330 350 268 C500 182 632 324 782 254 C858 218 914 234 960 210 L960 540 L0 540 Z" fill="#2f7255"/>
+  <rect y="386" width="960" height="154" fill="url(#water)"/>
+  <path d="M78 428 C190 408 286 446 392 426 C502 406 592 450 716 426 C796 410 872 418 936 438" fill="none" stroke="#d9fff5" stroke-width="8" stroke-linecap="round" opacity="0.72"/>
+  <path d="M36 488 C150 468 246 500 354 482 C470 462 572 502 690 482 C790 466 876 474 944 494" fill="none" stroke="#d9fff5" stroke-width="6" stroke-linecap="round" opacity="0.54"/>
+  <path d="M570 354 L646 256 L724 354 Z" fill="#f3f4e8"/>
+  <path d="M615 354 L646 256 L724 354 Z" fill="#d7dfd2"/>
+  <rect x="554" y="352" width="190" height="22" rx="11" fill="#583f2e"/>
+</svg>
