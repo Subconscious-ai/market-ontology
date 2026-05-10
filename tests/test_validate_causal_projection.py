@@ -145,12 +145,11 @@ class ValidateCausalProjectionTest(unittest.TestCase):
         )
         self.assertTrue(any("Additional properties" in error.message for error in errors))
 
+        validator = load_validator()
         sample = valid_projection()
         sample["generated_at"] = "not-a-date"
-        errors = list(
-            Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(sample)
-        )
-        self.assertTrue(any("date-time" in error.message for error in errors))
+        errors = validator.validate_json_schema(sample, schema)
+        self.assertTrue(any("date-time" in error for error in errors))
 
     def test_rejects_unknown_edge_endpoint(self):
         validator = load_validator()

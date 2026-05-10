@@ -1,0 +1,36 @@
+{
+  "fixture_name": "lighthouse_projection_pack_skeleton",
+  "fixture_version": "0.1.0",
+  "source_of_record": "twenty",
+  "input_filter": "accepted_only",
+  "ontology_schema_version": "1.3.1",
+  "projection_version": "0.1.0",
+  "snapshot_hash": "sha256:lighthouse-skeleton",
+  "projection_timestamp": "2026-05-09T00:00:00Z",
+  "accepted_records": [],
+  "evidence_refs": [],
+  "outputs": {
+    "ontology_snapshot": {
+      "path": "ontology_snapshot/",
+      "status_filter": "accepted"
+    },
+    "sizzle_dag": {
+      "path": "sizzle_dag.json",
+      "status_filter": "accepted"
+    },
+    "wiki_dossier": {
+      "path": "wiki/",
+      "status_filter": "accepted"
+    },
+    "experiment_context": {
+      "path": "experiment_context.json",
+      "status_filter": "accepted"
+    },
+    "graphiti_projection": {
+      "path": "graphiti/",
+      "enabled": false,
+      "status_filter": "accepted"
+    }
+  },
+  "parking_lot": ["zep", "rowboat", "pageindex", "linkml"]
+}
