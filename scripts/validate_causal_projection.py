@@ -13,6 +13,7 @@ import copy
 import json
 import sys
 from collections import deque
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -20,6 +21,18 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).parent.parent
 SCHEMA_PATH = ROOT / "poc_v1" / "contracts" / "causal_dag_projection.schema.json"
+FORMAT_CHECKER = FormatChecker()
+
+
+@FORMAT_CHECKER.checks("date-time")
+def _is_date_time(value: object) -> bool:
+    if not isinstance(value, str):
+        return True
+    try:
+        datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    return True
 
 
 def _load_schema() -> dict[str, Any]:
@@ -27,7 +40,7 @@ def _load_schema() -> dict[str, Any]:
 
 
 def validate_json_schema(instance: dict[str, Any], schema: dict[str, Any]) -> list[str]:
-    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    validator = Draft202012Validator(schema, format_checker=FORMAT_CHECKER)
     return [
         error.message
         for error in sorted(validator.iter_errors(instance), key=lambda err: list(err.path))

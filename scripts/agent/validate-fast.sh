@@ -19,6 +19,7 @@ bash scripts/agent/preflight.sh
 "$PYTHON_BIN" scripts/validate_kg_seed.py
 "$PYTHON_BIN" scripts/generate_kg_seed_contract.py --check
 "$PYTHON_BIN" scripts/generate_twenty_app.py --check
+"$PYTHON_BIN" scripts/check_accepted_state_spine.py
 "$PYTHON_BIN" scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.static.valid.json
 "$PYTHON_BIN" scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.timeseries.valid.json
 "$PYTHON_BIN" -m unittest discover -s tests -v
