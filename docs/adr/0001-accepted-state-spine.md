@@ -1,7 +1,16 @@
 # ADR 0001: Accepted-State Spine
 
-Status: Accepted
-Date: 2026-05-09
+Status: Accepted (revised — Twenty assumption superseded by [ADR 0003](0003-twenty-deferral.md))
+Date: 2026-05-09 (revised 2026-05-10)
+
+> **Revision note (2026-05-10):** Per [ADR 0003](0003-twenty-deferral.md)
+> and [`sizzl-trustgraph#6`](https://github.com/Subconscious-ai/sizzl-trustgraph/issues/6),
+> Twenty is deferred. Read every "Twenty Accepted Records" reference
+> below as "TrustGraph accepted records" for the current POC. The
+> store boundaries, change classes, forbidden drift, and projection
+> rules below all remain in force; only the destination of accepted
+> state changes (TrustGraph instead of Twenty). This ADR is kept
+> intact for historical traceability rather than rewritten.
 
 ## Decision
 
