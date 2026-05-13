@@ -59,6 +59,10 @@
       "label": "Company",
       "comment": "A real-world commercial organization that offers products or services in a market — e.g. Apple, IBM, Pillsbury, OpenAI."
     },
+    "Person": {
+      "label": "Person",
+      "comment": "A natural person who plays one or more stakeholder-archetype roles in a company or market context — e.g. a CFO at Acme, a procurement lead, or an executive buyer. Use Person when individual identity matters; bind them to roles with plays."
+    },
     "ExperimentRun": {
       "label": "ExperimentRun",
       "comment": "A specific test, study, or trial run to validate an Estimate or discover an Attribute — e.g. an A/B price test, a customer interview round, a usability study, a synthetic-respondent Subconscious.ai run. Has a date range and produces Estimates."
@@ -135,6 +139,55 @@
       "comment": "Connects an offering to its company.",
       "domain": "Offering",
       "range": "Company"
+    },
+    "competesWith": {
+      "edgeLabel": "COMPETES_WITH",
+      "label": "competes with",
+      "comment": "Connects one company to another company it directly competes with.",
+      "domain": "Company",
+      "range": "Company"
+    },
+    "partneredWith": {
+      "edgeLabel": "PARTNERED_WITH",
+      "label": "partnered with",
+      "comment": "Connects companies with a strategic alliance, channel partnership, joint venture, supplier relationship, or co-marketing relationship.",
+      "domain": "Company",
+      "range": "Company"
+    },
+    "acquired": {
+      "edgeLabel": "ACQUIRED",
+      "label": "acquired",
+      "comment": "Connects an acquiring company to the company it acquired.",
+      "domain": "Company",
+      "range": "Company"
+    },
+    "producedBy": {
+      "edgeLabel": "PRODUCED_BY",
+      "label": "produced by",
+      "comment": "Connects an offering to the company that produces it. Downstream queries should treat producedBy and offeredBy as equivalent where appropriate.",
+      "domain": "Offering",
+      "range": "Company"
+    },
+    "alternativeTo": {
+      "edgeLabel": "ALTERNATIVE_TO",
+      "label": "alternative to",
+      "comment": "Connects offerings that buyers can treat as functional substitutes in a choice set.",
+      "domain": "Offering",
+      "range": "Offering"
+    },
+    "complementOf": {
+      "edgeLabel": "COMPLEMENT_OF",
+      "label": "complement of",
+      "comment": "Connects offerings whose value increases when they are bundled or used together.",
+      "domain": "Offering",
+      "range": "Offering"
+    },
+    "plays": {
+      "edgeLabel": "PLAYS",
+      "label": "plays",
+      "comment": "Connects a person to a stakeholder archetype role they play in a company or market context.",
+      "domain": "Person",
+      "range": "StakeholderArchetype"
     },
     "consumed": {
       "edgeLabel": "CONSUMED",

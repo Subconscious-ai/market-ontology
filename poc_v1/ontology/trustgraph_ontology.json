@@ -4,7 +4,7 @@
     "name": "Sizzl Market Ontology",
     "namespace": "https://causl.io/ontology/sizzl/v1#",
     "description": "TrustGraph Ontology RAG projection of the canonical Sizzl market ontology.",
-    "schemaVersion": "1.3.1",
+    "schemaVersion": "1.4.0",
     "projectionVersion": "1.0.0"
   },
   "classes": {
@@ -71,6 +71,19 @@
       "rdfs:comment": "A type of buyer, user, decision-maker, or other stakeholder whose preferences shape decisions in a Market \u2014 e.g. a CTO evaluating an AI platform, a parent buying baking mix, a small-business owner choosing a payments processor.",
       "rdfs:subClassOf": "SizzlEntity",
       "dcterms:identifier": "StakeholderArchetype"
+    },
+    "Person": {
+      "uri": "https://causl.io/ontology/sizzl/v1#Person",
+      "type": "owl:Class",
+      "rdfs:label": [
+        {
+          "value": "Person",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "A natural person who plays one or more stakeholder-archetype roles in a company or market context \u2014 e.g. a CFO at Acme, a procurement lead, or an executive buyer. Use Person when individual identity matters; bind them to roles with plays.",
+      "rdfs:subClassOf": "SizzlEntity",
+      "dcterms:identifier": "Person"
     },
     "Offering": {
       "uri": "https://causl.io/ontology/sizzl/v1#Offering",
@@ -327,6 +340,97 @@
       "rdfs:comment": "Connects an offering to its company.",
       "rdfs:domain": "Offering",
       "rdfs:range": "Company"
+    },
+    "competesWith": {
+      "uri": "https://causl.io/ontology/sizzl/v1#competesWith",
+      "type": "owl:ObjectProperty",
+      "rdfs:label": [
+        {
+          "value": "competes with",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "Connects one company to another company it directly competes with.",
+      "rdfs:domain": "Company",
+      "rdfs:range": "Company"
+    },
+    "partneredWith": {
+      "uri": "https://causl.io/ontology/sizzl/v1#partneredWith",
+      "type": "owl:ObjectProperty",
+      "rdfs:label": [
+        {
+          "value": "partnered with",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "Connects companies with a strategic alliance, channel partnership, joint venture, supplier relationship, or co-marketing relationship.",
+      "rdfs:domain": "Company",
+      "rdfs:range": "Company"
+    },
+    "acquired": {
+      "uri": "https://causl.io/ontology/sizzl/v1#acquired",
+      "type": "owl:ObjectProperty",
+      "rdfs:label": [
+        {
+          "value": "acquired",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "Connects an acquiring company to the company it acquired.",
+      "rdfs:domain": "Company",
+      "rdfs:range": "Company"
+    },
+    "producedBy": {
+      "uri": "https://causl.io/ontology/sizzl/v1#producedBy",
+      "type": "owl:ObjectProperty",
+      "rdfs:label": [
+        {
+          "value": "produced by",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "Connects an offering to the company that produces it. Downstream queries should treat producedBy and offeredBy as equivalent where appropriate.",
+      "rdfs:domain": "Offering",
+      "rdfs:range": "Company"
+    },
+    "alternativeTo": {
+      "uri": "https://causl.io/ontology/sizzl/v1#alternativeTo",
+      "type": "owl:ObjectProperty",
+      "rdfs:label": [
+        {
+          "value": "alternative to",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "Connects offerings that buyers can treat as functional substitutes in a choice set.",
+      "rdfs:domain": "Offering",
+      "rdfs:range": "Offering"
+    },
+    "complementOf": {
+      "uri": "https://causl.io/ontology/sizzl/v1#complementOf",
+      "type": "owl:ObjectProperty",
+      "rdfs:label": [
+        {
+          "value": "complement of",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "Connects offerings whose value increases when they are bundled or used together.",
+      "rdfs:domain": "Offering",
+      "rdfs:range": "Offering"
+    },
+    "plays": {
+      "uri": "https://causl.io/ontology/sizzl/v1#plays",
+      "type": "owl:ObjectProperty",
+      "rdfs:label": [
+        {
+          "value": "plays",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "Connects a person to a stakeholder archetype role they play in a company or market context.",
+      "rdfs:domain": "Person",
+      "rdfs:range": "StakeholderArchetype"
     },
     "consumed": {
       "uri": "https://causl.io/ontology/sizzl/v1#consumed",
