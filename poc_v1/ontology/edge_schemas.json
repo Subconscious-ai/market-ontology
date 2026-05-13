@@ -1,108 +1,374 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "v1 POC Edge Schemas",
-  "schema_version": "1.3.1",
+  "schema_version": "1.4.0",
   "type": "object",
   "properties": {
     "FROM": {
       "from": "Transition",
       "to": "Stage",
       "properties": {
-        "schema_version": {"type": "string"}
+        "schema_version": {
+          "type": "string"
+        }
       }
     },
     "TO": {
       "from": "Transition",
       "to": "Stage",
       "properties": {
-        "schema_version": {"type": "string"}
+        "schema_version": {
+          "type": "string"
+        }
       }
     },
     "IN_MARKET": {
       "from": "Transition",
       "to": "Market",
       "properties": {
-        "schema_version": {"type": "string"}
+        "schema_version": {
+          "type": "string"
+        }
       }
     },
     "RELEVANT_TO": {
       "from": "Transition",
       "to": "StakeholderArchetype",
       "properties": {
-        "confidence": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
-        "schema_version": {"type": "string"}
+        "confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "schema_version": {
+          "type": "string"
+        }
       }
     },
     "ABOUT": {
-      "from": ["Transition", "Estimate"],
+      "from": [
+        "Transition",
+        "Estimate"
+      ],
       "to": "*",
       "properties": {
-        "target_node_type": {"type": ["string", "null"]},
-        "schema_version": {"type": "string"}
+        "target_node_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_version": {
+          "type": "string"
+        }
       }
     },
     "HAS_ATTRIBUTE": {
       "from": "Offering",
       "to": "Attribute",
       "properties": {
-        "schema_version": {"type": "string"}
+        "schema_version": {
+          "type": "string"
+        }
       }
     },
     "HAS_LEVEL": {
-      "from": ["Attribute", "Trait"],
-      "to": ["AttributeLevel", "TraitLevel"],
+      "from": [
+        "Attribute",
+        "Trait"
+      ],
+      "to": [
+        "AttributeLevel",
+        "TraitLevel"
+      ],
       "properties": {
-        "schema_version": {"type": "string"}
+        "schema_version": {
+          "type": "string"
+        }
       }
     },
     "HAS_TRAIT": {
       "from": "StakeholderArchetype",
       "to": "Trait",
       "properties": {
-        "schema_version": {"type": "string"}
+        "schema_version": {
+          "type": "string"
+        }
       }
     },
     "RELEVANT_AT": {
       "from": "Attribute",
       "to": "Stage",
       "properties": {
-        "score": {"type": "number", "minimum": 0.0, "maximum": 1.0},
-        "valid_from": {"type": ["string", "null"], "format": "date"},
-        "valid_to": {"type": ["string", "null"], "format": "date"},
-        "evidence_ids": {"type": "array", "items": {"type": "string"}},
-        "schema_version": {"type": "string"}
+        "score": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "valid_from": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "valid_to": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "schema_version": {
+          "type": "string"
+        }
       }
     },
     "SUPPORTS": {
       "from": "Evidence",
       "to": "*",
       "properties": {
-        "target_node_type": {"type": ["string", "null"]},
-        "confidence": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
-        "support_type": {"type": ["string", "null"]},
-        "schema_version": {"type": "string"}
+        "target_node_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "support_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_version": {
+          "type": "string"
+        }
       }
     },
     "OFFERED_BY": {
       "from": "Offering",
       "to": "Company",
       "properties": {
-        "schema_version": {"type": "string"}
+        "schema_version": {
+          "type": "string"
+        }
       }
     },
     "CONSUMED": {
       "from": "ExperimentRun",
       "to": "*",
       "properties": {
-        "target_node_type": {"type": ["string", "null"]},
-        "schema_version": {"type": "string"}
+        "target_node_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_version": {
+          "type": "string"
+        }
       }
     },
     "PRODUCED": {
       "from": "ExperimentRun",
       "to": "Estimate",
       "properties": {
-        "schema_version": {"type": "string"}
+        "schema_version": {
+          "type": "string"
+        }
+      }
+    },
+    "COMPETES_WITH": {
+      "from": "Company",
+      "to": "Company",
+      "properties": {
+        "confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "valid_from": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "valid_to": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "schema_version": {
+          "type": "string"
+        }
+      }
+    },
+    "PARTNERED_WITH": {
+      "from": "Company",
+      "to": "Company",
+      "properties": {
+        "partnership_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "valid_from": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "valid_to": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "schema_version": {
+          "type": "string"
+        }
+      }
+    },
+    "ACQUIRED": {
+      "from": "Company",
+      "to": "Company",
+      "properties": {
+        "acquired_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "price": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "schema_version": {
+          "type": "string"
+        }
+      }
+    },
+    "PRODUCED_BY": {
+      "from": "Offering",
+      "to": "Company",
+      "properties": {
+        "schema_version": {
+          "type": "string"
+        }
+      }
+    },
+    "ALTERNATIVE_TO": {
+      "from": "Offering",
+      "to": "Offering",
+      "properties": {
+        "similarity_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "schema_version": {
+          "type": "string"
+        }
+      }
+    },
+    "COMPLEMENT_OF": {
+      "from": "Offering",
+      "to": "Offering",
+      "properties": {
+        "bundle_strength": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "schema_version": {
+          "type": "string"
+        }
+      }
+    },
+    "PLAYS": {
+      "from": "Person",
+      "to": "StakeholderArchetype",
+      "properties": {
+        "role_context": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "valid_from": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "valid_to": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "schema_version": {
+          "type": "string"
+        }
       }
     }
   }

@@ -7,7 +7,17 @@ This is the single source of truth for the schema. Keep it aligned with:
   - ontology/edge_schemas.json
   - graph-store adapter constraints/import scripts
 
-Schema version: 1.3.1
+Schema version: 1.4.0 — see MIGRATION.md for what changed from 1.3.1.
+
+v1.4.0 adds Continuant-to-Continuant primitives (competesWith, partneredWith,
+acquired, producedBy, alternativeTo, complementOf, plays) and a new Person
+sortal that plays the StakeholderArchetype role. Motivated by the substrate
+hygiene diagnostic in sizzl-trustgraph#181: extraction logs show the LLM
+naturally emits competesWith / competitorOf / partnersWith / alternativeTo /
+acquired ~136 times across 423 chunks, all dropped by the validator because
+these predicates were not declared.
+
+Backwards-compatible: all v1.3.1 data validates against v1.4.0 unchanged.
 """
 
 from __future__ import annotations
@@ -18,7 +28,7 @@ from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field, model_validator
 
-SCHEMA_VERSION = "1.3.1"
+SCHEMA_VERSION = "1.4.0"
 
 
 # ---------------------------------------------------------------------------
@@ -154,13 +164,43 @@ class Offering(_VersionedNode):
     definition: Optional[str] = None
 
 
-class Company(_VersionedNode):
+class Company(_VersionedNode, _TemporallyValid):
     """The organization that offers one or more Offerings. Added in v1.1 to
-    give Offering→Company a proper edge for rollup queries. Minimal props;
-    add funding/size/industry in a later bump when a consumer needs them."""
+    give Offering→Company a proper edge for rollup queries.
+
+    v1.4.0 additions:
+      - industry, headquarters, ticker (schema.org-aligned identity props)
+      - _TemporallyValid mixin (companies wind down, merge, rebrand)
+    """
     id: str
     name: str
     domain: Optional[str] = None
+    definition: Optional[str] = None
+    industry: Optional[str] = None        # v1.4.0 — schema.org Organization.industry
+    headquarters: Optional[str] = None    # v1.4.0 — city + country, free-form for v1
+    ticker: Optional[str] = None          # v1.4.0 — stock ticker if public
+
+
+class Person(_VersionedNode, _TemporallyValid):
+    """A natural person who plays one or more StakeholderArchetype roles.
+
+    Added in v1.4.0 to address the OntoClean role-as-sortal violation in
+    StakeholderArchetype: the archetype is the ROLE (anti-rigid, dependent),
+    not the entity that carries identity. Person is the +R+I sortal that
+    plays the role.
+
+    StakeholderArchetype is retained unchanged for backwards compatibility;
+    new ingests that have clear individual identity should write a Person
+    node + a PLAYS edge instead of a bare StakeholderArchetype.
+
+    Triggering condition (per v2_spec.md): scale beyond a single-customer
+    POC where the same individual plays role X at company A and role Y at
+    company B. Until that scale, Person is opt-in.
+    """
+    id: str
+    name: str
+    role_title: Optional[str] = None      # e.g. "CFO", "Head of Procurement"
+    company_id: Optional[str] = None      # backref to Company.id if known
     definition: Optional[str] = None
 
 
@@ -357,6 +397,104 @@ class EdgeProduced(_Edge):
 
 
 # ---------------------------------------------------------------------------
+# v1.4.0 — Continuant-to-Continuant primitives
+#
+# These six edges close the substrate-hygiene gap surfaced in
+# sizzl-trustgraph#181: the LLM extractor was emitting competesWith /
+# competitorOf / partnersWith / alternativeTo / acquired ~136 times across
+# 423 chunks, all silently dropped because no matching object property was
+# declared. Now they have proper homes.
+#
+# Plus one new edge (PLAYS) for the v1.4.0 Person → StakeholderArchetype
+# role-binding pattern.
+# ---------------------------------------------------------------------------
+
+
+class EdgeCompetesWith(_Edge, _TemporallyValid):
+    """Company -[:COMPETES_WITH]-> Company.
+
+    Direct competitive relationship. Symmetric in practice but stored
+    directionally — writers may emit both directions or rely on consumers
+    to handle the symmetry. Confidence is required for downstream filtering.
+    """
+    label: Literal["COMPETES_WITH"] = "COMPETES_WITH"
+    confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+    evidence_ids: list[str] = Field(default_factory=list)
+
+
+class EdgePartneredWith(_Edge, _TemporallyValid):
+    """Company -[:PARTNERED_WITH]-> Company.
+
+    Strategic alliance, channel partnership, JV, or co-marketing. The
+    partnership_type free-form prop captures the kind (e.g. "channel",
+    "co-marketing", "JV", "supplier"). When in doubt, leave it null.
+    """
+    label: Literal["PARTNERED_WITH"] = "PARTNERED_WITH"
+    partnership_type: Optional[str] = None
+    confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+
+
+class EdgeAcquired(_Edge):
+    """Company -[:ACQUIRED]-> Company.
+
+    M&A relationship. acquired_at is the close date when known. Not
+    _TemporallyValid because acquisitions are point-in-time events whose
+    effect persists — use acquired_at + the resulting Company structure
+    rather than valid_from/valid_to.
+    """
+    label: Literal["ACQUIRED"] = "ACQUIRED"
+    acquired_at: Optional[date] = None
+    price: Optional[float] = None       # in USD if specified; null if undisclosed
+    confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+
+
+class EdgeProducedBy(_Edge):
+    """Offering -[:PRODUCED_BY]-> Company.
+
+    Functionally redundant with the existing OFFERED_BY (Offering →
+    Company), but accepted because LLM extractors emit this direction
+    naturally ("X is produced by Y") and we lose data when we drop it as
+    Unknown. Writers may choose either; downstream queries should treat
+    OFFERED_BY and PRODUCED_BY as equivalent.
+    """
+    label: Literal["PRODUCED_BY"] = "PRODUCED_BY"
+
+
+class EdgeAlternativeTo(_Edge):
+    """Offering -[:ALTERNATIVE_TO]-> Offering.
+
+    Functional substitute relationship. Foundational for choice-set
+    construction — when buyers evaluate Offering A, they typically
+    compare against its ALTERNATIVE_TO peers. similarity_score in [0,1]
+    captures functional closeness when known.
+    """
+    label: Literal["ALTERNATIVE_TO"] = "ALTERNATIVE_TO"
+    similarity_score: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+
+
+class EdgeComplementOf(_Edge):
+    """Offering -[:COMPLEMENT_OF]-> Offering.
+
+    Bundle / ecosystem complement — Offering B's value increases when
+    A is also present (e.g. AppleCare complements iPhone). Distinct
+    from ALTERNATIVE_TO which captures substitution.
+    """
+    label: Literal["COMPLEMENT_OF"] = "COMPLEMENT_OF"
+    bundle_strength: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+
+
+class EdgePlays(_Edge, _TemporallyValid):
+    """Person -[:PLAYS]-> StakeholderArchetype.
+
+    v1.4.0 role-binding: an individual plays an archetype role within
+    a specific company context. role_context captures the company or
+    deal scope when the same person plays different roles elsewhere.
+    """
+    label: Literal["PLAYS"] = "PLAYS"
+    role_context: Optional[str] = None    # e.g. "at Acme Inc, 2024-2026"
+
+
+# ---------------------------------------------------------------------------
 # Convenience: registry for writers/importers
 # ---------------------------------------------------------------------------
 
@@ -365,6 +503,7 @@ NODE_MODELS: dict[str, type[BaseModel]] = {
     "Stage": Stage,
     "Transition": Transition,
     "StakeholderArchetype": StakeholderArchetype,
+    "Person": Person,                     # v1.4.0
     "Offering": Offering,
     "Attribute": Attribute,
     "AttributeLevel": AttributeLevel,
@@ -390,6 +529,14 @@ EDGE_MODELS: dict[str, type[BaseModel]] = {
     "OFFERED_BY": EdgeOfferedBy,
     "CONSUMED": EdgeConsumed,
     "PRODUCED": EdgeProduced,
+    # v1.4.0 Continuant-Continuant edges
+    "COMPETES_WITH": EdgeCompetesWith,
+    "PARTNERED_WITH": EdgePartneredWith,
+    "ACQUIRED": EdgeAcquired,
+    "PRODUCED_BY": EdgeProducedBy,
+    "ALTERNATIVE_TO": EdgeAlternativeTo,
+    "COMPLEMENT_OF": EdgeComplementOf,
+    "PLAYS": EdgePlays,
 }
 
 

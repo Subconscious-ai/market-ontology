@@ -1,6 +1,51 @@
-# Migration — v0 to v1 (and v1.0 → v1.3.1)
+# Migration — v0 to v1 (and v1.0 → v1.4.0)
 
 This document records what changed between the initial POC scaffolding and the v1 ontology, and why. Keep this file. Future schema migrations should follow the same pattern.
+
+## v1.3.1 → v1.4.0 (2026-05-13) — Continuant-Continuant edges + Person sortal
+
+**Additive.** All v1.3.1 records continue to validate. `SCHEMA_VERSION` bumped `1.3.1 → 1.4.0`.
+
+### Change
+
+**New nodes:**
+- `Person` (sortal, +R+I) — natural person who plays one or more `StakeholderArchetype` roles. Resolves the OntoClean role-as-sortal violation: `StakeholderArchetype` is anti-rigid (a role); `Person` is the rigid entity that plays it. Opt-in for projection consumers (Twenty/SuperEgo) until same-person-multiple-roles emerges at scale.
+
+**New edges (Continuant-to-Continuant):**
+
+| Edge | from → to | What it captures |
+|---|---|---|
+| `COMPETES_WITH` | Company → Company | Direct competitive structure. Symmetric in practice. |
+| `PARTNERED_WITH` | Company → Company | Strategic alliance, channel, JV, supplier. |
+| `ACQUIRED` | Company → Company | M&A. `acquired_at` for the close date, `price` if disclosed. |
+| `PRODUCED_BY` | Offering → Company | Inverse of `OFFERED_BY`. LLM emits this direction naturally. |
+| `ALTERNATIVE_TO` | Offering → Offering | Functional substitute. Foundational for choice-set construction. |
+| `COMPLEMENT_OF` | Offering → Offering | Bundle / ecosystem complement. |
+| `PLAYS` | Person → StakeholderArchetype | v1.4.0 role-binding (Person plays Archetype role). |
+
+**Extended `Company` props (optional):**
+- `industry` (schema.org-aligned Organization.industry)
+- `headquarters` (free-form for v1, structured location in v2)
+- `ticker` (public stock ticker)
+- `_TemporallyValid` mixin (companies wind down, merge, rebrand)
+
+### Why
+
+Substrate hygiene diagnostic in [sizzl-trustgraph#181](https://github.com/Subconscious-ai/sizzl-trustgraph/issues/181) found that LLM extractors emit these predicates ~136 times across 423 chunks, all silently dropped because no matching object property was declared. Specifically: `competesWith`, `competitorOf`, `partnersWith`, `alternativeTo`, `acquired`. By promoting these to typed first-class edges, the substrate captures the competitive structure that downstream graph_rag and SPARQL queries need.
+
+Per OntoClean (Guarino & Welty), introducing `Person` resolves the rigidity/identity mismatch in `StakeholderArchetype`: archetypes are roles (~R+D), persons are sortals (+R+I). The two-layer model is consistent with ontology engineering literature and unblocks future "same individual, multiple roles" use cases.
+
+### Triggering conditions met (from v2_spec.md)
+
+- "Competitor analysis becomes a first-class deliverable" — yes, executives are asking for competitive synthesis in Sizzl reports.
+- "You want to track M&A, rebrandings, parent/child corporate structure" — yes, ACQUIRED edge ships this.
+
+### Non-goals (still v2 parking)
+
+- `QualityValue` consolidation of `Attribute`+`AttributeLevel` into one node.
+- `Claim` as separate from `Evidence` (multi-evidence-per-claim).
+- `ContextFactor` as a first-class node.
+- Causal edges (`CAUSES`, `HAS_TREATMENT`, etc.) — still rejected.
 
 ## v1.3.0 → v1.3.1 (2026-05-05) — harden causal projection contracts
 

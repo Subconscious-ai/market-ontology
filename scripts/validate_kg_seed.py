@@ -52,6 +52,15 @@ FIXTURES = {
     "edges_offering_offered_by.jsonl":     ("OFFERED_BY", True),
     "edges_experiment_run_consumed.jsonl": ("CONSUMED", True),
     "edges_experiment_run_produced.jsonl": ("PRODUCED", True),
+    # v1.4.0 — Continuant-Continuant edges + Person sortal
+    "persons.jsonl":                       ("Person", False),
+    "edges_company_competes_with.jsonl":   ("COMPETES_WITH", True),
+    "edges_company_partnered_with.jsonl":  ("PARTNERED_WITH", True),
+    "edges_company_acquired.jsonl":        ("ACQUIRED", True),
+    "edges_offering_produced_by.jsonl":    ("PRODUCED_BY", True),
+    "edges_offering_alternative_to.jsonl": ("ALTERNATIVE_TO", True),
+    "edges_offering_complement_of.jsonl":  ("COMPLEMENT_OF", True),
+    "edges_person_plays.jsonl":            ("PLAYS", True),
 }
 
 

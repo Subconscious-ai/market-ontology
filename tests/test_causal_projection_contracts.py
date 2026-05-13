@@ -58,12 +58,23 @@ def load_contract(name: str) -> dict:
 
 
 class CausalProjectionContractsTest(unittest.TestCase):
-    def test_schema_adds_only_experiment_run_and_run_edges(self):
+    def test_schema_version_and_additive_types(self):
+        """v1.4.0 adds Person sortal + 7 Continuant-Continuant edges on top
+        of v1.3.1's BASE + ExperimentRun + CONSUMED/PRODUCED. No causal
+        edges have been added (per the no-causal-edges-in-ontology rule)."""
         schema = load_schema()
 
-        self.assertEqual("1.3.1", schema.SCHEMA_VERSION)
-        self.assertEqual(BASE_NODE_TYPES | {"ExperimentRun"}, set(schema.NODE_MODELS))
-        self.assertEqual(BASE_EDGE_TYPES | {"CONSUMED", "PRODUCED"}, set(schema.EDGE_MODELS))
+        self.assertEqual("1.4.0", schema.SCHEMA_VERSION)
+        expected_nodes = BASE_NODE_TYPES | {"ExperimentRun", "Person"}
+        expected_edges = BASE_EDGE_TYPES | {
+            "CONSUMED", "PRODUCED",
+            # v1.4.0 Continuant-Continuant edges
+            "COMPETES_WITH", "PARTNERED_WITH", "ACQUIRED",
+            "PRODUCED_BY", "ALTERNATIVE_TO", "COMPLEMENT_OF",
+            "PLAYS",
+        }
+        self.assertEqual(expected_nodes, set(schema.NODE_MODELS))
+        self.assertEqual(expected_edges, set(schema.EDGE_MODELS))
         self.assertTrue(FORBIDDEN_CAUSAL_EDGE_TYPES.isdisjoint(schema.EDGE_MODELS))
 
     def test_experiment_run_and_new_estimate_types_validate(self):
@@ -250,7 +261,7 @@ class CausalProjectionContractsTest(unittest.TestCase):
             ),
         )
 
-        self.assertEqual("1.3.1", projection["schema_version"])
+        self.assertEqual("1.4.0", projection["schema_version"])
         self.assertCountEqual(
             [
                 "poc_v1/contracts/causal_dag_projection.schema.json",

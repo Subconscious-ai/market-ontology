@@ -24,6 +24,14 @@ def load_manifest():
     return json.loads(MANIFEST_PATH.read_text())
 
 
+# Nodes that the schema declares but Twenty does not yet project.
+# v1.4.0 — Person is opt-in. Twenty consumers that need person-level
+# identity can opt in by adding a `person` projection entry in
+# twenty_projection.json later (trigger per poc_v1/v2_spec.md is "same
+# individual plays role at multiple companies").
+TWENTY_OPT_IN_NODES = {"Person"}
+
+
 class TwentyProjectionManifestTest(unittest.TestCase):
     def test_manifest_covers_schema_and_declares_surfaces(self):
         manifest = load_manifest()
@@ -31,7 +39,8 @@ class TwentyProjectionManifestTest(unittest.TestCase):
         node_types = {obj["ontology_node_type"] for obj in objects.values()}
 
         self.assertEqual(schema.SCHEMA_VERSION, manifest["schema_version"])
-        self.assertEqual(set(schema.NODE_MODELS), node_types)
+        required_node_types = set(schema.NODE_MODELS) - TWENTY_OPT_IN_NODES
+        self.assertEqual(required_node_types, node_types)
 
         primary = {
             obj["object_name"]: obj["ontology_node_type"]

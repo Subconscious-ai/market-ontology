@@ -1,177 +1,533 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "v1 POC Node Schemas",
-  "schema_version": "1.3.1",
+  "schema_version": "1.4.0",
   "type": "object",
   "properties": {
     "Market": {
       "type": "object",
-      "required": ["id", "name", "definition"],
+      "required": [
+        "id",
+        "name",
+        "definition"
+      ],
       "properties": {
-        "id": {"type": "string"},
-        "name": {"type": "string"},
-        "definition": {"type": "string"},
-        "geography": {"type": ["string", "null"]},
-        "industry_codes": {"type": "array", "items": {"type": "string"}},
-        "context_factors": {"type": "object"},
-        "period": {"type": ["string", "null"]},
-        "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "definition": {
+          "type": "string"
+        },
+        "geography": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "industry_codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "context_factors": {
+          "type": "object"
+        },
+        "period": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_version": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
       },
       "additionalProperties": false
     },
     "Stage": {
       "type": "object",
-      "required": ["id", "name", "definition"],
+      "required": [
+        "id",
+        "name",
+        "definition"
+      ],
       "properties": {
-        "id": {"type": "string"},
+        "id": {
+          "type": "string"
+        },
         "name": {
           "type": "string",
-          "enum": ["awareness", "acquisition", "activation", "retention", "referral", "revenue"]
+          "enum": [
+            "awareness",
+            "acquisition",
+            "activation",
+            "retention",
+            "referral",
+            "revenue"
+          ]
         },
-        "definition": {"type": "string"},
-        "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "definition": {
+          "type": "string"
+        },
+        "schema_version": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
       },
       "additionalProperties": false
     },
     "Transition": {
       "type": "object",
-      "required": ["id", "name", "from_stage_id", "to_stage_id", "definition"],
+      "required": [
+        "id",
+        "name",
+        "from_stage_id",
+        "to_stage_id",
+        "definition"
+      ],
       "properties": {
-        "id": {"type": "string"},
-        "name": {"type": "string"},
-        "from_stage_id": {"type": "string"},
-        "to_stage_id": {"type": "string"},
-        "definition": {"type": "string"},
-        "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "from_stage_id": {
+          "type": "string"
+        },
+        "to_stage_id": {
+          "type": "string"
+        },
+        "definition": {
+          "type": "string"
+        },
+        "schema_version": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
       },
       "additionalProperties": false
     },
     "StakeholderArchetype": {
       "type": "object",
-      "required": ["id", "name", "archetype_type"],
+      "required": [
+        "id",
+        "name",
+        "archetype_type"
+      ],
       "properties": {
-        "id": {"type": "string"},
-        "name": {"type": "string"},
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
         "archetype_type": {
           "type": "string",
-          "enum": ["customer", "competitor_buyer", "competitor_user"]
+          "enum": [
+            "customer",
+            "competitor_buyer",
+            "competitor_user"
+          ]
         },
-        "traits": {"type": "object"},
-        "role": {"type": ["string", "null"]},
-        "segment": {"type": ["string", "null"]},
-        "industry": {"type": ["string", "null"]},
-        "company_size_band": {"type": ["string", "null"]},
-        "definition": {"type": ["string", "null"]},
-        "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "traits": {
+          "type": "object"
+        },
+        "role": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "segment": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "industry": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "company_size_band": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "definition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_version": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
       },
       "additionalProperties": false
     },
     "Offering": {
       "type": "object",
-      "required": ["id", "name", "company_name"],
+      "required": [
+        "id",
+        "name",
+        "company_name"
+      ],
       "properties": {
-        "id": {"type": "string"},
-        "name": {"type": "string"},
-        "company_name": {"type": "string"},
-        "is_competitor": {"type": "boolean"},
-        "category": {"type": ["string", "null"]},
-        "definition": {"type": ["string", "null"]},
-        "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "company_name": {
+          "type": "string"
+        },
+        "is_competitor": {
+          "type": "boolean"
+        },
+        "category": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "definition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_version": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
       },
       "additionalProperties": false
     },
     "Attribute": {
       "type": "object",
-      "required": ["id", "name", "data_type", "definition"],
+      "required": [
+        "id",
+        "name",
+        "data_type",
+        "definition"
+      ],
       "properties": {
-        "id": {"type": "string"},
-        "name": {"type": "string"},
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
         "data_type": {
           "type": "string",
-          "enum": ["continuous", "ordinal", "categorical", "boolean"]
+          "enum": [
+            "continuous",
+            "ordinal",
+            "categorical",
+            "boolean"
+          ]
         },
-        "unit": {"type": ["string", "null"]},
-        "definition": {"type": "string"},
-        "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "definition": {
+          "type": "string"
+        },
+        "schema_version": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
       },
       "additionalProperties": false
     },
     "AttributeLevel": {
       "type": "object",
-      "required": ["id", "attribute_id", "market_id", "value"],
+      "required": [
+        "id",
+        "attribute_id",
+        "market_id",
+        "value"
+      ],
       "properties": {
-        "id": {"type": "string"},
-        "attribute_id": {"type": "string"},
-        "market_id": {"type": "string"},
+        "id": {
+          "type": "string"
+        },
+        "attribute_id": {
+          "type": "string"
+        },
+        "market_id": {
+          "type": "string"
+        },
         "value": {},
-        "label": {"type": ["string", "null"]},
-        "is_status_quo": {"type": "boolean"},
-        "valid_from": {"type": ["string", "null"], "format": "date"},
-        "valid_to": {"type": ["string", "null"], "format": "date"},
-        "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "is_status_quo": {
+          "type": "boolean"
+        },
+        "valid_from": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "valid_to": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "schema_version": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
       },
       "additionalProperties": false
     },
     "Trait": {
       "type": "object",
-      "required": ["id", "name", "data_type", "definition"],
+      "required": [
+        "id",
+        "name",
+        "data_type",
+        "definition"
+      ],
       "properties": {
-        "id": {"type": "string"},
-        "name": {"type": "string"},
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
         "data_type": {
           "type": "string",
-          "enum": ["continuous", "ordinal", "categorical", "boolean"]
+          "enum": [
+            "continuous",
+            "ordinal",
+            "categorical",
+            "boolean"
+          ]
         },
-        "unit": {"type": ["string", "null"]},
-        "definition": {"type": "string"},
-        "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "definition": {
+          "type": "string"
+        },
+        "schema_version": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
       },
       "additionalProperties": false
     },
     "TraitLevel": {
       "type": "object",
-      "required": ["id", "trait_id", "market_id", "value"],
+      "required": [
+        "id",
+        "trait_id",
+        "market_id",
+        "value"
+      ],
       "properties": {
-        "id": {"type": "string"},
-        "trait_id": {"type": "string"},
-        "market_id": {"type": "string"},
+        "id": {
+          "type": "string"
+        },
+        "trait_id": {
+          "type": "string"
+        },
+        "market_id": {
+          "type": "string"
+        },
         "value": {},
-        "label": {"type": ["string", "null"]},
-        "is_status_quo": {"type": "boolean"},
-        "valid_from": {"type": ["string", "null"], "format": "date"},
-        "valid_to": {"type": ["string", "null"], "format": "date"},
-        "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "is_status_quo": {
+          "type": "boolean"
+        },
+        "valid_from": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "valid_to": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "schema_version": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
       },
       "additionalProperties": false
     },
     "Evidence": {
       "type": "object",
-      "required": ["id", "source_type", "source_ref"],
+      "required": [
+        "id",
+        "source_type",
+        "source_ref"
+      ],
       "properties": {
-        "id": {"type": "string"},
+        "id": {
+          "type": "string"
+        },
         "source_type": {
           "type": "string",
-          "enum": ["s1", "10k", "interview", "survey", "benchmark", "web", "deck", "executive_interview", "research_agent"]
+          "enum": [
+            "s1",
+            "10k",
+            "interview",
+            "survey",
+            "benchmark",
+            "web",
+            "deck",
+            "executive_interview",
+            "research_agent"
+          ]
         },
-        "source_ref": {"type": "string"},
-        "source_url": {"type": ["string", "null"]},
-        "excerpt": {"type": ["string", "null"]},
-        "extracted_claim": {"type": ["string", "null"]},
-        "retrieval_query": {"type": ["string", "null"]},
-        "extractor_version": {"type": ["string", "null"]},
-        "confidence": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
-        "period_observed": {"type": ["string", "null"]},
-        "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "source_ref": {
+          "type": "string"
+        },
+        "source_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "excerpt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "extracted_claim": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "retrieval_query": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "extractor_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "period_observed": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_version": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
       },
       "additionalProperties": false
     },
@@ -187,82 +543,371 @@
         "estimated_at"
       ],
       "properties": {
-        "id": {"type": "string"},
+        "id": {
+          "type": "string"
+        },
         "estimate_type": {
           "type": "string",
-          "enum": ["part_worth", "transition_probability", "wtp", "elasticity", "ate", "amce", "importance"]
+          "enum": [
+            "part_worth",
+            "transition_probability",
+            "wtp",
+            "elasticity",
+            "ate",
+            "amce",
+            "importance"
+          ]
         },
-        "value": {"type": "number"},
-        "ci_low": {"type": ["number", "null"]},
-        "ci_high": {"type": ["number", "null"]},
-        "standard_error": {"type": ["number", "null"]},
-        "subconscious_experiment_id": {"type": "string"},
-        "model_version": {"type": "string"},
-        "ontology_snapshot_hash": {"type": "string"},
-        "estimated_at": {"type": "string", "format": "date-time"},
-        "valid_from": {"type": ["string", "null"], "format": "date"},
-        "valid_to": {"type": ["string", "null"], "format": "date"},
-        "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "value": {
+          "type": "number"
+        },
+        "ci_low": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "ci_high": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "standard_error": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "subconscious_experiment_id": {
+          "type": "string"
+        },
+        "model_version": {
+          "type": "string"
+        },
+        "ontology_snapshot_hash": {
+          "type": "string"
+        },
+        "estimated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "valid_from": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "valid_to": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "schema_version": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
       },
       "additionalProperties": false
     },
     "Company": {
       "type": "object",
-      "required": ["id", "name"],
+      "required": [
+        "id",
+        "name"
+      ],
       "properties": {
-        "id": {"type": "string"},
-        "name": {"type": "string"},
-        "domain": {"type": ["string", "null"]},
-        "definition": {"type": ["string", "null"]},
-        "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "domain": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "definition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_version": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "industry": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "headquarters": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ticker": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "valid_from": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "valid_to": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        }
       },
       "additionalProperties": false
     },
     "ExperimentRun": {
       "type": "object",
-      "required": ["id", "ontology_snapshot_hash", "status"],
+      "required": [
+        "id",
+        "ontology_snapshot_hash",
+        "status"
+      ],
       "properties": {
-        "id": {"type": "string"},
-        "ontology_snapshot_hash": {"type": "string"},
-        "super_ego_run_id": {"type": ["string", "null"]},
-        "wandb_entity": {"type": ["string", "null"]},
-        "wandb_project": {"type": ["string", "null"]},
-        "wandb_run_id": {"type": ["string", "null"]},
-        "wandb_run_name": {"type": ["string", "null"]},
+        "id": {
+          "type": "string"
+        },
+        "ontology_snapshot_hash": {
+          "type": "string"
+        },
+        "super_ego_run_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "wandb_entity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "wandb_project": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "wandb_run_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "wandb_run_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "status": {
           "type": "string",
-          "enum": ["pending", "running", "finished", "failed", "cancelled"]
+          "enum": [
+            "pending",
+            "running",
+            "finished",
+            "failed",
+            "cancelled"
+          ]
         },
-        "artifact_refs": {"type": "array", "items": {"type": "string"}},
+        "artifact_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "wandb_artifacts": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["entity", "project", "name", "type", "version", "digest"],
+            "required": [
+              "entity",
+              "project",
+              "name",
+              "type",
+              "version",
+              "digest"
+            ],
             "properties": {
-              "entity": {"type": "string"},
-              "project": {"type": "string"},
-              "run_id": {"type": ["string", "null"]},
-              "name": {"type": "string"},
-              "type": {"type": "string"},
-              "version": {"type": "string"},
-              "digest": {"type": "string"},
-              "qualified_name": {"type": ["string", "null"]},
-              "aliases": {"type": "array", "items": {"type": "string"}},
-              "url": {"type": ["string", "null"]},
-              "files": {"type": "array", "items": {"type": "object"}}
+              "entity": {
+                "type": "string"
+              },
+              "project": {
+                "type": "string"
+              },
+              "run_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "digest": {
+                "type": "string"
+              },
+              "qualified_name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "aliases": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "url": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
             },
             "additionalProperties": false
           }
         },
-        "model_versions": {"type": "object", "additionalProperties": {"type": "string"}},
-        "sample_size": {"type": ["integer", "null"]},
-        "started_at": {"type": ["string", "null"], "format": "date-time"},
-        "completed_at": {"type": ["string", "null"], "format": "date-time"},
-        "schema_version": {"type": "string"},
-        "ingested_at": {"type": ["string", "null"], "format": "date-time"}
+        "model_versions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "sample_size": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "started_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "completed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "schema_version": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Person": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role_title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "company_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "definition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "valid_from": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "valid_to": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "schema_version": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
       },
       "additionalProperties": false
     }

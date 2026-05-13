@@ -25,6 +25,7 @@ GRAPH_TYPES = {
     "Stage": "stage",
     "Transition": "transition",
     "StakeholderArchetype": "stakeholder",
+    "Person": "person",                  # v1.4.0
     "Offering": "offering",
     "Attribute": "attribute",
     "AttributeLevel": "attribute_level",

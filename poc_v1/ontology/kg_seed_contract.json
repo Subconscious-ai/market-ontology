@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.3.1",
+  "schema_version": "1.4.0",
   "nodes": {
     "Market": {
       "filename": "markets.jsonl",
@@ -16,6 +16,10 @@
     "StakeholderArchetype": {
       "filename": "stakeholder_archetypes.jsonl",
       "graph_type": "stakeholder"
+    },
+    "Person": {
+      "filename": "persons.jsonl",
+      "graph_type": "person"
     },
     "Offering": {
       "filename": "offerings.jsonl",
@@ -169,6 +173,62 @@
       ],
       "from": "ExperimentRun",
       "to": "Estimate"
+    },
+    "COMPETES_WITH": {
+      "filename": "edges_company_competes_with.jsonl",
+      "filenames": [
+        "edges_company_competes_with.jsonl"
+      ],
+      "from": "Company",
+      "to": "Company"
+    },
+    "PARTNERED_WITH": {
+      "filename": "edges_company_partnered_with.jsonl",
+      "filenames": [
+        "edges_company_partnered_with.jsonl"
+      ],
+      "from": "Company",
+      "to": "Company"
+    },
+    "ACQUIRED": {
+      "filename": "edges_company_acquired.jsonl",
+      "filenames": [
+        "edges_company_acquired.jsonl"
+      ],
+      "from": "Company",
+      "to": "Company"
+    },
+    "PRODUCED_BY": {
+      "filename": "edges_offering_produced_by.jsonl",
+      "filenames": [
+        "edges_offering_produced_by.jsonl"
+      ],
+      "from": "Offering",
+      "to": "Company"
+    },
+    "ALTERNATIVE_TO": {
+      "filename": "edges_offering_alternative_to.jsonl",
+      "filenames": [
+        "edges_offering_alternative_to.jsonl"
+      ],
+      "from": "Offering",
+      "to": "Offering"
+    },
+    "COMPLEMENT_OF": {
+      "filename": "edges_offering_complement_of.jsonl",
+      "filenames": [
+        "edges_offering_complement_of.jsonl"
+      ],
+      "from": "Offering",
+      "to": "Offering"
+    },
+    "PLAYS": {
+      "filename": "edges_person_plays.jsonl",
+      "filenames": [
+        "edges_person_plays.jsonl"
+      ],
+      "from": "Person",
+      "to": "StakeholderArchetype"
     }
   },
   "files": {
@@ -283,6 +343,38 @@
     "edges_experiment_run_produced.jsonl": {
       "kind": "edge",
       "label": "PRODUCED"
+    },
+    "persons.jsonl": {
+      "kind": "node",
+      "label": "Person"
+    },
+    "edges_company_competes_with.jsonl": {
+      "kind": "edge",
+      "label": "COMPETES_WITH"
+    },
+    "edges_company_partnered_with.jsonl": {
+      "kind": "edge",
+      "label": "PARTNERED_WITH"
+    },
+    "edges_company_acquired.jsonl": {
+      "kind": "edge",
+      "label": "ACQUIRED"
+    },
+    "edges_offering_produced_by.jsonl": {
+      "kind": "edge",
+      "label": "PRODUCED_BY"
+    },
+    "edges_offering_alternative_to.jsonl": {
+      "kind": "edge",
+      "label": "ALTERNATIVE_TO"
+    },
+    "edges_offering_complement_of.jsonl": {
+      "kind": "edge",
+      "label": "COMPLEMENT_OF"
+    },
+    "edges_person_plays.jsonl": {
+      "kind": "edge",
+      "label": "PLAYS"
     }
   }
 }
