@@ -42,6 +42,13 @@ python -m py_compile poc_v1/ontology/schema.py
 
 If any fail, fix before opening a PR. Do not use `--no-verify`.
 
+## Symphony Contract
+
+- Task types: `schema-contract`, `ontology-fixture`, `docs-canary`, `ci-harness`, `consumer-contract`.
+- Allowed surfaces: `poc_v1/ontology/`, `poc_v1/contracts/`, `scripts/`, `tests/`, `docs/`, `README.md`, and `scripts/agent/`.
+- Forbidden unless explicit: incompatible schema migrations, downstream app rewrites, generated contract churn without source change, secrets, production env, and unrelated cleanup.
+- Fast gate: `bash scripts/agent/validate-fast.sh`; keep it schema/unit/doc focused. Use `validate-full.sh` for broader consumer or integration checks.
+
 ## Architecture
 
 `poc_v1/ontology/schema.py` defines Pydantic models, `NODE_MODELS`,
