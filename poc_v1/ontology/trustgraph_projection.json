@@ -178,11 +178,47 @@
     "validFrom": {"field": "valid_from", "label": "valid from", "range": "xsd:date"},
     "validTo": {"field": "valid_to", "label": "valid to", "range": "xsd:date"},
     "confidence": {"field": "confidence", "label": "confidence", "range": "xsd:double"},
-    "sourceType": {"field": "source_type", "label": "source type", "range": "xsd:string"},
-    "sourceRef": {"field": "source_ref", "label": "source reference", "range": "xsd:string"},
-    "sourceUrl": {"field": "source_url", "label": "source URL", "range": "xsd:anyURI"},
-    "extractedClaim": {"field": "extracted_claim", "label": "extracted claim", "range": "xsd:string"},
-    "signalType": {"field": "signal_type", "label": "signal type", "range": "xsd:string"},
-    "periodObserved": {"field": "period_observed", "label": "period observed", "range": "xsd:string"}
+    "sourceType": {
+      "field": "source_type",
+      "label": "source type",
+      "range": "xsd:string",
+      "domain": "Evidence",
+      "comment": "Evidence source type, such as web, analyst_report, benchmark, executive_interview, experiment, or other source category named by the source text or ingestion metadata."
+    },
+    "sourceRef": {
+      "field": "source_ref",
+      "label": "source reference",
+      "range": "xsd:string",
+      "domain": "Evidence",
+      "comment": "Evidence source reference. Use a stable document title, report name, source ID, or publisher reference from the text or ingestion metadata."
+    },
+    "sourceUrl": {
+      "field": "source_url",
+      "label": "source URL",
+      "range": "xsd:anyURI",
+      "domain": "Evidence",
+      "comment": "Evidence source URL. Use only a URL explicitly present in the source text or ingestion metadata; never invent one."
+    },
+    "extractedClaim": {
+      "field": "extracted_claim",
+      "label": "extracted claim",
+      "range": "xsd:string",
+      "domain": "Evidence",
+      "comment": "Evidence claim as a verbatim or tightly paraphrased claim from the source text. It must be falsifiable and support the linked ontology entity or relationship."
+    },
+    "signalType": {
+      "field": "signal_type",
+      "label": "signal type",
+      "range": "xsd:string",
+      "domain": "Evidence",
+      "comment": "Evidence signal type. Use one of: metric, observation, recommendation, objective, or question."
+    },
+    "periodObserved": {
+      "field": "period_observed",
+      "label": "period observed",
+      "range": "xsd:string",
+      "domain": "Evidence",
+      "comment": "Evidence observation period when the source states one, such as 2026-Q2, May 2026, or a report period."
+    }
   }
 }

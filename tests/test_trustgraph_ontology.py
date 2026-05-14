@@ -83,6 +83,26 @@ class TrustGraphOntologyProjectionTest(unittest.TestCase):
             set(ontology["datatypeProperties"]),
         )
 
+    def test_evidence_datatype_properties_have_domain_and_extraction_guidance(self):
+        ontology = load_generator().build_ontology()
+
+        for prop_id in {
+            "sourceType",
+            "sourceRef",
+            "sourceUrl",
+            "extractedClaim",
+            "signalType",
+            "periodObserved",
+        }:
+            prop = ontology["datatypeProperties"][prop_id]
+            self.assertEqual("Evidence", prop["rdfs:domain"])
+            self.assertIn("Evidence", prop["rdfs:comment"])
+
+        self.assertIn(
+            "verbatim or tightly paraphrased claim",
+            ontology["datatypeProperties"]["extractedClaim"]["rdfs:comment"],
+        )
+
     def test_market_evidence_core_relations_are_projected(self):
         ontology = load_generator().build_ontology()
 

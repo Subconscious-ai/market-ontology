@@ -75,6 +75,25 @@ def _object_property(namespace: str, prop_id: str, spec: dict[str, Any], class_i
     return out
 
 
+def _datatype_property(namespace: str, prop_id: str, spec: dict[str, Any], class_ids: set[str]) -> dict[str, Any]:
+    out = {
+        "uri": f"{namespace}{prop_id}",
+        "type": "owl:DatatypeProperty",
+        "rdfs:label": _label(spec["label"]),
+        "rdfs:comment": spec.get(
+            "comment",
+            f"Extraction property for canonical field {spec['field']}.",
+        ),
+        "rdfs:range": spec["range"],
+    }
+    domain = spec.get("domain")
+    if domain:
+        if domain not in class_ids:
+            raise SystemExit(f"{prop_id}: unknown domain {domain}")
+        out["rdfs:domain"] = domain
+    return out
+
+
 def build_ontology() -> dict[str, Any]:
     projection = load_projection()
     _assert_edge_coverage(projection)
@@ -107,13 +126,7 @@ def build_ontology() -> dict[str, Any]:
         for prop_id, spec in projection["objectProperties"].items()
     }
     datatype_properties = {
-        prop_id: {
-            "uri": f"{namespace}{prop_id}",
-            "type": "owl:DatatypeProperty",
-            "rdfs:label": _label(spec["label"]),
-            "rdfs:comment": f"Extraction property for canonical field {spec['field']}.",
-            "rdfs:range": spec["range"],
-        }
+        prop_id: _datatype_property(namespace, prop_id, spec, set(classes))
         for prop_id, spec in projection["datatypeProperties"].items()
     }
     return {
