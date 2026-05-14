@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.3.1",
+  "schema_version": "1.4.0",
   "nodes": {
     "Market": {
       "filename": "markets.jsonl",
@@ -154,6 +154,30 @@
       "from": "Offering",
       "to": "Company"
     },
+    "COMPETES_WITH": {
+      "filename": "edges_offering_competes_with.jsonl",
+      "filenames": [
+        "edges_offering_competes_with.jsonl"
+      ],
+      "from": "Offering",
+      "to": "Offering"
+    },
+    "OFFERING_IN_MARKET": {
+      "filename": "edges_offering_in_market.jsonl",
+      "filenames": [
+        "edges_offering_in_market.jsonl"
+      ],
+      "from": "Offering",
+      "to": "Market"
+    },
+    "TARGETS_STAKEHOLDER": {
+      "filename": "edges_offering_targets_stakeholder.jsonl",
+      "filenames": [
+        "edges_offering_targets_stakeholder.jsonl"
+      ],
+      "from": "Offering",
+      "to": "StakeholderArchetype"
+    },
     "CONSUMED": {
       "filename": "edges_experiment_run_consumed.jsonl",
       "filenames": [
@@ -275,6 +299,18 @@
     "edges_offering_offered_by.jsonl": {
       "kind": "edge",
       "label": "OFFERED_BY"
+    },
+    "edges_offering_competes_with.jsonl": {
+      "kind": "edge",
+      "label": "COMPETES_WITH"
+    },
+    "edges_offering_in_market.jsonl": {
+      "kind": "edge",
+      "label": "OFFERING_IN_MARKET"
+    },
+    "edges_offering_targets_stakeholder.jsonl": {
+      "kind": "edge",
+      "label": "TARGETS_STAKEHOLDER"
     },
     "edges_experiment_run_consumed.jsonl": {
       "kind": "edge",

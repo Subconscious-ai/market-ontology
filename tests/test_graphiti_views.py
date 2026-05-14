@@ -70,7 +70,8 @@ class TestEdgeTypesAreCanonicalOntology(unittest.TestCase):
         expected = {
             "FROM", "TO", "IN_MARKET", "RELEVANT_TO", "ABOUT",
             "HAS_ATTRIBUTE", "HAS_LEVEL", "HAS_TRAIT", "RELEVANT_AT",
-            "SUPPORTS", "OFFERED_BY",
+            "SUPPORTS", "OFFERED_BY", "COMPETES_WITH",
+            "OFFERING_IN_MARKET", "TARGETS_STAKEHOLDER",
         }
         self.assertEqual(set(EDGE_TYPES) & expected, expected)
 
@@ -116,6 +117,17 @@ class TestEdgeTypeMap(unittest.TestCase):
         from poc_v1.ontology.graphiti_views import EDGE_TYPE_MAP
 
         self.assertIn("OFFERED_BY", EDGE_TYPE_MAP[("Offering", "Company")])
+
+    def test_market_evidence_core_edges_route_correctly(self):
+        """Market evidence core edges stay typed at the graph boundary."""
+        from poc_v1.ontology.graphiti_views import EDGE_TYPE_MAP
+
+        self.assertIn("COMPETES_WITH", EDGE_TYPE_MAP[("Offering", "Offering")])
+        self.assertIn("OFFERING_IN_MARKET", EDGE_TYPE_MAP[("Offering", "Market")])
+        self.assertIn(
+            "TARGETS_STAKEHOLDER",
+            EDGE_TYPE_MAP[("Offering", "StakeholderArchetype")],
+        )
 
     def test_polymorphic_from_expands(self):
         """ABOUT has from=[Transition, Estimate], to=*."""

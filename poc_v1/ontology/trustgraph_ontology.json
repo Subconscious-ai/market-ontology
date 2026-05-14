@@ -4,8 +4,8 @@
     "name": "Sizzl Market Ontology",
     "namespace": "https://causl.io/ontology/sizzl/v1#",
     "description": "TrustGraph Ontology RAG projection of the canonical Sizzl market ontology.",
-    "schemaVersion": "1.3.1",
-    "projectionVersion": "1.0.0"
+    "schemaVersion": "1.4.0",
+    "projectionVersion": "1.1.0"
   },
   "classes": {
     "SizzlEntity": {
@@ -328,6 +328,45 @@
       "rdfs:domain": "Offering",
       "rdfs:range": "Company"
     },
+    "competesWith": {
+      "uri": "https://causl.io/ontology/sizzl/v1#competesWith",
+      "type": "owl:ObjectProperty",
+      "rdfs:label": [
+        {
+          "value": "competes with",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "Connects one offering to another offering when source text explicitly states they compete or are alternatives in the same buying decision.",
+      "rdfs:domain": "Offering",
+      "rdfs:range": "Offering"
+    },
+    "offeringInMarket": {
+      "uri": "https://causl.io/ontology/sizzl/v1#offeringInMarket",
+      "type": "owl:ObjectProperty",
+      "rdfs:label": [
+        {
+          "value": "offering in market",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "Connects an offering to the bounded market it participates in. This is the Offering-scoped market relation; Transition keeps the legacy inMarket relation.",
+      "rdfs:domain": "Offering",
+      "rdfs:range": "Market"
+    },
+    "targetsStakeholder": {
+      "uri": "https://causl.io/ontology/sizzl/v1#targetsStakeholder",
+      "type": "owl:ObjectProperty",
+      "rdfs:label": [
+        {
+          "value": "targets stakeholder",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "Connects an offering to a buyer, user, decision-maker, or stakeholder archetype it is explicitly aimed at.",
+      "rdfs:domain": "Offering",
+      "rdfs:range": "StakeholderArchetype"
+    },
     "consumed": {
       "uri": "https://causl.io/ontology/sizzl/v1#consumed",
       "type": "owl:ObjectProperty",
@@ -438,6 +477,18 @@
       "rdfs:comment": "Extraction property for canonical field confidence.",
       "rdfs:range": "xsd:double"
     },
+    "sourceType": {
+      "uri": "https://causl.io/ontology/sizzl/v1#sourceType",
+      "type": "owl:DatatypeProperty",
+      "rdfs:label": [
+        {
+          "value": "source type",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "Extraction property for canonical field source_type.",
+      "rdfs:range": "xsd:string"
+    },
     "sourceRef": {
       "uri": "https://causl.io/ontology/sizzl/v1#sourceRef",
       "type": "owl:DatatypeProperty",
@@ -472,6 +523,30 @@
         }
       ],
       "rdfs:comment": "Extraction property for canonical field extracted_claim.",
+      "rdfs:range": "xsd:string"
+    },
+    "signalType": {
+      "uri": "https://causl.io/ontology/sizzl/v1#signalType",
+      "type": "owl:DatatypeProperty",
+      "rdfs:label": [
+        {
+          "value": "signal type",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "Extraction property for canonical field signal_type.",
+      "rdfs:range": "xsd:string"
+    },
+    "periodObserved": {
+      "uri": "https://causl.io/ontology/sizzl/v1#periodObserved",
+      "type": "owl:DatatypeProperty",
+      "rdfs:label": [
+        {
+          "value": "period observed",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "Extraction property for canonical field period_observed.",
       "rdfs:range": "xsd:string"
     }
   }

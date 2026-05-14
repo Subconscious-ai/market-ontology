@@ -30,6 +30,13 @@ evidence_source_types:
 - executive_interview
 - research_agent
 
+evidence_signal_types:
+- metric
+- observation
+- recommendation
+- objective
+- question
+
 estimate_types:
 - part_worth
 - transition_probability
