@@ -37,6 +37,9 @@ BASE_EDGE_TYPES = {
     "RELEVANT_AT",
     "SUPPORTS",
     "OFFERED_BY",
+    "COMPETES_WITH",
+    "OFFERING_IN_MARKET",
+    "TARGETS_STAKEHOLDER",
 }
 
 FORBIDDEN_CAUSAL_EDGE_TYPES = {
@@ -61,7 +64,7 @@ class CausalProjectionContractsTest(unittest.TestCase):
     def test_schema_adds_only_experiment_run_and_run_edges(self):
         schema = load_schema()
 
-        self.assertEqual("1.3.1", schema.SCHEMA_VERSION)
+        self.assertEqual("1.4.0", schema.SCHEMA_VERSION)
         self.assertEqual(BASE_NODE_TYPES | {"ExperimentRun"}, set(schema.NODE_MODELS))
         self.assertEqual(BASE_EDGE_TYPES | {"CONSUMED", "PRODUCED"}, set(schema.EDGE_MODELS))
         self.assertTrue(FORBIDDEN_CAUSAL_EDGE_TYPES.isdisjoint(schema.EDGE_MODELS))
@@ -250,7 +253,7 @@ class CausalProjectionContractsTest(unittest.TestCase):
             ),
         )
 
-        self.assertEqual("1.3.1", projection["schema_version"])
+        self.assertEqual("1.4.0", projection["schema_version"])
         self.assertCountEqual(
             [
                 "poc_v1/contracts/causal_dag_projection.schema.json",

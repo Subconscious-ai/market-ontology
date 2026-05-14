@@ -1,0 +1,1 @@
+# v1.4 relation fixture reserved for Offering -[:COMPETES_WITH]-> Offering.

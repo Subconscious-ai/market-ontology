@@ -47,7 +47,7 @@ class GenerateTwentyAppTest(unittest.TestCase):
         estimate = contract["objects"]["estimate"]
         experiment_run = contract["objects"]["experiment_run"]
 
-        self.assertEqual("1.3.1", contract["schema_version"])
+        self.assertEqual("1.4.0", contract["schema_version"])
         self.assertEqual("1.0.0", contract["projection_version"])
         self.assertEqual(
             "poc_v1/ontology/twenty_projection.json",

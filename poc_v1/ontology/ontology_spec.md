@@ -41,6 +41,10 @@ Plausible levels for a Trait in a Market for a time window. Temporally valid.
 
 ### Evidence
 Grounding for any node or edge. Required for every extracted fact per the ingestion rules.
+TrustGraph projection note: Evidence datatype fields (`source_ref`,
+`source_url`, `extracted_claim`, `signal_type`, `period_observed`) must carry
+`rdfs:domain = Evidence`. TrustGraph's ontology selector uses datatype-property
+domains to include source/claim fields when the Evidence class is selected.
 
 ### Estimate
 Results returned from Subconscious. Every Estimate carries `ontology_snapshot_hash` so results are always interpretable against the ontology state they were computed on.
@@ -59,6 +63,9 @@ Execution record tying an ontology snapshot to SuperEgo/W&B run and artifact met
 | ABOUT | Transition OR Estimate | * | Polymorphic |
 | HAS_ATTRIBUTE | Offering | Attribute | |
 | OFFERED_BY | Offering | Company | Canonical offering-to-company rollup link |
+| COMPETES_WITH | Offering | Offering | Direct competitive-alternative claim, only when explicit in source text |
+| OFFERING_IN_MARKET | Offering | Market | Offering-scoped market membership; distinct from Transition-scoped `IN_MARKET` |
+| TARGETS_STAKEHOLDER | Offering | StakeholderArchetype | Explicit buyer, user, decision-maker, or stakeholder target |
 | HAS_LEVEL | Attribute OR Trait | AttributeLevel OR TraitLevel | |
 | HAS_TRAIT | StakeholderArchetype | Trait | |
 | RELEVANT_AT | Attribute | Stage | `{score, valid_from, valid_to, evidence_ids}` — temporal relevance |
@@ -84,6 +91,7 @@ Execution record tying an ontology snapshot to SuperEgo/W&B run and artifact met
 3. Splink entity resolution runs after each ingestion batch on Offerings and StakeholderArchetypes.
 4. Every write includes `schema_version`.
 5. Estimates always include `ontology_snapshot_hash` computed from the subgraph Subconscious consumed.
+6. Competitive-market extraction must prefer explicit Offering edges (`COMPETES_WITH`, `OFFERING_IN_MARKET`, `TARGETS_STAKEHOLDER`) plus Evidence with `extracted_claim`, `source_ref` or `source_url`, and `signal_type`. Do not invent a relation when source text does not explicitly support it.
 
 ## Temporal conventions
 

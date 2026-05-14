@@ -7,7 +7,7 @@ This is the single source of truth for the schema. Keep it aligned with:
   - ontology/edge_schemas.json
   - graph-store adapter constraints/import scripts
 
-Schema version: 1.3.1
+Schema version: 1.4.0
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field, model_validator
 
-SCHEMA_VERSION = "1.3.1"
+SCHEMA_VERSION = "1.4.0"
 
 
 # ---------------------------------------------------------------------------
@@ -50,6 +50,14 @@ class EvidenceSourceType(str, Enum):
     DECK = "deck"
     EXECUTIVE_INTERVIEW = "executive_interview"
     RESEARCH_AGENT = "research_agent"
+
+
+class EvidenceSignalType(str, Enum):
+    METRIC = "metric"
+    OBSERVATION = "observation"
+    RECOMMENDATION = "recommendation"
+    OBJECTIVE = "objective"
+    QUESTION = "question"
 
 
 class AttributeDataType(str, Enum):
@@ -213,6 +221,7 @@ class Evidence(_VersionedNode):
     retrieval_query: Optional[str] = None
     extractor_version: Optional[str] = None
     confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+    signal_type: Optional[EvidenceSignalType] = None
     period_observed: Optional[str] = None
 
 
@@ -345,6 +354,25 @@ class EdgeOfferedBy(_Edge):
     label: Literal["OFFERED_BY"] = "OFFERED_BY"
 
 
+class EdgeCompetesWith(_Edge):
+    """Offering -[:COMPETES_WITH]-> Offering."""
+    label: Literal["COMPETES_WITH"] = "COMPETES_WITH"
+
+
+class EdgeOfferingInMarket(_Edge):
+    """Offering -[:OFFERING_IN_MARKET]-> Market.
+
+    Kept distinct from Transition -[:IN_MARKET]-> Market because the
+    TrustGraph projection has one domain/range pair per property.
+    """
+    label: Literal["OFFERING_IN_MARKET"] = "OFFERING_IN_MARKET"
+
+
+class EdgeTargetsStakeholder(_Edge):
+    """Offering -[:TARGETS_STAKEHOLDER]-> StakeholderArchetype."""
+    label: Literal["TARGETS_STAKEHOLDER"] = "TARGETS_STAKEHOLDER"
+
+
 class EdgeConsumed(_Edge):
     """ExperimentRun -[:CONSUMED]-> any ontology context node."""
     label: Literal["CONSUMED"] = "CONSUMED"
@@ -388,6 +416,9 @@ EDGE_MODELS: dict[str, type[BaseModel]] = {
     "RELEVANT_AT": EdgeRelevantAt,
     "SUPPORTS": EdgeSupports,
     "OFFERED_BY": EdgeOfferedBy,
+    "COMPETES_WITH": EdgeCompetesWith,
+    "OFFERING_IN_MARKET": EdgeOfferingInMarket,
+    "TARGETS_STAKEHOLDER": EdgeTargetsStakeholder,
     "CONSUMED": EdgeConsumed,
     "PRODUCED": EdgeProduced,
 }

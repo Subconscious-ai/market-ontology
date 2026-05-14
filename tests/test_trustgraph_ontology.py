@@ -29,7 +29,7 @@ class TrustGraphOntologyProjectionTest(unittest.TestCase):
     def test_generated_classes_match_canonical_nodes_plus_root(self):
         ontology = load_generator().build_ontology()
 
-        self.assertEqual("1.3.1", ontology["metadata"]["schemaVersion"])
+        self.assertEqual("1.4.0", ontology["metadata"]["schemaVersion"])
         self.assertIn("SizzlEntity", ontology["classes"])
         self.assertEqual(
             set(schema.NODE_MODELS) | {"SizzlEntity"},
@@ -73,12 +73,94 @@ class TrustGraphOntologyProjectionTest(unittest.TestCase):
                 "validFrom",
                 "validTo",
                 "confidence",
+                "sourceType",
                 "sourceRef",
                 "sourceUrl",
                 "extractedClaim",
+                "signalType",
+                "periodObserved",
             },
             set(ontology["datatypeProperties"]),
         )
+
+    def test_evidence_datatype_properties_have_domain_and_extraction_guidance(self):
+        ontology = load_generator().build_ontology()
+
+        for prop_id in {
+            "sourceType",
+            "sourceRef",
+            "sourceUrl",
+            "extractedClaim",
+            "signalType",
+            "periodObserved",
+        }:
+            prop = ontology["datatypeProperties"][prop_id]
+            self.assertEqual("Evidence", prop["rdfs:domain"])
+            self.assertIn("Evidence", prop["rdfs:comment"])
+
+        self.assertIn(
+            "verbatim or tightly paraphrased claim",
+            ontology["datatypeProperties"]["extractedClaim"]["rdfs:comment"],
+        )
+
+    def test_market_evidence_core_relations_are_projected(self):
+        ontology = load_generator().build_ontology()
+
+        self.assertEqual(
+            {
+                "rdfs:domain": "Offering",
+                "rdfs:range": "Offering",
+            },
+            {
+                "rdfs:domain": ontology["objectProperties"]["competesWith"]["rdfs:domain"],
+                "rdfs:range": ontology["objectProperties"]["competesWith"]["rdfs:range"],
+            },
+        )
+        self.assertEqual(
+            {
+                "rdfs:domain": "Offering",
+                "rdfs:range": "Market",
+            },
+            {
+                "rdfs:domain": ontology["objectProperties"]["offeringInMarket"]["rdfs:domain"],
+                "rdfs:range": ontology["objectProperties"]["offeringInMarket"]["rdfs:range"],
+            },
+        )
+        self.assertEqual(
+            {
+                "rdfs:domain": "Offering",
+                "rdfs:range": "StakeholderArchetype",
+            },
+            {
+                "rdfs:domain": ontology["objectProperties"]["targetsStakeholder"]["rdfs:domain"],
+                "rdfs:range": ontology["objectProperties"]["targetsStakeholder"]["rdfs:range"],
+            },
+        )
+
+    def test_evidence_signal_type_is_validated(self):
+        evidence = schema.validate_node(
+            "Evidence",
+            {
+                "id": "evidence_notion_competitor_claim",
+                "source_type": "web",
+                "source_ref": "notion://competitor-research",
+                "extracted_claim": "Notion competes with Coda for workspace buyers.",
+                "signal_type": "observation",
+            },
+        )
+
+        self.assertEqual(schema.EvidenceSignalType.OBSERVATION, evidence.signal_type)
+
+        with self.assertRaises(ValueError):
+            schema.validate_node(
+                "Evidence",
+                {
+                    "id": "evidence_bad_signal",
+                    "source_type": "web",
+                    "source_ref": "notion://competitor-research",
+                    "signal_type": "vibes",
+                },
+            )
 
     def test_checked_in_artifact_matches_generator(self):
         generator = load_generator()

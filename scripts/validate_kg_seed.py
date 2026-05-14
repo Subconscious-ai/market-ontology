@@ -50,6 +50,9 @@ FIXTURES = {
     "edges_evidence_supports.jsonl":       ("SUPPORTS", True),
     "companies.jsonl":                     ("Company", False),
     "edges_offering_offered_by.jsonl":     ("OFFERED_BY", True),
+    "edges_offering_competes_with.jsonl":  ("COMPETES_WITH", True),
+    "edges_offering_in_market.jsonl":      ("OFFERING_IN_MARKET", True),
+    "edges_offering_targets_stakeholder.jsonl": ("TARGETS_STAKEHOLDER", True),
     "edges_experiment_run_consumed.jsonl": ("CONSUMED", True),
     "edges_experiment_run_produced.jsonl": ("PRODUCED", True),
 }
