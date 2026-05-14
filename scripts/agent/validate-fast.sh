@@ -4,6 +4,9 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$ROOT"
 
+started_at="$(date +%s)"
+trap 'ended_at="$(date +%s)"; echo "validate-fast elapsed: $((ended_at - started_at))s"' EXIT
+
 PYTHON_BIN="${PYTHON:-}"
 if [ -z "$PYTHON_BIN" ]; then
   if command -v python >/dev/null 2>&1; then
