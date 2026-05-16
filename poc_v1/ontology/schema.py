@@ -387,8 +387,9 @@ class EdgeCompetesWith(_Edge):
 class EdgeOfferingInMarket(_Edge):
     """Offering -[:OFFERING_IN_MARKET]-> Market.
 
-    Kept distinct from Transition -[:IN_MARKET]-> Market because the
-    TrustGraph projection has one domain/range pair per property.
+    Kept as its own predicate, distinct from Transition -[:IN_MARKET]->
+    Market, so each edge label has a single (source, target) domain —
+    unambiguous edge typing for the graphiti EDGE_TYPE_MAP.
     """
     label: Literal["OFFERING_IN_MARKET"] = "OFFERING_IN_MARKET"
 

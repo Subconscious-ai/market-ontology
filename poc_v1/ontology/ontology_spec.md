@@ -44,10 +44,6 @@ An outcome a StakeholderArchetype is trying to achieve — the job-to-be-done be
 
 ### Evidence
 Grounding for any node or edge. Required for every extracted fact per the ingestion rules.
-TrustGraph projection note: Evidence datatype fields (`source_ref`,
-`source_url`, `extracted_claim`, `signal_type`, `period_observed`) must carry
-`rdfs:domain = Evidence`. TrustGraph's ontology selector uses datatype-property
-domains to include source/claim fields when the Evidence class is selected.
 
 ### Estimate
 Results returned from Subconscious. Every Estimate carries `ontology_snapshot_hash` so results are always interpretable against the ontology state they were computed on.

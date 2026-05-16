@@ -168,7 +168,6 @@ scripts/
   check_accepted_state_spine.py # gates the accepted-state spine contract
   generate_kg_seed_contract.py
   generate_twenty_app.py
-  generate_trustgraph_ontology.py  # TrustGraph ontology RAG projection (--check)
   check-doc-rot.sh              # keeps CLAUDE.md/READMEs honest vs the code
   agent/                        # validate-fast.sh / validate-full.sh + helpers
 tests/
