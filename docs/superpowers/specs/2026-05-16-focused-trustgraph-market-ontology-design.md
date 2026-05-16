@@ -102,9 +102,11 @@ extractor): `mkt:competesWith` (symmetric, Product↔Product), `mkt:fromStage`,
 ## Workstreams
 
 **W1 — Compatibility audit.** Assess `market-ontology` v1.5.0 (~15 classes)
-against the 6-class target and the research. Produce a written audit:
-class-by-class keep/cut/merge decision, the property set, the gaps. Lock the
-focused subset. *Pure analysis; no code.*
+against the 6-class target and the research. Output is a **committed artifact**:
+`docs/superpowers/specs/2026-05-16-tg-ontology-audit.md` — a class-by-class
+keep/cut/merge decision, the full property set with domain/range, and the
+alignment-vs-build call per class. That audit doc *is* the specification for
+`trustgraph_projection.json`; W2 consumes it. *Pure analysis; no code.*
 
 **W2 — The ontology + projection layer.** In `market-ontology/poc_v1/ontology/`,
 un-retire and modernise the layer #65 removed: `trustgraph_projection.json` (the
@@ -114,9 +116,13 @@ Wire schema↔projection drift detection and OWL validation into CI
 (`validate-fast.sh`). *Pure, offline, zero infrastructure.*
 
 **W3 — Point the extractor at it.** In `spice-harvester` `lib/ontology_extraction`,
-consume the new OWL artifact. Verify domain/range validation works against it:
-the existing competitor fixtures extract with zero domain/range rejections on
-valid input.
+consume the new OWL artifact. Verify domain/range validation works against it
+on the existing fixtures —
+`tests/fixtures/ontology_extraction/sources/{coda-home,clickup-docs,microsoft-loop}.txt`
+(the Product/competitor core) plus the `golden/noise/` set. Two checks: valid
+input yields **zero domain/range rejections**, and a deliberately
+domain/range-violating triple **is rejected** — proving the constraint is live,
+not inert.
 
 ## Risks & error handling
 
@@ -136,11 +142,15 @@ valid input.
   on drift (the #60 `_assert_class_coverage` pattern, restored).
 - **OWL validation** — the generated artifact is valid OWL (`owl:Class`,
   `rdfs:subClassOf`, `owl:ObjectProperty`, `rdfs:domain`/`rdfs:range`,
-  `owl:Restriction`), checked by an OWL validator in CI.
+  `owl:Restriction`), checked in CI by an `rdflib`-based structural validator
+  (parses, then asserts every required construct is present). The
+  implementation plan pins the exact tool and assertions, and confirms it
+  handles `owl:SymmetricProperty` (`mkt:competesWith`) cleanly.
 - **Extraction check** — `lib/ontology_extraction` run against the new OWL
   produces domain/range-valid triples for the Product/Persona/competitor core
-  on the existing fixtures, with **zero domain/range rejections on valid
-  input**.
+  on the existing fixtures (**zero domain/range rejections on valid input**),
+  *and* rejects a deliberately domain/range-violating triple (the negative
+  path — proves the constraint is enforced).
 - Phase 1 is **done** when: the focused OWL artifact generates and passes CI,
   and the extractor validates against it on the competitor fixtures.
 
