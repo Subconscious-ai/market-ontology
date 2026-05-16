@@ -63,7 +63,21 @@ Current graph additions for experiment lineage are intentionally small:
 
 Do not add raw causal graph edges such as `CAUSES`, `AFFECTS`,
 `HAS_TREATMENT`, or `HAS_OUTCOME` to the ontology. Causal assumptions live in
-projection artifacts.
+projection artifacts and in the `causal_dag_v1/` peer module (below).
+
+### `causal_dag_v1/` — the causal peer module
+
+`poc_v1` is a labeled property graph of *types* whose edges express
+structure (`HAS_ATTRIBUTE`, `FROM`, `TO`). It is deliberately not a causal
+DAG. `causal_dag_v1/` is the peer module that holds the *causal* layer:
+nodes (`Cause`, `Effect`, `Mediator`, `Moderator`, `Confounder`,
+`Intervention`) and edges (`CAUSES` with direction/sign/effect_size/CI,
+`MEDIATES`, `MODERATES`, `CONFOUNDED_BY`). It has its own Pydantic models
+(`causal_dag_v1/nodes.py`, `edges.py`) and acyclicity validation
+(`validate.py`, NetworkX-backed). `scripts/validate_causal_dag.py` reads
+`causal_dag_v1/kg_seed/*.jsonl` and gates it in CI. Ontology (`poc_v1`) is
+*context*; causal hypotheses (`causal_dag_v1`) are *result* — keep them
+separate.
 
 ### Public modules (consumer imports)
 
@@ -144,14 +158,25 @@ poc_v1/
     recommendation.schema.json
   adapters/
     legacy graph-store adapters
+causal_dag_v1/                 # causal peer module (see Architecture)
+  nodes.py edges.py validate.py
+  kg_seed/*.jsonl
 scripts/
   validate_kg_seed.py
   validate_causal_dag.py
   validate_causal_projection.py
+  check_accepted_state_spine.py # gates the accepted-state spine contract
   generate_kg_seed_contract.py
   generate_twenty_app.py
+  generate_trustgraph_ontology.py  # TrustGraph ontology RAG projection (--check)
+  check-doc-rot.sh              # keeps CLAUDE.md/READMEs honest vs the code
+  agent/                        # validate-fast.sh / validate-full.sh + helpers
 tests/
 ```
+
+The single fast gate is `bash scripts/agent/validate-fast.sh` — it runs
+every command in the Commands section plus the generators in `--check`
+mode. Run it before opening a PR rather than each command by hand.
 
 ## Golden Rules
 
