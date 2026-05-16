@@ -1,6 +1,6 @@
 {
   "$schema": "https://subconscious.ai/schemas/twenty-projection-manifest.json",
-  "schema_version": "1.4.0",
+  "schema_version": "1.5.0",
   "projection_version": "1.0.0",
   "metadata_fields": [
     {"name": "ontology_node_id", "type": "text", "required": true},
@@ -59,7 +59,6 @@
         {"name": "synced_at", "type": "datetime", "required": true},
         {"name": "source_updated_at", "type": "datetime", "required": false},
         {"name": "name", "type": "text", "required": true},
-        {"name": "company_name", "type": "text", "required": true},
         {"name": "category", "type": "text", "required": false},
         {"name": "is_competitor", "type": "boolean", "required": true},
         {"name": "definition", "type": "rich_text", "required": false}
@@ -93,7 +92,8 @@
         {"name": "definition", "type": "rich_text", "required": false}
       ],
       "relations": [
-        {"name": "traits", "edge_label": "HAS_TRAIT", "target_object": "trait", "cardinality": "many"}
+        {"name": "traits", "edge_label": "HAS_TRAIT", "target_object": "trait", "cardinality": "many"},
+        {"name": "needs", "edge_label": "HAS_NEED", "target_object": "need", "cardinality": "many"}
       ]
     },
     {
@@ -133,7 +133,7 @@
         {"name": "ontology_snapshot_hash", "type": "text", "required": true},
         {"name": "synced_at", "type": "datetime", "required": true},
         {"name": "source_updated_at", "type": "datetime", "required": false},
-        {"name": "name", "type": "select", "required": true},
+        {"name": "name", "type": "text", "required": true},
         {"name": "definition", "type": "rich_text", "required": true}
       ],
       "relations": []
@@ -186,7 +186,8 @@
         {"name": "definition", "type": "rich_text", "required": true}
       ],
       "relations": [
-        {"name": "levels", "edge_label": "HAS_LEVEL", "target_object": "attribute_level", "cardinality": "many"}
+        {"name": "levels", "edge_label": "HAS_LEVEL", "target_object": "attribute_level", "cardinality": "many"},
+        {"name": "needs", "edge_label": "ADDRESSES", "target_object": "need", "cardinality": "many"}
       ]
     },
     {
@@ -256,6 +257,26 @@
         {"name": "value", "type": "json", "required": true},
         {"name": "label", "type": "text", "required": false},
         {"name": "is_status_quo", "type": "boolean", "required": true}
+      ],
+      "relations": []
+    },
+    {
+      "object_name": "need",
+      "display_name": "Need",
+      "ontology_node_type": "Need",
+      "surface": "support",
+      "sync_ledger_key_fields": ["tenant_id", "ontology_node_type", "ontology_node_id", "ontology_snapshot_hash"],
+      "fields": [
+        {"name": "ontology_node_id", "type": "text", "required": true},
+        {"name": "ontology_node_type", "type": "text", "required": true},
+        {"name": "ontology_schema_version", "type": "text", "required": true},
+        {"name": "projection_version", "type": "text", "required": true},
+        {"name": "source_run_id", "type": "text", "required": true},
+        {"name": "ontology_snapshot_hash", "type": "text", "required": true},
+        {"name": "synced_at", "type": "datetime", "required": true},
+        {"name": "source_updated_at", "type": "datetime", "required": false},
+        {"name": "name", "type": "text", "required": true},
+        {"name": "definition", "type": "rich_text", "required": true}
       ],
       "relations": []
     },

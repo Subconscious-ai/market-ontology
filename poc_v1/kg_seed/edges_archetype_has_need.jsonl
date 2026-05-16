@@ -1,0 +1,4 @@
+{"start_id": "stk_ent_analyst", "end_id": "need_audit_defensibility", "properties": {"schema_version": "1.5.0"}}
+{"start_id": "stk_ent_analyst", "end_id": "need_fast_time_to_value", "properties": {"schema_version": "1.5.0"}}
+{"start_id": "stk_procurement_lead", "end_id": "need_predictable_cost", "properties": {"schema_version": "1.5.0"}}
+{"start_id": "stk_procurement_lead", "end_id": "need_audit_defensibility", "properties": {"schema_version": "1.5.0"}}

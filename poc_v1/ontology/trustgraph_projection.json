@@ -47,6 +47,10 @@
       "label": "TraitLevel",
       "comment": "A specific value a Trait can take — e.g. for Trait 'price-sensitivity': levels 'high', 'medium', 'low'; for Trait 'technical-fluency': levels 'novice', 'intermediate', 'expert'. Always tied to a Trait via hasLevel."
     },
+    "Need": {
+      "label": "Need",
+      "comment": "An outcome a StakeholderArchetype is trying to achieve in a Market — the job-to-be-done behind a buying decision — e.g. 'reduce time-to-deploy', 'pass a regulatory audit', 'keep tooling spend predictable'. Attributes ADDRESS Needs; archetypes HAS_NEED them."
+    },
     "Evidence": {
       "label": "Evidence",
       "comment": "A claim grounded in a source, used to support or refute an ontology fact — e.g. \"23% of Notion trial users convert to AI tier (Notion Q3 report)\", \"iPhone 15 Pro Max is $1199 at apple.com/shop\". Always cites a sourceRef or sourceUrl."
@@ -128,6 +132,20 @@
       "edgeLabel": "SUPPORTS",
       "label": "supports",
       "comment": "Connects evidence to the ontology entity or claim it supports."
+    },
+    "addresses": {
+      "edgeLabel": "ADDRESSES",
+      "label": "addresses",
+      "comment": "Connects an offering attribute to a buyer need it serves, when source text explicitly states the attribute helps achieve that outcome.",
+      "domain": "Attribute",
+      "range": "Need"
+    },
+    "hasNeed": {
+      "edgeLabel": "HAS_NEED",
+      "label": "has need",
+      "comment": "Connects a stakeholder archetype to a buyer need that drives its decisions.",
+      "domain": "StakeholderArchetype",
+      "range": "Need"
     },
     "offeredBy": {
       "edgeLabel": "OFFERED_BY",

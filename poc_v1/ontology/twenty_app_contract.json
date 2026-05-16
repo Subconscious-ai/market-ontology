@@ -60,6 +60,12 @@
           "edge_label": "HAS_LEVEL",
           "name": "levels",
           "target_object": "attribute_level"
+        },
+        {
+          "cardinality": "many",
+          "edge_label": "ADDRESSES",
+          "name": "needs",
+          "target_object": "need"
         }
       ],
       "surface": "support",
@@ -477,6 +483,60 @@
         "ontology_snapshot_hash"
       ]
     },
+    "need": {
+      "display_name": "Need",
+      "fields": {
+        "definition": {
+          "required": true,
+          "type": "rich_text"
+        },
+        "name": {
+          "required": true,
+          "type": "text"
+        },
+        "ontology_node_id": {
+          "required": true,
+          "type": "text"
+        },
+        "ontology_node_type": {
+          "required": true,
+          "type": "text"
+        },
+        "ontology_schema_version": {
+          "required": true,
+          "type": "text"
+        },
+        "ontology_snapshot_hash": {
+          "required": true,
+          "type": "text"
+        },
+        "projection_version": {
+          "required": true,
+          "type": "text"
+        },
+        "source_run_id": {
+          "required": true,
+          "type": "text"
+        },
+        "source_updated_at": {
+          "required": false,
+          "type": "datetime"
+        },
+        "synced_at": {
+          "required": true,
+          "type": "datetime"
+        }
+      },
+      "ontology_node_type": "Need",
+      "relations": [],
+      "surface": "support",
+      "sync_ledger_key_fields": [
+        "tenant_id",
+        "ontology_node_type",
+        "ontology_node_id",
+        "ontology_snapshot_hash"
+      ]
+    },
     "persona": {
       "display_name": "Persona",
       "fields": {
@@ -548,6 +608,12 @@
           "edge_label": "HAS_TRAIT",
           "name": "traits",
           "target_object": "trait"
+        },
+        {
+          "cardinality": "many",
+          "edge_label": "HAS_NEED",
+          "name": "needs",
+          "target_object": "need"
         }
       ],
       "surface": "primary",
@@ -563,10 +629,6 @@
       "fields": {
         "category": {
           "required": false,
-          "type": "text"
-        },
-        "company_name": {
-          "required": true,
           "type": "text"
         },
         "definition": {
@@ -646,7 +708,7 @@
         },
         "name": {
           "required": true,
-          "type": "select"
+          "type": "text"
         },
         "ontology_node_id": {
           "required": true,
@@ -915,7 +977,7 @@
     }
   },
   "projection_version": "1.0.0",
-  "schema_version": "1.4.0",
+  "schema_version": "1.5.0",
   "sync_ledger": {
     "description": "Downstream sync ledgers use these fields to map a tenant-scoped ontology node snapshot to a Twenty record.",
     "stable_key_fields": [

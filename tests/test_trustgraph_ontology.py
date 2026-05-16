@@ -29,7 +29,7 @@ class TrustGraphOntologyProjectionTest(unittest.TestCase):
     def test_generated_classes_match_canonical_nodes_plus_root(self):
         ontology = load_generator().build_ontology()
 
-        self.assertEqual("1.4.0", ontology["metadata"]["schemaVersion"])
+        self.assertEqual("1.5.0", ontology["metadata"]["schemaVersion"])
         self.assertIn("SizzlEntity", ontology["classes"])
         self.assertEqual(
             set(schema.NODE_MODELS) | {"SizzlEntity"},

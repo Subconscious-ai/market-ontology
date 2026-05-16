@@ -7,7 +7,7 @@ This is the single source of truth for the schema. Keep it aligned with:
   - ontology/edge_schemas.json
   - graph-store adapter constraints/import scripts
 
-Schema version: 1.4.0
+Schema version: 1.5.0
 """
 
 from __future__ import annotations
@@ -18,21 +18,12 @@ from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field, model_validator
 
-SCHEMA_VERSION = "1.4.0"
+SCHEMA_VERSION = "1.5.0"
 
 
 # ---------------------------------------------------------------------------
 # Enums
 # ---------------------------------------------------------------------------
-
-class StageName(str, Enum):
-    AWARENESS = "awareness"
-    ACQUISITION = "acquisition"
-    ACTIVATION = "activation"
-    RETENTION = "retention"
-    REFERRAL = "referral"
-    REVENUE = "revenue"
-
 
 class ArchetypeType(str, Enum):
     CUSTOMER = "customer"
@@ -123,8 +114,15 @@ class Market(_VersionedNode):
 
 
 class Stage(_VersionedNode):
+    """A discrete step in a buyer's decision journey through a Market.
+
+    `name` is a free string: funnels vary by market. AARRR pirate metrics
+    (awareness, acquisition, activation, retention, referral, revenue),
+    SaaS trial funnels, and retail purchase journeys are all valid — the
+    schema does not enforce one company's funnel taxonomy on every market.
+    """
     id: str
-    name: StageName
+    name: str
     definition: str
 
 
@@ -137,12 +135,13 @@ class Transition(_VersionedNode):
 
 
 class StakeholderArchetype(_VersionedNode):
+    """A type of buyer, user, or decision-maker whose preferences shape a
+    Market. The persona's traits are the HAS_TRAIT edge graph
+    (StakeholderArchetype -[:HAS_TRAIT]-> Trait -[:HAS_LEVEL]-> TraitLevel) —
+    there is no denormalized `traits` dict (removed in v1.5)."""
     id: str
     name: str
     archetype_type: ArchetypeType
-    # Backwards-compatible cache. The canonical trait graph is
-    # StakeholderArchetype -[:HAS_TRAIT]-> Trait -[:HAS_LEVEL]-> TraitLevel.
-    traits: dict[str, Any] = Field(default_factory=dict)
     role: Optional[str] = None
     segment: Optional[str] = None
     industry: Optional[str] = None
@@ -151,12 +150,13 @@ class StakeholderArchetype(_VersionedNode):
 
 
 class Offering(_VersionedNode):
+    """A specific product or service a Company brings to a Market.
+
+    The owning company is the OFFERED_BY edge to a Company node. The
+    `company_name` string prop was removed in v1.5 — the Company node is
+    the single source of truth (populated from spice-harvester research)."""
     id: str
     name: str
-    # company_name is a string prop kept for backwards compat. As of v1.1
-    # the authoritative link is the OFFERED_BY edge to a Company node.
-    # Will be deprecated in v2.
-    company_name: str
     is_competitor: bool = False
     category: Optional[str] = None
     definition: Optional[str] = None
@@ -183,11 +183,18 @@ class Attribute(_VersionedNode):
 
 
 class AttributeLevel(_VersionedNode, _TemporallyValid):
-    """A plausible level for an Attribute in a Market/period."""
+    """A plausible level for an Attribute in a Market/period.
+
+    `value` is a typed JSON scalar (the concrete level — e.g. 1499,
+    "premium", True). Typed rather than `Any` so it survives the typed
+    graph projections; interpret it against the parent Attribute's
+    `data_type`. Typically populated from Rehoboam's
+    get_attributes_levels APIs.
+    """
     id: str
     attribute_id: str
     market_id: str
-    value: Any  # coerced to str/float/bool by data_type on the Attribute
+    value: bool | int | float | str
     label: Optional[str] = None
     is_status_quo: bool = False
 
@@ -202,13 +209,31 @@ class Trait(_VersionedNode):
 
 
 class TraitLevel(_VersionedNode, _TemporallyValid):
-    """A plausible value for a Trait in a Market/period."""
+    """A plausible value for a Trait in a Market/period.
+
+    `value` is a typed JSON scalar; interpret it against the parent
+    Trait's `data_type`. See `AttributeLevel.value`.
+    """
     id: str
     trait_id: str
     market_id: str
-    value: Any
+    value: bool | int | float | str
     label: Optional[str] = None
     is_status_quo: bool = False
+
+
+class Need(_VersionedNode):
+    """An outcome a StakeholderArchetype is trying to achieve in a Market —
+    the job-to-be-done behind a Transition.
+
+    Attributes matter only insofar as they ADDRESS a Need; archetypes
+    HAS_NEED the outcomes that drive their decisions. Modeling the Need
+    explicitly makes a measured attribute importance *explainable* (which
+    buyer outcome it serves) rather than merely a number.
+    """
+    id: str
+    name: str
+    definition: str
 
 
 class Evidence(_VersionedNode):
@@ -384,6 +409,21 @@ class EdgeProduced(_Edge):
     label: Literal["PRODUCED"] = "PRODUCED"
 
 
+class EdgeAddresses(_Edge):
+    """Attribute -[:ADDRESSES]-> Need.
+
+    The attribute is a lever on the buyer outcome. This is the
+    explainability link: a measured attribute importance traces back to
+    the Need it serves.
+    """
+    label: Literal["ADDRESSES"] = "ADDRESSES"
+
+
+class EdgeHasNeed(_Edge):
+    """StakeholderArchetype -[:HAS_NEED]-> Need."""
+    label: Literal["HAS_NEED"] = "HAS_NEED"
+
+
 # ---------------------------------------------------------------------------
 # Convenience: registry for writers/importers
 # ---------------------------------------------------------------------------
@@ -398,6 +438,7 @@ NODE_MODELS: dict[str, type[BaseModel]] = {
     "AttributeLevel": AttributeLevel,
     "Trait": Trait,
     "TraitLevel": TraitLevel,
+    "Need": Need,
     "Evidence": Evidence,
     "Estimate": Estimate,
     "Company": Company,
@@ -415,6 +456,8 @@ EDGE_MODELS: dict[str, type[BaseModel]] = {
     "HAS_TRAIT": EdgeHasTrait,
     "RELEVANT_AT": EdgeRelevantAt,
     "SUPPORTS": EdgeSupports,
+    "ADDRESSES": EdgeAddresses,
+    "HAS_NEED": EdgeHasNeed,
     "OFFERED_BY": EdgeOfferedBy,
     "COMPETES_WITH": EdgeCompetesWith,
     "OFFERING_IN_MARKET": EdgeOfferingInMarket,

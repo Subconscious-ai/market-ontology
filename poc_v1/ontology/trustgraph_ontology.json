@@ -4,7 +4,7 @@
     "name": "Sizzl Market Ontology",
     "namespace": "https://causl.io/ontology/sizzl/v1#",
     "description": "TrustGraph Ontology RAG projection of the canonical Sizzl market ontology.",
-    "schemaVersion": "1.4.0",
+    "schemaVersion": "1.5.0",
     "projectionVersion": "1.1.0"
   },
   "classes": {
@@ -136,6 +136,19 @@
       "rdfs:comment": "A specific value a Trait can take \u2014 e.g. for Trait 'price-sensitivity': levels 'high', 'medium', 'low'; for Trait 'technical-fluency': levels 'novice', 'intermediate', 'expert'. Always tied to a Trait via hasLevel.",
       "rdfs:subClassOf": "SizzlEntity",
       "dcterms:identifier": "TraitLevel"
+    },
+    "Need": {
+      "uri": "https://causl.io/ontology/sizzl/v1#Need",
+      "type": "owl:Class",
+      "rdfs:label": [
+        {
+          "value": "Need",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "An outcome a StakeholderArchetype is trying to achieve in a Market \u2014 the job-to-be-done behind a buying decision \u2014 e.g. 'reduce time-to-deploy', 'pass a regulatory audit', 'keep tooling spend predictable'. Attributes ADDRESS Needs; archetypes HAS_NEED them.",
+      "rdfs:subClassOf": "SizzlEntity",
+      "dcterms:identifier": "Need"
     },
     "Evidence": {
       "uri": "https://causl.io/ontology/sizzl/v1#Evidence",
@@ -314,6 +327,32 @@
         }
       ],
       "rdfs:comment": "Connects evidence to the ontology entity or claim it supports."
+    },
+    "addresses": {
+      "uri": "https://causl.io/ontology/sizzl/v1#addresses",
+      "type": "owl:ObjectProperty",
+      "rdfs:label": [
+        {
+          "value": "addresses",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "Connects an offering attribute to a buyer need it serves, when source text explicitly states the attribute helps achieve that outcome.",
+      "rdfs:domain": "Attribute",
+      "rdfs:range": "Need"
+    },
+    "hasNeed": {
+      "uri": "https://causl.io/ontology/sizzl/v1#hasNeed",
+      "type": "owl:ObjectProperty",
+      "rdfs:label": [
+        {
+          "value": "has need",
+          "lang": "en"
+        }
+      ],
+      "rdfs:comment": "Connects a stakeholder archetype to a buyer need that drives its decisions.",
+      "rdfs:domain": "StakeholderArchetype",
+      "rdfs:range": "Need"
     },
     "offeredBy": {
       "uri": "https://causl.io/ontology/sizzl/v1#offeredBy",

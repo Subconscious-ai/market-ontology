@@ -10,7 +10,7 @@ from poc_v1.ontology import schema as ontology_schema
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACTS_DIR = ROOT / "poc_v1" / "contracts"
 
-BASE_NODE_TYPES = {
+CANONICAL_NODE_TYPES = {
     "Market",
     "Stage",
     "Transition",
@@ -20,12 +20,14 @@ BASE_NODE_TYPES = {
     "AttributeLevel",
     "Trait",
     "TraitLevel",
+    "Need",
     "Evidence",
     "Estimate",
     "Company",
+    "ExperimentRun",
 }
 
-BASE_EDGE_TYPES = {
+CANONICAL_EDGE_TYPES = {
     "FROM",
     "TO",
     "IN_MARKET",
@@ -36,10 +38,14 @@ BASE_EDGE_TYPES = {
     "HAS_TRAIT",
     "RELEVANT_AT",
     "SUPPORTS",
+    "ADDRESSES",
+    "HAS_NEED",
     "OFFERED_BY",
     "COMPETES_WITH",
     "OFFERING_IN_MARKET",
     "TARGETS_STAKEHOLDER",
+    "CONSUMED",
+    "PRODUCED",
 }
 
 FORBIDDEN_CAUSAL_EDGE_TYPES = {
@@ -61,12 +67,12 @@ def load_contract(name: str) -> dict:
 
 
 class CausalProjectionContractsTest(unittest.TestCase):
-    def test_schema_adds_only_experiment_run_and_run_edges(self):
+    def test_schema_matches_canonical_set_and_excludes_causal_edges(self):
         schema = load_schema()
 
-        self.assertEqual("1.4.0", schema.SCHEMA_VERSION)
-        self.assertEqual(BASE_NODE_TYPES | {"ExperimentRun"}, set(schema.NODE_MODELS))
-        self.assertEqual(BASE_EDGE_TYPES | {"CONSUMED", "PRODUCED"}, set(schema.EDGE_MODELS))
+        self.assertEqual("1.5.0", schema.SCHEMA_VERSION)
+        self.assertEqual(CANONICAL_NODE_TYPES, set(schema.NODE_MODELS))
+        self.assertEqual(CANONICAL_EDGE_TYPES, set(schema.EDGE_MODELS))
         self.assertTrue(FORBIDDEN_CAUSAL_EDGE_TYPES.isdisjoint(schema.EDGE_MODELS))
 
     def test_experiment_run_and_new_estimate_types_validate(self):
@@ -253,7 +259,7 @@ class CausalProjectionContractsTest(unittest.TestCase):
             ),
         )
 
-        self.assertEqual("1.4.0", projection["schema_version"])
+        self.assertEqual("1.5.0", projection["schema_version"])
         self.assertCountEqual(
             [
                 "poc_v1/contracts/causal_dag_projection.schema.json",

@@ -48,6 +48,7 @@ The authoritative count is `len(NODE_MODELS)` in
 | AttributeLevel | Plausible level for an Attribute in a Market/period |
 | Trait | Dimension of a StakeholderArchetype used to describe a persona |
 | TraitLevel | Plausible level for a Trait in a Market/period |
+| Need | Outcome a StakeholderArchetype wants — the job-to-be-done behind a Transition |
 | Evidence | Source grounding for any node |
 | Estimate | Part-worth, AMCE, importance, or other returned quantity |
 | Company | Organization that offers one or more Offerings |
@@ -70,6 +71,8 @@ Attribute -[:HAS_LEVEL]-> AttributeLevel
 Trait -[:HAS_LEVEL]-> TraitLevel
 StakeholderArchetype -[:HAS_TRAIT]-> Trait
 Attribute -[:RELEVANT_AT {score, valid_from, valid_to, evidence_ids}]-> Stage
+Attribute -[:ADDRESSES]-> Need
+StakeholderArchetype -[:HAS_NEED]-> Need
 Evidence -[:SUPPORTS]-> *
 Estimate -[:ABOUT]-> *
 ExperimentRun -[:CONSUMED]-> *

@@ -1,0 +1,3 @@
+{"id": "need_audit_defensibility", "properties": {"name": "Audit-defensible research outputs", "definition": "Produce research outputs that survive regulatory and internal-audit scrutiny, with traceable provenance for every claim.", "schema_version": "1.5.0"}}
+{"id": "need_fast_time_to_value", "properties": {"name": "Fast time to first value", "definition": "Reach a first useful research output with minimal onboarding and configuration overhead.", "schema_version": "1.5.0"}}
+{"id": "need_predictable_cost", "properties": {"name": "Predictable, defensible tooling cost", "definition": "Keep tooling spend predictable and easy to justify to procurement within a constrained budget.", "schema_version": "1.5.0"}}
