@@ -14,18 +14,18 @@ Minimal, queryable context store for:
 Scope boundary. Every query is market-scoped. One market per ontology in v1. Context factors (budget state, regulatory pressure, urgency, channel) live here as JSONB-style properties in v1 and become first-class `ContextFactor` nodes in v2.
 
 ### Stage
-AARRR stages as first-class nodes. Enables clean `FROM` / `TO` edges on transitions and lets the experiment designer query "which attributes matter at stage X."
+A discrete step in a buyer's decision journey, as a first-class node. `name` is a free string — funnels vary by market (SaaS trial funnels, AARRR pirate metrics, retail purchase journeys). Enables clean `FROM` / `TO` edges on transitions and lets the experiment designer query "which attributes matter at stage X."
 
 ### Transition
 The state change being modeled (e.g., Consider → Choose). Holds no probabilities. All quantitative findings about a transition are Estimate nodes pointing at it.
 
 ### StakeholderArchetype
-Who moves through stages. Distinguished as `customer`, `competitor_buyer`, or `competitor_user` via `archetype_type`. The `traits` dict remains as a backwards-compatible cache; the canonical persona-trait graph is `StakeholderArchetype -[:HAS_TRAIT]-> Trait -[:HAS_LEVEL]-> TraitLevel`.
+Who moves through stages. Distinguished as `customer`, `competitor_buyer`, or `competitor_user` via `archetype_type`. The persona-trait graph is `StakeholderArchetype -[:HAS_TRAIT]-> Trait -[:HAS_LEVEL]-> TraitLevel` — there is no denormalized `traits` dict (removed in v1.5).
 
 **No sensitivities as properties.** Price/brand/trust sensitivities are posterior quantities from choice models. They land as Estimate nodes with `ABOUT` edges to the archetype.
 
 ### Offering
-The object of study. `company_name` is a string prop in v1 with Splink dedupe; `Organization` becomes a node in v2.
+The object of study. Offering ownership is the `OFFERED_BY` edge to a `Company` node — the canonical source of truth. The `company_name` string prop was removed in v1.5.
 
 ### Attribute
 A dimension of an Offering that can be varied in a DCE. Typically populated by Subconscious's API or by the research agent.
@@ -38,6 +38,9 @@ A dimension of a StakeholderArchetype used to describe a persona.
 
 ### TraitLevel
 Plausible levels for a Trait in a Market for a time window. Temporally valid.
+
+### Need
+An outcome a StakeholderArchetype is trying to achieve — the job-to-be-done behind a Transition. Attributes `ADDRESSES` Needs; archetypes `HAS_NEED` them. Makes attribute importance explainable (which buyer outcome it serves), not just measured.
 
 ### Evidence
 Grounding for any node or edge. Required for every extracted fact per the ingestion rules.
@@ -66,6 +69,8 @@ Execution record tying an ontology snapshot to SuperEgo/W&B run and artifact met
 | HAS_TRAIT | StakeholderArchetype | Trait | |
 | RELEVANT_AT | Attribute | Stage | `{score, valid_from, valid_to, evidence_ids}` — temporal relevance |
 | SUPPORTS | Evidence | * | Polymorphic |
+| ADDRESSES | Attribute | Need | Which buyer Need an offering attribute serves |
+| HAS_NEED | StakeholderArchetype | Need | Outcomes that drive an archetype's decisions |
 | CONSUMED | ExperimentRun | * | Ontology context consumed by a run |
 | PRODUCED | ExperimentRun | Estimate | Estimates produced by a run |
 

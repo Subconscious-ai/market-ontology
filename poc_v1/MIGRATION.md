@@ -1,6 +1,35 @@
-# Migration — v0 to v1 (and v1.0 → v1.3.1)
+# Migration — v0 to v1 (and v1.0 → v1.5.0)
 
 This document records what changed between the initial POC scaffolding and the v1 ontology, and why. Keep this file. Future schema migrations should follow the same pattern.
+
+## v1.4 → v1.5 (2026-05-16) — Need node, typed level values, free-string Stage, cache removal
+
+**Mostly additive.** With Pydantic's default `extra="ignore"`, existing `kg_seed/*.jsonl` continues to validate; the removed fields are simply dropped. `SCHEMA_VERSION` bumped `1.4.0 → 1.5.0`.
+
+### Change
+
+- New node type `Need` — the outcome a `StakeholderArchetype` is trying to achieve; the job-to-be-done behind a `Transition`.
+- New edge types `ADDRESSES`: `Attribute → Need` and `HAS_NEED`: `StakeholderArchetype → Need`. Neither is a causal edge; both are market-structure.
+- `Stage.name` is now a free `str`, not the `StageName` enum. AARRR was one company's funnel taxonomy; markets vary. The enum was deleted.
+- `AttributeLevel.value` and `TraitLevel.value` are now a typed scalar (`bool | int | float | str`) instead of `Any`. `Any`-typed fields were stripped by `graphiti_views`, so level values never reached the typed graph projections; they do now.
+- Removed `Offering.company_name`. The `OFFERED_BY` edge to a `Company` node is the single source of truth for offering ownership.
+- Removed `StakeholderArchetype.traits`. The `HAS_TRAIT` edge graph (`StakeholderArchetype → Trait → TraitLevel`) is the single source of truth for persona traits.
+
+### Why
+
+The ontology had no first-class home for *why* a buyer moves through a `Transition` — needs were smeared across `Trait` and `Attribute`. `Need` makes a measured attribute importance explainable (which buyer outcome it serves). The cache fields (`company_name`, `traits`) were two sources of truth for facts the edge graph already owned; the `Any`-typed values and the AARRR enum were correctness/portability hazards flagged for v2 cleanup.
+
+### Mechanics for consumers
+
+- **spice-harvester:** stop emitting `Offering.company_name` and `StakeholderArchetype.traits` — they are dropped on validation anyway. Company ownership comes from the `Company` node + `OFFERED_BY` edge (already emitted since v1.1). New emitters should produce `Need` nodes plus `ADDRESSES`/`HAS_NEED` edges where research supports them.
+- **ai-chatbot:** no required change; `Need` nodes and the two new edges appear in `kg_seed` as slugs re-ingest.
+- **Rehoboam:** `AttributeLevel.value` / `TraitLevel.value` are now typed scalars — `get_attributes_levels` outputs must be a bool, int, float, or string, not a nested object.
+
+### Non-goals
+
+- Market-scoping `Need` (single-market POC; add a `Need → Market` edge when a second market needs it).
+- A `confidence`/`strength` weight on `ADDRESSES` — add when a consumer query needs it.
+- Causal edges (`CAUSES`, `AFFECTS`, …). Those still live in `causal_dag_v1` / projection artifacts.
 
 ## v1.3.0 → v1.3.1 (2026-05-05) — harden causal projection contracts
 

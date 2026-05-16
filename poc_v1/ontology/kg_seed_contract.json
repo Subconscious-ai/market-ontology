@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.4.0",
+  "schema_version": "1.5.0",
   "nodes": {
     "Market": {
       "filename": "markets.jsonl",
@@ -36,6 +36,10 @@
     "TraitLevel": {
       "filename": "trait_levels.jsonl",
       "graph_type": "trait_level"
+    },
+    "Need": {
+      "filename": "needs.jsonl",
+      "graph_type": "need"
     },
     "Evidence": {
       "filename": "evidence.jsonl",
@@ -146,6 +150,22 @@
       "from": "Evidence",
       "to": "*"
     },
+    "ADDRESSES": {
+      "filename": "edges_attribute_addresses.jsonl",
+      "filenames": [
+        "edges_attribute_addresses.jsonl"
+      ],
+      "from": "Attribute",
+      "to": "Need"
+    },
+    "HAS_NEED": {
+      "filename": "edges_archetype_has_need.jsonl",
+      "filenames": [
+        "edges_archetype_has_need.jsonl"
+      ],
+      "from": "StakeholderArchetype",
+      "to": "Need"
+    },
     "OFFERED_BY": {
       "filename": "edges_offering_offered_by.jsonl",
       "filenames": [
@@ -232,6 +252,10 @@
       "kind": "node",
       "label": "TraitLevel"
     },
+    "needs.jsonl": {
+      "kind": "node",
+      "label": "Need"
+    },
     "evidence.jsonl": {
       "kind": "node",
       "label": "Evidence"
@@ -291,6 +315,14 @@
     "edges_evidence_supports.jsonl": {
       "kind": "edge",
       "label": "SUPPORTS"
+    },
+    "edges_attribute_addresses.jsonl": {
+      "kind": "edge",
+      "label": "ADDRESSES"
+    },
+    "edges_archetype_has_need.jsonl": {
+      "kind": "edge",
+      "label": "HAS_NEED"
     },
     "companies.jsonl": {
       "kind": "node",

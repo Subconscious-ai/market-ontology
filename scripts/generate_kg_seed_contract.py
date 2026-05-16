@@ -30,6 +30,7 @@ GRAPH_TYPES = {
     "AttributeLevel": "attribute_level",
     "Trait": "trait",
     "TraitLevel": "trait_level",
+    "Need": "need",
     "Evidence": "evidence",
     "Estimate": "estimate",
     "Company": "company",

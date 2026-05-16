@@ -6,7 +6,10 @@ Everything we deliberately cut from v1 to ship faster. Each item has a **trigger
 
 ### `Trait` as a first-class node
 
-**Current (v1):** Traits live inside `StakeholderArchetype.traits` as a JSONB dict.
+**Status: DONE.** `Trait`/`TraitLevel` became first-class nodes in v1.2; the
+denormalized `StakeholderArchetype.traits` cache was removed in v1.5. The
+canonical persona-trait graph is `StakeholderArchetype -[:HAS_TRAIT]-> Trait
+-[:HAS_LEVEL]-> TraitLevel`. The notes below are kept for historical context.
 
 **Proposed (v2):** `Trait` node with edges `StakeholderArchetype -[:HAS_TRAIT]-> Trait`.
 
@@ -38,9 +41,13 @@ Everything we deliberately cut from v1 to ship faster. Each item has a **trigger
 
 ### `Organization` as a first-class node
 
-**Current (v1):** `Offering.company_name` is a string property with Splink dedupe.
+**Status (v1.5): partially done.** A minimal `Company` node + `Offering
+-[:OFFERED_BY]-> Company` edge landed in v1.1, and `Offering.company_name`
+was removed in v1.5 — `Company` is now the single source of truth. Still
+deferred: the richer `Organization` shape (`aliases[]`, `ticker`, M&A /
+parent-child structure).
 
-**Proposed (v2):** `Organization` node with `canonical_name`, `aliases[]`, `domain`, `ticker`, etc. `Offering -[:OFFERED_BY]-> Organization`.
+**Proposed (v2):** richer `Company`/`Organization` props — `canonical_name`, `aliases[]`, `domain`, `ticker`, etc.
 
 **Why defer:** Splink handles the entity resolution well enough for ~50-200 offerings.
 
