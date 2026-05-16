@@ -42,6 +42,11 @@ python -m py_compile poc_v1/ontology/schema.py
 
 If any fail, fix before opening a PR. Do not use `--no-verify`.
 
+`main` is gated by two GitHub Actions workflows: `ci.yml` runs the full
+sequence above; `symphony-gate.yml` runs the `scripts/agent/` harness
+(`readiness.sh`, `preflight.sh`, `validate-fast.sh`). Python 3.11 is the
+CI baseline (`requires-python >= 3.11`) — do not rely on 3.12+-only syntax.
+
 ## Symphony Contract
 
 - Task types: `schema-contract`, `ontology-fixture`, `docs-canary`, `ci-harness`, `consumer-contract`.
