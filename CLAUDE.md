@@ -107,6 +107,7 @@ from poc_v1.ontology.iri import (
     class_iri,     # entity class -> canonical RDF class IRI
     parse_iri,     # canonical RDF IRI -> entity class + node id
     predicate_iri, # edge label -> canonical RDF predicate IRI
+    property_iri,  # node class + field name -> canonical datatype-property IRI
 )
 ```
 
@@ -126,7 +127,8 @@ multi-part TLDs (`lloyds.co.uk` → `lloyds_co_uk`) work out of the box.
 `iri` is the canonical RDF/TrustGraph identifier surface. Entity IRIs use
 `https://ontology.subconscious.ai/<Class>/<id>`; class IRIs use
 `https://ontology.subconscious.ai/class/<Class>`; predicate IRIs use
-`https://ontology.subconscious.ai/predicate/<EDGE_LABEL>`.
+`https://ontology.subconscious.ai/predicate/<EDGE_LABEL>`; datatype-property
+IRIs use `https://ontology.subconscious.ai/property/<Class>/<field>`.
 
 ## W&B/SuperEgo Loop
 

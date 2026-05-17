@@ -13,6 +13,7 @@ from .schema import EDGE_MODELS, NODE_MODELS
 BASE_NAMESPACE = "https://ontology.subconscious.ai"
 CLASS_PATH = "class"
 PREDICATE_PATH = "predicate"
+PROPERTY_PATH = "property"
 
 
 def _encode_segment(value: str) -> str:
@@ -63,12 +64,27 @@ def predicate_iri(edge_label: str) -> str:
     return f"{BASE_NAMESPACE}/{PREDICATE_PATH}/{_encode_segment(edge_label)}"
 
 
+def property_iri(class_name: str, field_name: str) -> str:
+    """Return the canonical datatype-property IRI for a node model field."""
+    model = NODE_MODELS.get(class_name)
+    if model is None:
+        raise ValueError(f"unknown node class: {class_name!r}")
+    if field_name not in model.model_fields:
+        raise ValueError(f"unknown field {field_name!r} for node class {class_name!r}")
+    return (
+        f"{BASE_NAMESPACE}/{PROPERTY_PATH}/"
+        f"{_encode_segment(class_name)}/{_encode_segment(field_name)}"
+    )
+
+
 __all__ = [
     "BASE_NAMESPACE",
     "CLASS_PATH",
     "PREDICATE_PATH",
+    "PROPERTY_PATH",
     "class_iri",
     "parse_iri",
     "predicate_iri",
+    "property_iri",
     "to_iri",
 ]

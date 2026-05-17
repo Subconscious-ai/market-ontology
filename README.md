@@ -112,6 +112,7 @@ from poc_v1.ontology.iri import (
     class_iri,     # class name -> stable RDF class IRI
     parse_iri,     # entity IRI -> (class_name, node_id)
     predicate_iri, # edge label -> stable predicate IRI
+    property_iri,  # node class + field name -> stable datatype-property IRI
 )
 ```
 

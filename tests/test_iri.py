@@ -45,8 +45,22 @@ class TestOntologyIri(unittest.TestCase):
             "https://ontology.subconscious.ai/predicate/OFFERED_BY",
         )
 
+    def test_property_iri_is_derived_from_model_fields(self):
+        from poc_v1.ontology.iri import property_iri
+
+        self.assertEqual(
+            property_iri("Offering", "name"),
+            "https://ontology.subconscious.ai/property/Offering/name",
+        )
+        self.assertEqual(
+            property_iri("Evidence", "source_url"),
+            "https://ontology.subconscious.ai/property/Evidence/source_url",
+        )
+        with self.assertRaises(ValueError):
+            property_iri("Offering", "not_a_field")
+
     def test_unknown_class_or_edge_raises(self):
-        from poc_v1.ontology.iri import class_iri, predicate_iri, to_iri
+        from poc_v1.ontology.iri import class_iri, predicate_iri, property_iri, to_iri
 
         with self.assertRaises(ValueError):
             to_iri("NotAClass", "x")
@@ -54,6 +68,8 @@ class TestOntologyIri(unittest.TestCase):
             class_iri("NotAClass")
         with self.assertRaises(ValueError):
             predicate_iri("NOT_AN_EDGE")
+        with self.assertRaises(ValueError):
+            property_iri("NotAClass", "name")
 
 
 if __name__ == "__main__":
