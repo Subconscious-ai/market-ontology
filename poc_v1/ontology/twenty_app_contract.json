@@ -977,7 +977,7 @@
     }
   },
   "projection_version": "1.0.0",
-  "schema_version": "1.5.0",
+  "schema_version": "1.6.0",
   "sync_ledger": {
     "description": "Downstream sync ledgers use these fields to map a tenant-scoped ontology node snapshot to a Twenty record.",
     "stable_key_fields": [

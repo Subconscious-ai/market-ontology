@@ -70,7 +70,7 @@ class CausalProjectionContractsTest(unittest.TestCase):
     def test_schema_matches_canonical_set_and_excludes_causal_edges(self):
         schema = load_schema()
 
-        self.assertEqual("1.5.0", schema.SCHEMA_VERSION)
+        self.assertEqual("1.6.0", schema.SCHEMA_VERSION)
         self.assertEqual(CANONICAL_NODE_TYPES, set(schema.NODE_MODELS))
         self.assertEqual(CANONICAL_EDGE_TYPES, set(schema.EDGE_MODELS))
         self.assertTrue(FORBIDDEN_CAUSAL_EDGE_TYPES.isdisjoint(schema.EDGE_MODELS))
@@ -259,7 +259,7 @@ class CausalProjectionContractsTest(unittest.TestCase):
             ),
         )
 
-        self.assertEqual("1.5.0", projection["schema_version"])
+        self.assertEqual("1.6.0", projection["schema_version"])
         self.assertCountEqual(
             [
                 "poc_v1/contracts/causal_dag_projection.schema.json",
