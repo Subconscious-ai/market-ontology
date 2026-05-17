@@ -43,14 +43,24 @@ The `agent_*` fields and `Evidence.generated_at` were added in schema v1.6.0
 (see `poc_v1/MIGRATION.md`); `started_at` / `completed_at` / `estimated_at`
 pre-date it.
 
-## Deliberately out of scope
+## Downstream artifacts
 
-The projection is a *minimal conformance projection* (issue #71). It carries
-class IRIs, property types, required-ness, predicate domain/range, and this
-PROV-O mapping as plain JSON. Formal OWL axiom serialization
-(`owl:minCardinality`, `owl:oneOf`, `rdfs:domain`/`range`) and triple-clean
-RDF/Turtle output are **deferred** until a TrustGraph backend actually
-ingests the artifact — TrustGraph is a conformance target we project toward,
-not a backend we migrate to (umbrella issue #70).
+`scripts/generate_trustgraph_ontology.py` now emits three trusted artifacts:
+
+- `poc_v1/ontology/trustgraph_ontology.json`
+- `poc_v1/ontology/trustgraph_projection.json`
+- `poc_v1/ontology/trustgraph_projection.ttl`
+
+The projection is a minimal TrustGraph conformance export of ontology and
+lineage shape:
+
+- class/type/property declarations
+- predicate domain/range
+- required-field cardinality as `owl:minCardinality` in the `axioms` section
+- enum constraints as `owl:oneOf` in the `axioms` section
+
+`trustgraph_projection.json` is the flattened triple-clean projection for
+downstream serializers/visualization pipelines, and `trustgraph_projection.ttl`
+is the RDF/Turtle export of the same graph.
 
 [provo]: https://www.w3.org/TR/prov-o/

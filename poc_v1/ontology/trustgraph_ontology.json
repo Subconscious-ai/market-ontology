@@ -1110,6 +1110,513 @@
       ]
     }
   ],
+  "datatype_properties": {
+    "https://ontology.subconscious.ai/property/agent_id": {
+      "iri": "https://ontology.subconscious.ai/property/agent_id",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Estimate",
+        "https://ontology.subconscious.ai/class/Evidence",
+        "https://ontology.subconscious.ai/class/ExperimentRun"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/agent_type": {
+      "iri": "https://ontology.subconscious.ai/property/agent_type",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Estimate",
+        "https://ontology.subconscious.ai/class/Evidence",
+        "https://ontology.subconscious.ai/class/ExperimentRun"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/archetype_type": {
+      "iri": "https://ontology.subconscious.ai/property/archetype_type",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/StakeholderArchetype"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/artifact_refs": {
+      "iri": "https://ontology.subconscious.ai/property/artifact_refs",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/ExperimentRun"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/attribute_id": {
+      "iri": "https://ontology.subconscious.ai/property/attribute_id",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/AttributeLevel"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/category": {
+      "iri": "https://ontology.subconscious.ai/property/category",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Offering"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/ci_high": {
+      "iri": "https://ontology.subconscious.ai/property/ci_high",
+      "range": "http://www.w3.org/2001/XMLSchema#double",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Estimate"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/ci_low": {
+      "iri": "https://ontology.subconscious.ai/property/ci_low",
+      "range": "http://www.w3.org/2001/XMLSchema#double",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Estimate"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/company_size_band": {
+      "iri": "https://ontology.subconscious.ai/property/company_size_band",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/StakeholderArchetype"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/completed_at": {
+      "iri": "https://ontology.subconscious.ai/property/completed_at",
+      "range": "http://www.w3.org/2001/XMLSchema#dateTime",
+      "domain": [
+        "https://ontology.subconscious.ai/class/ExperimentRun"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/confidence": {
+      "iri": "https://ontology.subconscious.ai/property/confidence",
+      "range": "http://www.w3.org/2001/XMLSchema#double",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Evidence"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/context_factors": {
+      "iri": "https://ontology.subconscious.ai/property/context_factors",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Market"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/data_type": {
+      "iri": "https://ontology.subconscious.ai/property/data_type",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Attribute",
+        "https://ontology.subconscious.ai/class/Trait"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/definition": {
+      "iri": "https://ontology.subconscious.ai/property/definition",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Attribute",
+        "https://ontology.subconscious.ai/class/Company",
+        "https://ontology.subconscious.ai/class/Market",
+        "https://ontology.subconscious.ai/class/Need",
+        "https://ontology.subconscious.ai/class/Offering",
+        "https://ontology.subconscious.ai/class/Stage",
+        "https://ontology.subconscious.ai/class/StakeholderArchetype",
+        "https://ontology.subconscious.ai/class/Trait",
+        "https://ontology.subconscious.ai/class/Transition"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/domain": {
+      "iri": "https://ontology.subconscious.ai/property/domain",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Company"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/estimate_type": {
+      "iri": "https://ontology.subconscious.ai/property/estimate_type",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Estimate"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/estimated_at": {
+      "iri": "https://ontology.subconscious.ai/property/estimated_at",
+      "range": "http://www.w3.org/2001/XMLSchema#dateTime",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Estimate"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/excerpt": {
+      "iri": "https://ontology.subconscious.ai/property/excerpt",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Evidence"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/extracted_claim": {
+      "iri": "https://ontology.subconscious.ai/property/extracted_claim",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Evidence"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/extractor_version": {
+      "iri": "https://ontology.subconscious.ai/property/extractor_version",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Evidence"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/from_stage_id": {
+      "iri": "https://ontology.subconscious.ai/property/from_stage_id",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Transition"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/generated_at": {
+      "iri": "https://ontology.subconscious.ai/property/generated_at",
+      "range": "http://www.w3.org/2001/XMLSchema#dateTime",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Evidence"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/geography": {
+      "iri": "https://ontology.subconscious.ai/property/geography",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Market"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/id": {
+      "iri": "https://ontology.subconscious.ai/property/id",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Attribute",
+        "https://ontology.subconscious.ai/class/AttributeLevel",
+        "https://ontology.subconscious.ai/class/Company",
+        "https://ontology.subconscious.ai/class/Estimate",
+        "https://ontology.subconscious.ai/class/Evidence",
+        "https://ontology.subconscious.ai/class/ExperimentRun",
+        "https://ontology.subconscious.ai/class/Market",
+        "https://ontology.subconscious.ai/class/Need",
+        "https://ontology.subconscious.ai/class/Offering",
+        "https://ontology.subconscious.ai/class/Stage",
+        "https://ontology.subconscious.ai/class/StakeholderArchetype",
+        "https://ontology.subconscious.ai/class/Trait",
+        "https://ontology.subconscious.ai/class/TraitLevel",
+        "https://ontology.subconscious.ai/class/Transition"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/industry": {
+      "iri": "https://ontology.subconscious.ai/property/industry",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/StakeholderArchetype"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/industry_codes": {
+      "iri": "https://ontology.subconscious.ai/property/industry_codes",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Market"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/ingested_at": {
+      "iri": "https://ontology.subconscious.ai/property/ingested_at",
+      "range": "http://www.w3.org/2001/XMLSchema#dateTime",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Attribute",
+        "https://ontology.subconscious.ai/class/AttributeLevel",
+        "https://ontology.subconscious.ai/class/Company",
+        "https://ontology.subconscious.ai/class/Estimate",
+        "https://ontology.subconscious.ai/class/Evidence",
+        "https://ontology.subconscious.ai/class/ExperimentRun",
+        "https://ontology.subconscious.ai/class/Market",
+        "https://ontology.subconscious.ai/class/Need",
+        "https://ontology.subconscious.ai/class/Offering",
+        "https://ontology.subconscious.ai/class/Stage",
+        "https://ontology.subconscious.ai/class/StakeholderArchetype",
+        "https://ontology.subconscious.ai/class/Trait",
+        "https://ontology.subconscious.ai/class/TraitLevel",
+        "https://ontology.subconscious.ai/class/Transition"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/is_competitor": {
+      "iri": "https://ontology.subconscious.ai/property/is_competitor",
+      "range": "http://www.w3.org/2001/XMLSchema#boolean",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Offering"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/is_status_quo": {
+      "iri": "https://ontology.subconscious.ai/property/is_status_quo",
+      "range": "http://www.w3.org/2001/XMLSchema#boolean",
+      "domain": [
+        "https://ontology.subconscious.ai/class/AttributeLevel",
+        "https://ontology.subconscious.ai/class/TraitLevel"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/label": {
+      "iri": "https://ontology.subconscious.ai/property/label",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/AttributeLevel",
+        "https://ontology.subconscious.ai/class/TraitLevel"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/market_id": {
+      "iri": "https://ontology.subconscious.ai/property/market_id",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/AttributeLevel",
+        "https://ontology.subconscious.ai/class/TraitLevel"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/model_version": {
+      "iri": "https://ontology.subconscious.ai/property/model_version",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Estimate"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/model_versions": {
+      "iri": "https://ontology.subconscious.ai/property/model_versions",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/ExperimentRun"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/name": {
+      "iri": "https://ontology.subconscious.ai/property/name",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Attribute",
+        "https://ontology.subconscious.ai/class/Company",
+        "https://ontology.subconscious.ai/class/Market",
+        "https://ontology.subconscious.ai/class/Need",
+        "https://ontology.subconscious.ai/class/Offering",
+        "https://ontology.subconscious.ai/class/Stage",
+        "https://ontology.subconscious.ai/class/StakeholderArchetype",
+        "https://ontology.subconscious.ai/class/Trait",
+        "https://ontology.subconscious.ai/class/Transition"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/ontology_snapshot_hash": {
+      "iri": "https://ontology.subconscious.ai/property/ontology_snapshot_hash",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Estimate",
+        "https://ontology.subconscious.ai/class/ExperimentRun"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/period": {
+      "iri": "https://ontology.subconscious.ai/property/period",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Market"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/period_observed": {
+      "iri": "https://ontology.subconscious.ai/property/period_observed",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Evidence"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/retrieval_query": {
+      "iri": "https://ontology.subconscious.ai/property/retrieval_query",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Evidence"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/role": {
+      "iri": "https://ontology.subconscious.ai/property/role",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/StakeholderArchetype"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/sample_size": {
+      "iri": "https://ontology.subconscious.ai/property/sample_size",
+      "range": "http://www.w3.org/2001/XMLSchema#integer",
+      "domain": [
+        "https://ontology.subconscious.ai/class/ExperimentRun"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/schema_version": {
+      "iri": "https://ontology.subconscious.ai/property/schema_version",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Attribute",
+        "https://ontology.subconscious.ai/class/AttributeLevel",
+        "https://ontology.subconscious.ai/class/Company",
+        "https://ontology.subconscious.ai/class/Estimate",
+        "https://ontology.subconscious.ai/class/Evidence",
+        "https://ontology.subconscious.ai/class/ExperimentRun",
+        "https://ontology.subconscious.ai/class/Market",
+        "https://ontology.subconscious.ai/class/Need",
+        "https://ontology.subconscious.ai/class/Offering",
+        "https://ontology.subconscious.ai/class/Stage",
+        "https://ontology.subconscious.ai/class/StakeholderArchetype",
+        "https://ontology.subconscious.ai/class/Trait",
+        "https://ontology.subconscious.ai/class/TraitLevel",
+        "https://ontology.subconscious.ai/class/Transition"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/segment": {
+      "iri": "https://ontology.subconscious.ai/property/segment",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/StakeholderArchetype"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/signal_type": {
+      "iri": "https://ontology.subconscious.ai/property/signal_type",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Evidence"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/source_ref": {
+      "iri": "https://ontology.subconscious.ai/property/source_ref",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Evidence"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/source_type": {
+      "iri": "https://ontology.subconscious.ai/property/source_type",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Evidence"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/source_url": {
+      "iri": "https://ontology.subconscious.ai/property/source_url",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Evidence"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/standard_error": {
+      "iri": "https://ontology.subconscious.ai/property/standard_error",
+      "range": "http://www.w3.org/2001/XMLSchema#double",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Estimate"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/started_at": {
+      "iri": "https://ontology.subconscious.ai/property/started_at",
+      "range": "http://www.w3.org/2001/XMLSchema#dateTime",
+      "domain": [
+        "https://ontology.subconscious.ai/class/ExperimentRun"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/status": {
+      "iri": "https://ontology.subconscious.ai/property/status",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/ExperimentRun"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/subconscious_experiment_id": {
+      "iri": "https://ontology.subconscious.ai/property/subconscious_experiment_id",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Estimate"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/super_ego_run_id": {
+      "iri": "https://ontology.subconscious.ai/property/super_ego_run_id",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/ExperimentRun"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/to_stage_id": {
+      "iri": "https://ontology.subconscious.ai/property/to_stage_id",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Transition"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/trait_id": {
+      "iri": "https://ontology.subconscious.ai/property/trait_id",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/TraitLevel"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/unit": {
+      "iri": "https://ontology.subconscious.ai/property/unit",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/Attribute",
+        "https://ontology.subconscious.ai/class/Trait"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/valid_from": {
+      "iri": "https://ontology.subconscious.ai/property/valid_from",
+      "range": "http://www.w3.org/2001/XMLSchema#date",
+      "domain": [
+        "https://ontology.subconscious.ai/class/AttributeLevel",
+        "https://ontology.subconscious.ai/class/Estimate",
+        "https://ontology.subconscious.ai/class/TraitLevel"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/valid_to": {
+      "iri": "https://ontology.subconscious.ai/property/valid_to",
+      "range": "http://www.w3.org/2001/XMLSchema#date",
+      "domain": [
+        "https://ontology.subconscious.ai/class/AttributeLevel",
+        "https://ontology.subconscious.ai/class/Estimate",
+        "https://ontology.subconscious.ai/class/TraitLevel"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/value": {
+      "iri": "https://ontology.subconscious.ai/property/value",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/AttributeLevel",
+        "https://ontology.subconscious.ai/class/Estimate",
+        "https://ontology.subconscious.ai/class/TraitLevel"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/wandb_artifacts": {
+      "iri": "https://ontology.subconscious.ai/property/wandb_artifacts",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/ExperimentRun"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/wandb_entity": {
+      "iri": "https://ontology.subconscious.ai/property/wandb_entity",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/ExperimentRun"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/wandb_project": {
+      "iri": "https://ontology.subconscious.ai/property/wandb_project",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/ExperimentRun"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/wandb_run_id": {
+      "iri": "https://ontology.subconscious.ai/property/wandb_run_id",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/ExperimentRun"
+      ]
+    },
+    "https://ontology.subconscious.ai/property/wandb_run_name": {
+      "iri": "https://ontology.subconscious.ai/property/wandb_run_name",
+      "range": "http://www.w3.org/2001/XMLSchema#string",
+      "domain": [
+        "https://ontology.subconscious.ai/class/ExperimentRun"
+      ]
+    }
+  },
   "prov_o": {
     "classes": {
       "ExperimentRun": "prov:Activity",
@@ -1121,5 +1628,849 @@
       "PRODUCED": "prov:wasGeneratedBy",
       "SUPPORTS": "prov:wasDerivedFrom"
     }
-  }
+  },
+  "axioms": [
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Market",
+      "predicate": "https://ontology.subconscious.ai/property/id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Market",
+      "predicate": "https://ontology.subconscious.ai/property/name",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Market",
+      "predicate": "https://ontology.subconscious.ai/property/definition",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Stage",
+      "predicate": "https://ontology.subconscious.ai/property/id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Stage",
+      "predicate": "https://ontology.subconscious.ai/property/name",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Stage",
+      "predicate": "https://ontology.subconscious.ai/property/definition",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/property/id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/property/name",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/property/from_stage_id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/property/to_stage_id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/property/definition",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/StakeholderArchetype",
+      "predicate": "https://ontology.subconscious.ai/property/id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/StakeholderArchetype",
+      "predicate": "https://ontology.subconscious.ai/property/name",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/StakeholderArchetype",
+      "predicate": "https://ontology.subconscious.ai/property/archetype_type",
+      "value": 1
+    },
+    {
+      "type": "owl:oneOf",
+      "subject": "https://ontology.subconscious.ai/class/StakeholderArchetype",
+      "predicate": "https://ontology.subconscious.ai/property/archetype_type",
+      "values": [
+        "customer",
+        "competitor_buyer",
+        "competitor_user"
+      ]
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Offering",
+      "predicate": "https://ontology.subconscious.ai/property/id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Offering",
+      "predicate": "https://ontology.subconscious.ai/property/name",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Attribute",
+      "predicate": "https://ontology.subconscious.ai/property/id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Attribute",
+      "predicate": "https://ontology.subconscious.ai/property/name",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Attribute",
+      "predicate": "https://ontology.subconscious.ai/property/data_type",
+      "value": 1
+    },
+    {
+      "type": "owl:oneOf",
+      "subject": "https://ontology.subconscious.ai/class/Attribute",
+      "predicate": "https://ontology.subconscious.ai/property/data_type",
+      "values": [
+        "continuous",
+        "ordinal",
+        "categorical",
+        "boolean"
+      ]
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Attribute",
+      "predicate": "https://ontology.subconscious.ai/property/definition",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/AttributeLevel",
+      "predicate": "https://ontology.subconscious.ai/property/id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/AttributeLevel",
+      "predicate": "https://ontology.subconscious.ai/property/attribute_id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/AttributeLevel",
+      "predicate": "https://ontology.subconscious.ai/property/market_id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/AttributeLevel",
+      "predicate": "https://ontology.subconscious.ai/property/value",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Trait",
+      "predicate": "https://ontology.subconscious.ai/property/id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Trait",
+      "predicate": "https://ontology.subconscious.ai/property/name",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Trait",
+      "predicate": "https://ontology.subconscious.ai/property/data_type",
+      "value": 1
+    },
+    {
+      "type": "owl:oneOf",
+      "subject": "https://ontology.subconscious.ai/class/Trait",
+      "predicate": "https://ontology.subconscious.ai/property/data_type",
+      "values": [
+        "continuous",
+        "ordinal",
+        "categorical",
+        "boolean"
+      ]
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Trait",
+      "predicate": "https://ontology.subconscious.ai/property/definition",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/TraitLevel",
+      "predicate": "https://ontology.subconscious.ai/property/id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/TraitLevel",
+      "predicate": "https://ontology.subconscious.ai/property/trait_id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/TraitLevel",
+      "predicate": "https://ontology.subconscious.ai/property/market_id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/TraitLevel",
+      "predicate": "https://ontology.subconscious.ai/property/value",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Need",
+      "predicate": "https://ontology.subconscious.ai/property/id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Need",
+      "predicate": "https://ontology.subconscious.ai/property/name",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Need",
+      "predicate": "https://ontology.subconscious.ai/property/definition",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/property/id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/property/source_type",
+      "value": 1
+    },
+    {
+      "type": "owl:oneOf",
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/property/source_type",
+      "values": [
+        "s1",
+        "10k",
+        "interview",
+        "survey",
+        "benchmark",
+        "web",
+        "deck",
+        "executive_interview",
+        "research_agent"
+      ]
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/property/source_ref",
+      "value": 1
+    },
+    {
+      "type": "owl:oneOf",
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/property/signal_type",
+      "values": [
+        "metric",
+        "observation",
+        "recommendation",
+        "objective",
+        "question"
+      ]
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/property/id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/property/estimate_type",
+      "value": 1
+    },
+    {
+      "type": "owl:oneOf",
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/property/estimate_type",
+      "values": [
+        "part_worth",
+        "transition_probability",
+        "wtp",
+        "elasticity",
+        "ate",
+        "amce",
+        "importance"
+      ]
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/property/value",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/property/subconscious_experiment_id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/property/model_version",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/property/ontology_snapshot_hash",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/property/estimated_at",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Company",
+      "predicate": "https://ontology.subconscious.ai/property/id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/Company",
+      "predicate": "https://ontology.subconscious.ai/property/name",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/property/id",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/property/ontology_snapshot_hash",
+      "value": 1
+    },
+    {
+      "type": "owl:minCardinality",
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/property/status",
+      "value": 1
+    },
+    {
+      "type": "owl:oneOf",
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/property/status",
+      "values": [
+        "pending",
+        "running",
+        "finished",
+        "failed",
+        "cancelled"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/FROM",
+      "values": [
+        "Transition"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/FROM",
+      "values": [
+        "Stage"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/TO",
+      "values": [
+        "Transition"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/TO",
+      "values": [
+        "Stage"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/IN_MARKET",
+      "values": [
+        "Transition"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/IN_MARKET",
+      "values": [
+        "Market"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/RELEVANT_TO",
+      "values": [
+        "Transition"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/RELEVANT_TO",
+      "values": [
+        "StakeholderArchetype"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "values": [
+        "Estimate",
+        "Transition"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "values": [
+        "Attribute",
+        "AttributeLevel",
+        "Company",
+        "Estimate",
+        "Evidence",
+        "ExperimentRun",
+        "Market",
+        "Need",
+        "Offering",
+        "Stage",
+        "StakeholderArchetype",
+        "Trait",
+        "TraitLevel",
+        "Transition"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_ATTRIBUTE",
+      "values": [
+        "Offering"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_ATTRIBUTE",
+      "values": [
+        "Attribute"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_LEVEL",
+      "values": [
+        "Attribute",
+        "Trait"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_LEVEL",
+      "values": [
+        "AttributeLevel",
+        "TraitLevel"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_TRAIT",
+      "values": [
+        "StakeholderArchetype"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_TRAIT",
+      "values": [
+        "Trait"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/RELEVANT_AT",
+      "values": [
+        "Attribute"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/RELEVANT_AT",
+      "values": [
+        "Stage"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "values": [
+        "Evidence"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "values": [
+        "Attribute",
+        "AttributeLevel",
+        "Company",
+        "Estimate",
+        "Evidence",
+        "ExperimentRun",
+        "Market",
+        "Need",
+        "Offering",
+        "Stage",
+        "StakeholderArchetype",
+        "Trait",
+        "TraitLevel",
+        "Transition"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/ADDRESSES",
+      "values": [
+        "Attribute"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/ADDRESSES",
+      "values": [
+        "Need"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_NEED",
+      "values": [
+        "StakeholderArchetype"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_NEED",
+      "values": [
+        "Need"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/OFFERED_BY",
+      "values": [
+        "Offering"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/OFFERED_BY",
+      "values": [
+        "Company"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/COMPETES_WITH",
+      "values": [
+        "Offering"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/COMPETES_WITH",
+      "values": [
+        "Offering"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/OFFERING_IN_MARKET",
+      "values": [
+        "Offering"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/OFFERING_IN_MARKET",
+      "values": [
+        "Market"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/TARGETS_STAKEHOLDER",
+      "values": [
+        "Offering"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/TARGETS_STAKEHOLDER",
+      "values": [
+        "StakeholderArchetype"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "values": [
+        "ExperimentRun"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "values": [
+        "Attribute",
+        "AttributeLevel",
+        "Company",
+        "Estimate",
+        "Evidence",
+        "ExperimentRun",
+        "Market",
+        "Need",
+        "Offering",
+        "Stage",
+        "StakeholderArchetype",
+        "Trait",
+        "TraitLevel",
+        "Transition"
+      ]
+    },
+    {
+      "type": "rdfs:domain",
+      "subject": "https://ontology.subconscious.ai/predicate/PRODUCED",
+      "values": [
+        "ExperimentRun"
+      ]
+    },
+    {
+      "type": "rdfs:range",
+      "subject": "https://ontology.subconscious.ai/predicate/PRODUCED",
+      "values": [
+        "Estimate"
+      ]
+    }
+  ],
+  "triples": [
+    [
+      "https://ontology.subconscious.ai/class/Attribute",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    [
+      "https://ontology.subconscious.ai/class/AttributeLevel",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    [
+      "https://ontology.subconscious.ai/class/Company",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    [
+      "https://ontology.subconscious.ai/class/Estimate",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    [
+      "https://ontology.subconscious.ai/class/Evidence",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    [
+      "https://ontology.subconscious.ai/class/ExperimentRun",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    [
+      "https://ontology.subconscious.ai/class/Market",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    [
+      "https://ontology.subconscious.ai/class/Need",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    [
+      "https://ontology.subconscious.ai/class/Offering",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    [
+      "https://ontology.subconscious.ai/class/Stage",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    [
+      "https://ontology.subconscious.ai/class/StakeholderArchetype",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    [
+      "https://ontology.subconscious.ai/class/Trait",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    [
+      "https://ontology.subconscious.ai/class/TraitLevel",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    [
+      "https://ontology.subconscious.ai/class/Transition",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/ABOUT",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/ADDRESSES",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/COMPETES_WITH",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/FROM",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/HAS_ATTRIBUTE",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/HAS_LEVEL",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/HAS_NEED",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/HAS_TRAIT",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/IN_MARKET",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/OFFERED_BY",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/OFFERING_IN_MARKET",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/PRODUCED",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/RELEVANT_AT",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/RELEVANT_TO",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/TARGETS_STAKEHOLDER",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    [
+      "https://ontology.subconscious.ai/predicate/TO",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ]
+  ]
 }
