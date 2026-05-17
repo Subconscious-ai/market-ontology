@@ -6,6 +6,7 @@
     {
       "name": "Market",
       "iri": "https://ontology.subconscious.ai/class/Market",
+      "comment": "Scope boundary for every query. One market per ontology in v1.",
       "properties": [
         {
           "name": "schema_version",
@@ -66,6 +67,7 @@
     {
       "name": "Stage",
       "iri": "https://ontology.subconscious.ai/class/Stage",
+      "comment": "A discrete step in a buyer's decision journey through a Market.",
       "properties": [
         {
           "name": "schema_version",
@@ -102,6 +104,7 @@
     {
       "name": "Transition",
       "iri": "https://ontology.subconscious.ai/class/Transition",
+      "comment": "!!! abstract \"Usage Documentation\" [Models](../concepts/models.md)",
       "properties": [
         {
           "name": "schema_version",
@@ -150,6 +153,7 @@
     {
       "name": "StakeholderArchetype",
       "iri": "https://ontology.subconscious.ai/class/StakeholderArchetype",
+      "comment": "A type of buyer, user, or decision-maker whose preferences shape a Market. The persona's traits are the HAS_TRAIT edge graph (StakeholderArchetype -[:HAS_TRAIT]-> Trait -[:HAS_LEVEL]-> TraitLevel) \u2014 there is no denormalized `traits` dict (removed in v1.5).",
       "properties": [
         {
           "name": "schema_version",
@@ -216,6 +220,7 @@
     {
       "name": "Offering",
       "iri": "https://ontology.subconscious.ai/class/Offering",
+      "comment": "A specific product or service a Company brings to a Market.",
       "properties": [
         {
           "name": "schema_version",
@@ -264,6 +269,7 @@
     {
       "name": "Attribute",
       "iri": "https://ontology.subconscious.ai/class/Attribute",
+      "comment": "A dimension of an Offering that can be varied in an experiment.",
       "properties": [
         {
           "name": "schema_version",
@@ -312,6 +318,7 @@
     {
       "name": "AttributeLevel",
       "iri": "https://ontology.subconscious.ai/class/AttributeLevel",
+      "comment": "A plausible level for an Attribute in a Market/period.",
       "properties": [
         {
           "name": "valid_from",
@@ -378,6 +385,7 @@
     {
       "name": "Trait",
       "iri": "https://ontology.subconscious.ai/class/Trait",
+      "comment": "A dimension of a StakeholderArchetype used to describe a persona.",
       "properties": [
         {
           "name": "schema_version",
@@ -426,6 +434,7 @@
     {
       "name": "TraitLevel",
       "iri": "https://ontology.subconscious.ai/class/TraitLevel",
+      "comment": "A plausible value for a Trait in a Market/period.",
       "properties": [
         {
           "name": "valid_from",
@@ -492,6 +501,7 @@
     {
       "name": "Need",
       "iri": "https://ontology.subconscious.ai/class/Need",
+      "comment": "An outcome a StakeholderArchetype is trying to achieve in a Market \u2014 the job-to-be-done behind a Transition.",
       "properties": [
         {
           "name": "schema_version",
@@ -528,6 +538,7 @@
     {
       "name": "Evidence",
       "iri": "https://ontology.subconscious.ai/class/Evidence",
+      "comment": "W3C PROV-O agent attribution for experiment-lineage nodes (v1.6).",
       "properties": [
         {
           "name": "agent_type",
@@ -630,6 +641,7 @@
     {
       "name": "Estimate",
       "iri": "https://ontology.subconscious.ai/class/Estimate",
+      "comment": "Results returned from Subconscious experiments.",
       "properties": [
         {
           "name": "agent_type",
@@ -732,6 +744,7 @@
     {
       "name": "Company",
       "iri": "https://ontology.subconscious.ai/class/Company",
+      "comment": "The organization that offers one or more Offerings. Added in v1.1 to give Offering\u2192Company a proper edge for rollup queries. Minimal props; add funding/size/industry in a later bump when a consumer needs them.",
       "properties": [
         {
           "name": "schema_version",
@@ -774,6 +787,7 @@
     {
       "name": "ExperimentRun",
       "iri": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "comment": "Experiment execution record tying a snapshot to SuperEgo/W&B artifacts.",
       "properties": [
         {
           "name": "agent_type",
@@ -890,6 +904,7 @@
     {
       "name": "FROM",
       "iri": "https://ontology.subconscious.ai/predicate/FROM",
+      "comment": "Transition -[:FROM]-> Stage",
       "domain": [
         "Transition"
       ],
@@ -900,6 +915,7 @@
     {
       "name": "TO",
       "iri": "https://ontology.subconscious.ai/predicate/TO",
+      "comment": "Transition -[:TO]-> Stage",
       "domain": [
         "Transition"
       ],
@@ -910,6 +926,7 @@
     {
       "name": "IN_MARKET",
       "iri": "https://ontology.subconscious.ai/predicate/IN_MARKET",
+      "comment": "Transition -[:IN_MARKET]-> Market",
       "domain": [
         "Transition"
       ],
@@ -920,6 +937,7 @@
     {
       "name": "RELEVANT_TO",
       "iri": "https://ontology.subconscious.ai/predicate/RELEVANT_TO",
+      "comment": "Transition -[:RELEVANT_TO]-> StakeholderArchetype",
       "domain": [
         "Transition"
       ],
@@ -930,6 +948,7 @@
     {
       "name": "ABOUT",
       "iri": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "comment": "Transition -[:ABOUT]-> Offering, or Estimate -[:ABOUT]-> any node.",
       "domain": [
         "Estimate",
         "Transition"
@@ -954,6 +973,7 @@
     {
       "name": "HAS_ATTRIBUTE",
       "iri": "https://ontology.subconscious.ai/predicate/HAS_ATTRIBUTE",
+      "comment": "Offering -[:HAS_ATTRIBUTE]-> Attribute",
       "domain": [
         "Offering"
       ],
@@ -964,6 +984,7 @@
     {
       "name": "HAS_LEVEL",
       "iri": "https://ontology.subconscious.ai/predicate/HAS_LEVEL",
+      "comment": "Attribute/Trait -[:HAS_LEVEL]-> AttributeLevel/TraitLevel",
       "domain": [
         "Attribute",
         "Trait"
@@ -976,6 +997,7 @@
     {
       "name": "HAS_TRAIT",
       "iri": "https://ontology.subconscious.ai/predicate/HAS_TRAIT",
+      "comment": "StakeholderArchetype -[:HAS_TRAIT]-> Trait",
       "domain": [
         "StakeholderArchetype"
       ],
@@ -986,6 +1008,7 @@
     {
       "name": "RELEVANT_AT",
       "iri": "https://ontology.subconscious.ai/predicate/RELEVANT_AT",
+      "comment": "Attribute -[:RELEVANT_AT]-> Stage.",
       "domain": [
         "Attribute"
       ],
@@ -996,6 +1019,7 @@
     {
       "name": "SUPPORTS",
       "iri": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "comment": "Evidence -[:SUPPORTS]-> any node.",
       "domain": [
         "Evidence"
       ],
@@ -1019,6 +1043,7 @@
     {
       "name": "ADDRESSES",
       "iri": "https://ontology.subconscious.ai/predicate/ADDRESSES",
+      "comment": "Attribute -[:ADDRESSES]-> Need.",
       "domain": [
         "Attribute"
       ],
@@ -1029,6 +1054,7 @@
     {
       "name": "HAS_NEED",
       "iri": "https://ontology.subconscious.ai/predicate/HAS_NEED",
+      "comment": "StakeholderArchetype -[:HAS_NEED]-> Need.",
       "domain": [
         "StakeholderArchetype"
       ],
@@ -1039,6 +1065,7 @@
     {
       "name": "OFFERED_BY",
       "iri": "https://ontology.subconscious.ai/predicate/OFFERED_BY",
+      "comment": "Offering -[:OFFERED_BY]-> Company. Introduced in v1.1 as the programmatic rollup link. Consumers aggregating Attributes/Levels up to the Company level traverse this edge.",
       "domain": [
         "Offering"
       ],
@@ -1049,6 +1076,7 @@
     {
       "name": "COMPETES_WITH",
       "iri": "https://ontology.subconscious.ai/predicate/COMPETES_WITH",
+      "comment": "Offering -[:COMPETES_WITH]-> Offering.",
       "domain": [
         "Offering"
       ],
@@ -1059,6 +1087,7 @@
     {
       "name": "OFFERING_IN_MARKET",
       "iri": "https://ontology.subconscious.ai/predicate/OFFERING_IN_MARKET",
+      "comment": "Offering -[:OFFERING_IN_MARKET]-> Market.",
       "domain": [
         "Offering"
       ],
@@ -1069,6 +1098,7 @@
     {
       "name": "TARGETS_STAKEHOLDER",
       "iri": "https://ontology.subconscious.ai/predicate/TARGETS_STAKEHOLDER",
+      "comment": "Offering -[:TARGETS_STAKEHOLDER]-> StakeholderArchetype.",
       "domain": [
         "Offering"
       ],
@@ -1079,6 +1109,7 @@
     {
       "name": "CONSUMED",
       "iri": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "comment": "ExperimentRun -[:CONSUMED]-> any ontology context node.",
       "domain": [
         "ExperimentRun"
       ],
@@ -1102,6 +1133,7 @@
     {
       "name": "PRODUCED",
       "iri": "https://ontology.subconscious.ai/predicate/PRODUCED",
+      "comment": "ExperimentRun -[:PRODUCED]-> Estimate.",
       "domain": [
         "ExperimentRun"
       ],
