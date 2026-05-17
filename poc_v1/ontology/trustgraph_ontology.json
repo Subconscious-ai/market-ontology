@@ -1,0 +1,1125 @@
+{
+  "schema_version": "1.6.0",
+  "namespace": "https://ontology.subconscious.ai",
+  "generated_from": "poc_v1.ontology.schema",
+  "classes": [
+    {
+      "name": "Market",
+      "iri": "https://ontology.subconscious.ai/class/Market",
+      "properties": [
+        {
+          "name": "schema_version",
+          "iri": "https://ontology.subconscious.ai/property/schema_version",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "ingested_at",
+          "iri": "https://ontology.subconscious.ai/property/ingested_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "name": "id",
+          "iri": "https://ontology.subconscious.ai/property/id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "name",
+          "iri": "https://ontology.subconscious.ai/property/name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "definition",
+          "iri": "https://ontology.subconscious.ai/property/definition",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "geography",
+          "iri": "https://ontology.subconscious.ai/property/geography",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "industry_codes",
+          "iri": "https://ontology.subconscious.ai/property/industry_codes",
+          "type": "array",
+          "required": false
+        },
+        {
+          "name": "context_factors",
+          "iri": "https://ontology.subconscious.ai/property/context_factors",
+          "type": "object",
+          "required": false
+        },
+        {
+          "name": "period",
+          "iri": "https://ontology.subconscious.ai/property/period",
+          "type": "string",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Stage",
+      "iri": "https://ontology.subconscious.ai/class/Stage",
+      "properties": [
+        {
+          "name": "schema_version",
+          "iri": "https://ontology.subconscious.ai/property/schema_version",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "ingested_at",
+          "iri": "https://ontology.subconscious.ai/property/ingested_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "name": "id",
+          "iri": "https://ontology.subconscious.ai/property/id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "name",
+          "iri": "https://ontology.subconscious.ai/property/name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "definition",
+          "iri": "https://ontology.subconscious.ai/property/definition",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "Transition",
+      "iri": "https://ontology.subconscious.ai/class/Transition",
+      "properties": [
+        {
+          "name": "schema_version",
+          "iri": "https://ontology.subconscious.ai/property/schema_version",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "ingested_at",
+          "iri": "https://ontology.subconscious.ai/property/ingested_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "name": "id",
+          "iri": "https://ontology.subconscious.ai/property/id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "name",
+          "iri": "https://ontology.subconscious.ai/property/name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "from_stage_id",
+          "iri": "https://ontology.subconscious.ai/property/from_stage_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "to_stage_id",
+          "iri": "https://ontology.subconscious.ai/property/to_stage_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "definition",
+          "iri": "https://ontology.subconscious.ai/property/definition",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "StakeholderArchetype",
+      "iri": "https://ontology.subconscious.ai/class/StakeholderArchetype",
+      "properties": [
+        {
+          "name": "schema_version",
+          "iri": "https://ontology.subconscious.ai/property/schema_version",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "ingested_at",
+          "iri": "https://ontology.subconscious.ai/property/ingested_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "name": "id",
+          "iri": "https://ontology.subconscious.ai/property/id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "name",
+          "iri": "https://ontology.subconscious.ai/property/name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "archetype_type",
+          "iri": "https://ontology.subconscious.ai/property/archetype_type",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "role",
+          "iri": "https://ontology.subconscious.ai/property/role",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "segment",
+          "iri": "https://ontology.subconscious.ai/property/segment",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "industry",
+          "iri": "https://ontology.subconscious.ai/property/industry",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "company_size_band",
+          "iri": "https://ontology.subconscious.ai/property/company_size_band",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "definition",
+          "iri": "https://ontology.subconscious.ai/property/definition",
+          "type": "string",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Offering",
+      "iri": "https://ontology.subconscious.ai/class/Offering",
+      "properties": [
+        {
+          "name": "schema_version",
+          "iri": "https://ontology.subconscious.ai/property/schema_version",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "ingested_at",
+          "iri": "https://ontology.subconscious.ai/property/ingested_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "name": "id",
+          "iri": "https://ontology.subconscious.ai/property/id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "name",
+          "iri": "https://ontology.subconscious.ai/property/name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "is_competitor",
+          "iri": "https://ontology.subconscious.ai/property/is_competitor",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "category",
+          "iri": "https://ontology.subconscious.ai/property/category",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "definition",
+          "iri": "https://ontology.subconscious.ai/property/definition",
+          "type": "string",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Attribute",
+      "iri": "https://ontology.subconscious.ai/class/Attribute",
+      "properties": [
+        {
+          "name": "schema_version",
+          "iri": "https://ontology.subconscious.ai/property/schema_version",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "ingested_at",
+          "iri": "https://ontology.subconscious.ai/property/ingested_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "name": "id",
+          "iri": "https://ontology.subconscious.ai/property/id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "name",
+          "iri": "https://ontology.subconscious.ai/property/name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "data_type",
+          "iri": "https://ontology.subconscious.ai/property/data_type",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "unit",
+          "iri": "https://ontology.subconscious.ai/property/unit",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "definition",
+          "iri": "https://ontology.subconscious.ai/property/definition",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "AttributeLevel",
+      "iri": "https://ontology.subconscious.ai/class/AttributeLevel",
+      "properties": [
+        {
+          "name": "valid_from",
+          "iri": "https://ontology.subconscious.ai/property/valid_from",
+          "type": "date",
+          "required": false
+        },
+        {
+          "name": "valid_to",
+          "iri": "https://ontology.subconscious.ai/property/valid_to",
+          "type": "date",
+          "required": false
+        },
+        {
+          "name": "schema_version",
+          "iri": "https://ontology.subconscious.ai/property/schema_version",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "ingested_at",
+          "iri": "https://ontology.subconscious.ai/property/ingested_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "name": "id",
+          "iri": "https://ontology.subconscious.ai/property/id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "attribute_id",
+          "iri": "https://ontology.subconscious.ai/property/attribute_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "market_id",
+          "iri": "https://ontology.subconscious.ai/property/market_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "value",
+          "iri": "https://ontology.subconscious.ai/property/value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "label",
+          "iri": "https://ontology.subconscious.ai/property/label",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "is_status_quo",
+          "iri": "https://ontology.subconscious.ai/property/is_status_quo",
+          "type": "boolean",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Trait",
+      "iri": "https://ontology.subconscious.ai/class/Trait",
+      "properties": [
+        {
+          "name": "schema_version",
+          "iri": "https://ontology.subconscious.ai/property/schema_version",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "ingested_at",
+          "iri": "https://ontology.subconscious.ai/property/ingested_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "name": "id",
+          "iri": "https://ontology.subconscious.ai/property/id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "name",
+          "iri": "https://ontology.subconscious.ai/property/name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "data_type",
+          "iri": "https://ontology.subconscious.ai/property/data_type",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "unit",
+          "iri": "https://ontology.subconscious.ai/property/unit",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "definition",
+          "iri": "https://ontology.subconscious.ai/property/definition",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "TraitLevel",
+      "iri": "https://ontology.subconscious.ai/class/TraitLevel",
+      "properties": [
+        {
+          "name": "valid_from",
+          "iri": "https://ontology.subconscious.ai/property/valid_from",
+          "type": "date",
+          "required": false
+        },
+        {
+          "name": "valid_to",
+          "iri": "https://ontology.subconscious.ai/property/valid_to",
+          "type": "date",
+          "required": false
+        },
+        {
+          "name": "schema_version",
+          "iri": "https://ontology.subconscious.ai/property/schema_version",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "ingested_at",
+          "iri": "https://ontology.subconscious.ai/property/ingested_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "name": "id",
+          "iri": "https://ontology.subconscious.ai/property/id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "trait_id",
+          "iri": "https://ontology.subconscious.ai/property/trait_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "market_id",
+          "iri": "https://ontology.subconscious.ai/property/market_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "value",
+          "iri": "https://ontology.subconscious.ai/property/value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "label",
+          "iri": "https://ontology.subconscious.ai/property/label",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "is_status_quo",
+          "iri": "https://ontology.subconscious.ai/property/is_status_quo",
+          "type": "boolean",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Need",
+      "iri": "https://ontology.subconscious.ai/class/Need",
+      "properties": [
+        {
+          "name": "schema_version",
+          "iri": "https://ontology.subconscious.ai/property/schema_version",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "ingested_at",
+          "iri": "https://ontology.subconscious.ai/property/ingested_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "name": "id",
+          "iri": "https://ontology.subconscious.ai/property/id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "name",
+          "iri": "https://ontology.subconscious.ai/property/name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "definition",
+          "iri": "https://ontology.subconscious.ai/property/definition",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "Evidence",
+      "iri": "https://ontology.subconscious.ai/class/Evidence",
+      "properties": [
+        {
+          "name": "agent_type",
+          "iri": "https://ontology.subconscious.ai/property/agent_type",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "agent_id",
+          "iri": "https://ontology.subconscious.ai/property/agent_id",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "schema_version",
+          "iri": "https://ontology.subconscious.ai/property/schema_version",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "ingested_at",
+          "iri": "https://ontology.subconscious.ai/property/ingested_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "name": "id",
+          "iri": "https://ontology.subconscious.ai/property/id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "source_type",
+          "iri": "https://ontology.subconscious.ai/property/source_type",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "source_ref",
+          "iri": "https://ontology.subconscious.ai/property/source_ref",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "source_url",
+          "iri": "https://ontology.subconscious.ai/property/source_url",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "excerpt",
+          "iri": "https://ontology.subconscious.ai/property/excerpt",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "extracted_claim",
+          "iri": "https://ontology.subconscious.ai/property/extracted_claim",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "retrieval_query",
+          "iri": "https://ontology.subconscious.ai/property/retrieval_query",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "extractor_version",
+          "iri": "https://ontology.subconscious.ai/property/extractor_version",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "confidence",
+          "iri": "https://ontology.subconscious.ai/property/confidence",
+          "type": "number",
+          "required": false
+        },
+        {
+          "name": "signal_type",
+          "iri": "https://ontology.subconscious.ai/property/signal_type",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "period_observed",
+          "iri": "https://ontology.subconscious.ai/property/period_observed",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "generated_at",
+          "iri": "https://ontology.subconscious.ai/property/generated_at",
+          "type": "datetime",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Estimate",
+      "iri": "https://ontology.subconscious.ai/class/Estimate",
+      "properties": [
+        {
+          "name": "agent_type",
+          "iri": "https://ontology.subconscious.ai/property/agent_type",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "agent_id",
+          "iri": "https://ontology.subconscious.ai/property/agent_id",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "valid_from",
+          "iri": "https://ontology.subconscious.ai/property/valid_from",
+          "type": "date",
+          "required": false
+        },
+        {
+          "name": "valid_to",
+          "iri": "https://ontology.subconscious.ai/property/valid_to",
+          "type": "date",
+          "required": false
+        },
+        {
+          "name": "schema_version",
+          "iri": "https://ontology.subconscious.ai/property/schema_version",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "ingested_at",
+          "iri": "https://ontology.subconscious.ai/property/ingested_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "name": "id",
+          "iri": "https://ontology.subconscious.ai/property/id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "estimate_type",
+          "iri": "https://ontology.subconscious.ai/property/estimate_type",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "value",
+          "iri": "https://ontology.subconscious.ai/property/value",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "ci_low",
+          "iri": "https://ontology.subconscious.ai/property/ci_low",
+          "type": "number",
+          "required": false
+        },
+        {
+          "name": "ci_high",
+          "iri": "https://ontology.subconscious.ai/property/ci_high",
+          "type": "number",
+          "required": false
+        },
+        {
+          "name": "standard_error",
+          "iri": "https://ontology.subconscious.ai/property/standard_error",
+          "type": "number",
+          "required": false
+        },
+        {
+          "name": "subconscious_experiment_id",
+          "iri": "https://ontology.subconscious.ai/property/subconscious_experiment_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "model_version",
+          "iri": "https://ontology.subconscious.ai/property/model_version",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "ontology_snapshot_hash",
+          "iri": "https://ontology.subconscious.ai/property/ontology_snapshot_hash",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "estimated_at",
+          "iri": "https://ontology.subconscious.ai/property/estimated_at",
+          "type": "datetime",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "Company",
+      "iri": "https://ontology.subconscious.ai/class/Company",
+      "properties": [
+        {
+          "name": "schema_version",
+          "iri": "https://ontology.subconscious.ai/property/schema_version",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "ingested_at",
+          "iri": "https://ontology.subconscious.ai/property/ingested_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "name": "id",
+          "iri": "https://ontology.subconscious.ai/property/id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "name",
+          "iri": "https://ontology.subconscious.ai/property/name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "iri": "https://ontology.subconscious.ai/property/domain",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "definition",
+          "iri": "https://ontology.subconscious.ai/property/definition",
+          "type": "string",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "ExperimentRun",
+      "iri": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "properties": [
+        {
+          "name": "agent_type",
+          "iri": "https://ontology.subconscious.ai/property/agent_type",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "agent_id",
+          "iri": "https://ontology.subconscious.ai/property/agent_id",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "schema_version",
+          "iri": "https://ontology.subconscious.ai/property/schema_version",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "ingested_at",
+          "iri": "https://ontology.subconscious.ai/property/ingested_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "name": "id",
+          "iri": "https://ontology.subconscious.ai/property/id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "ontology_snapshot_hash",
+          "iri": "https://ontology.subconscious.ai/property/ontology_snapshot_hash",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "super_ego_run_id",
+          "iri": "https://ontology.subconscious.ai/property/super_ego_run_id",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "wandb_entity",
+          "iri": "https://ontology.subconscious.ai/property/wandb_entity",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "wandb_project",
+          "iri": "https://ontology.subconscious.ai/property/wandb_project",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "wandb_run_id",
+          "iri": "https://ontology.subconscious.ai/property/wandb_run_id",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "wandb_run_name",
+          "iri": "https://ontology.subconscious.ai/property/wandb_run_name",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "status",
+          "iri": "https://ontology.subconscious.ai/property/status",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "artifact_refs",
+          "iri": "https://ontology.subconscious.ai/property/artifact_refs",
+          "type": "array",
+          "required": false
+        },
+        {
+          "name": "wandb_artifacts",
+          "iri": "https://ontology.subconscious.ai/property/wandb_artifacts",
+          "type": "array",
+          "required": false
+        },
+        {
+          "name": "model_versions",
+          "iri": "https://ontology.subconscious.ai/property/model_versions",
+          "type": "object",
+          "required": false
+        },
+        {
+          "name": "sample_size",
+          "iri": "https://ontology.subconscious.ai/property/sample_size",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "name": "started_at",
+          "iri": "https://ontology.subconscious.ai/property/started_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "name": "completed_at",
+          "iri": "https://ontology.subconscious.ai/property/completed_at",
+          "type": "datetime",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "predicates": [
+    {
+      "name": "FROM",
+      "iri": "https://ontology.subconscious.ai/predicate/FROM",
+      "domain": [
+        "Transition"
+      ],
+      "range": [
+        "Stage"
+      ]
+    },
+    {
+      "name": "TO",
+      "iri": "https://ontology.subconscious.ai/predicate/TO",
+      "domain": [
+        "Transition"
+      ],
+      "range": [
+        "Stage"
+      ]
+    },
+    {
+      "name": "IN_MARKET",
+      "iri": "https://ontology.subconscious.ai/predicate/IN_MARKET",
+      "domain": [
+        "Transition"
+      ],
+      "range": [
+        "Market"
+      ]
+    },
+    {
+      "name": "RELEVANT_TO",
+      "iri": "https://ontology.subconscious.ai/predicate/RELEVANT_TO",
+      "domain": [
+        "Transition"
+      ],
+      "range": [
+        "StakeholderArchetype"
+      ]
+    },
+    {
+      "name": "ABOUT",
+      "iri": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "domain": [
+        "Estimate",
+        "Transition"
+      ],
+      "range": [
+        "Attribute",
+        "AttributeLevel",
+        "Company",
+        "Estimate",
+        "Evidence",
+        "ExperimentRun",
+        "Market",
+        "Need",
+        "Offering",
+        "Stage",
+        "StakeholderArchetype",
+        "Trait",
+        "TraitLevel",
+        "Transition"
+      ]
+    },
+    {
+      "name": "HAS_ATTRIBUTE",
+      "iri": "https://ontology.subconscious.ai/predicate/HAS_ATTRIBUTE",
+      "domain": [
+        "Offering"
+      ],
+      "range": [
+        "Attribute"
+      ]
+    },
+    {
+      "name": "HAS_LEVEL",
+      "iri": "https://ontology.subconscious.ai/predicate/HAS_LEVEL",
+      "domain": [
+        "Attribute",
+        "Trait"
+      ],
+      "range": [
+        "AttributeLevel",
+        "TraitLevel"
+      ]
+    },
+    {
+      "name": "HAS_TRAIT",
+      "iri": "https://ontology.subconscious.ai/predicate/HAS_TRAIT",
+      "domain": [
+        "StakeholderArchetype"
+      ],
+      "range": [
+        "Trait"
+      ]
+    },
+    {
+      "name": "RELEVANT_AT",
+      "iri": "https://ontology.subconscious.ai/predicate/RELEVANT_AT",
+      "domain": [
+        "Attribute"
+      ],
+      "range": [
+        "Stage"
+      ]
+    },
+    {
+      "name": "SUPPORTS",
+      "iri": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "domain": [
+        "Evidence"
+      ],
+      "range": [
+        "Attribute",
+        "AttributeLevel",
+        "Company",
+        "Estimate",
+        "Evidence",
+        "ExperimentRun",
+        "Market",
+        "Need",
+        "Offering",
+        "Stage",
+        "StakeholderArchetype",
+        "Trait",
+        "TraitLevel",
+        "Transition"
+      ]
+    },
+    {
+      "name": "ADDRESSES",
+      "iri": "https://ontology.subconscious.ai/predicate/ADDRESSES",
+      "domain": [
+        "Attribute"
+      ],
+      "range": [
+        "Need"
+      ]
+    },
+    {
+      "name": "HAS_NEED",
+      "iri": "https://ontology.subconscious.ai/predicate/HAS_NEED",
+      "domain": [
+        "StakeholderArchetype"
+      ],
+      "range": [
+        "Need"
+      ]
+    },
+    {
+      "name": "OFFERED_BY",
+      "iri": "https://ontology.subconscious.ai/predicate/OFFERED_BY",
+      "domain": [
+        "Offering"
+      ],
+      "range": [
+        "Company"
+      ]
+    },
+    {
+      "name": "COMPETES_WITH",
+      "iri": "https://ontology.subconscious.ai/predicate/COMPETES_WITH",
+      "domain": [
+        "Offering"
+      ],
+      "range": [
+        "Offering"
+      ]
+    },
+    {
+      "name": "OFFERING_IN_MARKET",
+      "iri": "https://ontology.subconscious.ai/predicate/OFFERING_IN_MARKET",
+      "domain": [
+        "Offering"
+      ],
+      "range": [
+        "Market"
+      ]
+    },
+    {
+      "name": "TARGETS_STAKEHOLDER",
+      "iri": "https://ontology.subconscious.ai/predicate/TARGETS_STAKEHOLDER",
+      "domain": [
+        "Offering"
+      ],
+      "range": [
+        "StakeholderArchetype"
+      ]
+    },
+    {
+      "name": "CONSUMED",
+      "iri": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "domain": [
+        "ExperimentRun"
+      ],
+      "range": [
+        "Attribute",
+        "AttributeLevel",
+        "Company",
+        "Estimate",
+        "Evidence",
+        "ExperimentRun",
+        "Market",
+        "Need",
+        "Offering",
+        "Stage",
+        "StakeholderArchetype",
+        "Trait",
+        "TraitLevel",
+        "Transition"
+      ]
+    },
+    {
+      "name": "PRODUCED",
+      "iri": "https://ontology.subconscious.ai/predicate/PRODUCED",
+      "domain": [
+        "ExperimentRun"
+      ],
+      "range": [
+        "Estimate"
+      ]
+    }
+  ],
+  "prov_o": {
+    "classes": {
+      "ExperimentRun": "prov:Activity",
+      "Estimate": "prov:Entity",
+      "Evidence": "prov:Entity"
+    },
+    "predicates": {
+      "CONSUMED": "prov:used",
+      "PRODUCED": "prov:wasGeneratedBy",
+      "SUPPORTS": "prov:wasDerivedFrom"
+    }
+  }
+}
