@@ -33,6 +33,7 @@ python -m unittest tests.test_causal_dag_v1 -v
 python scripts/validate_kg_seed.py
 python scripts/generate_kg_seed_contract.py --check
 python scripts/generate_twenty_app.py --check
+python scripts/generate_trustgraph_ontology.py --check
 python scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.static.valid.json
 python scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.timeseries.valid.json
 python -m unittest discover -s tests -v
