@@ -102,6 +102,11 @@ from poc_v1.ontology.identity import (
     domain_to_slug,
     normalize_slug,  # boundary validator (HTTP routes; subset of to_identity)
 )
+from poc_v1.ontology.iri import (
+    to_iri,        # entity class + node id -> canonical RDF IRI
+    parse_iri,     # canonical RDF IRI -> entity class + node id
+    predicate_iri, # edge label -> canonical RDF predicate IRI
+)
 ```
 
 `graphiti_views` derives ENTITY_TYPES/EDGE_TYPES from NODE_MODELS/EDGE_MODELS
@@ -116,6 +121,10 @@ code change needed.
 distinct group_ids (`spice_ibm_com` vs `spice_ibm_ai`); subdomains
 collapse to the brand (`mail.acme.io` → `acme_io`). IDN punycodes,
 multi-part TLDs (`lloyds.co.uk` → `lloyds_co_uk`) work out of the box.
+
+`iri` is the canonical RDF/TrustGraph identifier surface. Entity IRIs use
+`https://ontology.subconscious.ai/<Class>/<id>`; predicate IRIs use
+`https://ontology.subconscious.ai/predicate/<EDGE_LABEL>`.
 
 ## W&B/SuperEgo Loop
 
