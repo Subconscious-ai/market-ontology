@@ -1,0 +1,2362 @@
+{
+  "schema_version": "1.6.0",
+  "namespace": "https://ontology.subconscious.ai",
+  "generated_from": "poc_v1.ontology.schema",
+  "triples": [
+    {
+      "subject": "https://ontology.subconscious.ai/class/Attribute",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Attribute",
+      "predicate": "https://ontology.subconscious.ai/predicate/ADDRESSES",
+      "object": "https://ontology.subconscious.ai/class/Need"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Attribute",
+      "predicate": "https://ontology.subconscious.ai/predicate/HAS_LEVEL",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Attribute",
+      "predicate": "https://ontology.subconscious.ai/predicate/HAS_LEVEL",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Attribute",
+      "predicate": "https://ontology.subconscious.ai/predicate/RELEVANT_AT",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/AttributeLevel",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Company",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Company"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Need"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Estimate",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "object": "https://ontology.subconscious.ai/class/Company"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "object": "https://ontology.subconscious.ai/class/Need"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Evidence",
+      "predicate": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "object": "https://ontology.subconscious.ai/class/Company"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "object": "https://ontology.subconscious.ai/class/Need"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/ExperimentRun",
+      "predicate": "https://ontology.subconscious.ai/predicate/PRODUCED",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Market",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Need",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Offering",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Offering",
+      "predicate": "https://ontology.subconscious.ai/predicate/COMPETES_WITH",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Offering",
+      "predicate": "https://ontology.subconscious.ai/predicate/HAS_ATTRIBUTE",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Offering",
+      "predicate": "https://ontology.subconscious.ai/predicate/OFFERED_BY",
+      "object": "https://ontology.subconscious.ai/class/Company"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Offering",
+      "predicate": "https://ontology.subconscious.ai/predicate/OFFERING_IN_MARKET",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Offering",
+      "predicate": "https://ontology.subconscious.ai/predicate/TARGETS_STAKEHOLDER",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Stage",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/StakeholderArchetype",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/StakeholderArchetype",
+      "predicate": "https://ontology.subconscious.ai/predicate/HAS_NEED",
+      "object": "https://ontology.subconscious.ai/class/Need"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/StakeholderArchetype",
+      "predicate": "https://ontology.subconscious.ai/predicate/HAS_TRAIT",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Trait",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Trait",
+      "predicate": "https://ontology.subconscious.ai/predicate/HAS_LEVEL",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Trait",
+      "predicate": "https://ontology.subconscious.ai/predicate/HAS_LEVEL",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/TraitLevel",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Company"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Need"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/FROM",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/IN_MARKET",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/RELEVANT_TO",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/class/Transition",
+      "predicate": "https://ontology.subconscious.ai/predicate/TO",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Company"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Need"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ABOUT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ADDRESSES",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ADDRESSES",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/ADDRESSES",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Need"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/COMPETES_WITH",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/COMPETES_WITH",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/COMPETES_WITH",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Company"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Need"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/CONSUMED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/FROM",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/FROM",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/FROM",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_ATTRIBUTE",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_ATTRIBUTE",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_ATTRIBUTE",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_LEVEL",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_LEVEL",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_LEVEL",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_LEVEL",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_LEVEL",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_NEED",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_NEED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_NEED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Need"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_TRAIT",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_TRAIT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/HAS_TRAIT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/IN_MARKET",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/IN_MARKET",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/IN_MARKET",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/OFFERED_BY",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/OFFERED_BY",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/OFFERED_BY",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Company"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/OFFERING_IN_MARKET",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/OFFERING_IN_MARKET",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/OFFERING_IN_MARKET",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/PRODUCED",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/PRODUCED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/PRODUCED",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/RELEVANT_AT",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/RELEVANT_AT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/RELEVANT_AT",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/RELEVANT_TO",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/RELEVANT_TO",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/RELEVANT_TO",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Company"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Need"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/SUPPORTS",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/TARGETS_STAKEHOLDER",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/TARGETS_STAKEHOLDER",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/TARGETS_STAKEHOLDER",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/TO",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#ObjectProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/TO",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/predicate/TO",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ABOUT_target_node_type",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ABOUT_target_node_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/predicate/ABOUT"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ABOUT_target_node_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/CONSUMED_target_node_type",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/CONSUMED_target_node_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/predicate/CONSUMED"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/CONSUMED_target_node_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/RELEVANT_AT_evidence_ids",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/RELEVANT_AT_evidence_ids",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/predicate/RELEVANT_AT"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/RELEVANT_AT_evidence_ids",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/RELEVANT_AT_score",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/RELEVANT_AT_score",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/predicate/RELEVANT_AT"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/RELEVANT_AT_score",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#double"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/RELEVANT_AT_valid_from",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/RELEVANT_AT_valid_from",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/predicate/RELEVANT_AT"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/RELEVANT_AT_valid_from",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#date"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/RELEVANT_AT_valid_to",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/RELEVANT_AT_valid_to",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/predicate/RELEVANT_AT"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/RELEVANT_AT_valid_to",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#date"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/RELEVANT_TO_confidence",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/RELEVANT_TO_confidence",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/predicate/RELEVANT_TO"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/RELEVANT_TO_confidence",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#double"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/SUPPORTS_confidence",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/SUPPORTS_confidence",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/predicate/SUPPORTS"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/SUPPORTS_confidence",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#double"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/SUPPORTS_support_type",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/SUPPORTS_support_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/predicate/SUPPORTS"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/SUPPORTS_support_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/SUPPORTS_target_node_type",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/SUPPORTS_target_node_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/predicate/SUPPORTS"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/SUPPORTS_target_node_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/agent_id",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/agent_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/agent_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/agent_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/agent_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/agent_type",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/agent_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/agent_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/agent_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/agent_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/archetype_type",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/archetype_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/archetype_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/artifact_refs",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/artifact_refs",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/artifact_refs",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/attribute_id",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/attribute_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/attribute_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/category",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/category",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/category",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ci_high",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ci_high",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ci_high",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#double"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ci_low",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ci_low",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ci_low",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#double"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/company_size_band",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/company_size_band",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/company_size_band",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/completed_at",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/completed_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/completed_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/confidence",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/confidence",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/confidence",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#double"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/context_factors",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/context_factors",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/context_factors",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/data_type",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/data_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/data_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/data_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/definition",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/definition",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/definition",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Company"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/definition",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/definition",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Need"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/definition",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/definition",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/definition",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/definition",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/definition",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/definition",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/domain",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/domain",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Company"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/domain",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/estimate_type",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/estimate_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/estimate_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/estimated_at",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/estimated_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/estimated_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/excerpt",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/excerpt",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/excerpt",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/extracted_claim",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/extracted_claim",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/extracted_claim",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/extractor_version",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/extractor_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/extractor_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/from_stage_id",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/from_stage_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/from_stage_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/generated_at",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/generated_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/generated_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/geography",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/geography",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/geography",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/id",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Company"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Need"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/industry",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/industry",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/industry",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/industry_codes",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/industry_codes",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/industry_codes",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ingested_at",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ingested_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ingested_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ingested_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Company"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ingested_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ingested_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ingested_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ingested_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ingested_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Need"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ingested_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ingested_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ingested_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ingested_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ingested_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ingested_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ingested_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/is_competitor",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/is_competitor",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/is_competitor",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#boolean"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/is_status_quo",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/is_status_quo",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/is_status_quo",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/is_status_quo",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#boolean"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/label",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/label",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/label",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/label",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/market_id",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/market_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/market_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/market_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/model_version",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/model_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/model_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/model_versions",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/model_versions",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/model_versions",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/name",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/name",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/name",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Company"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/name",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/name",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Need"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/name",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/name",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/name",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/name",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/name",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/name",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ontology_snapshot_hash",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ontology_snapshot_hash",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ontology_snapshot_hash",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/ontology_snapshot_hash",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/period",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/period",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/period",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/period_observed",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/period_observed",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/period_observed",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/retrieval_query",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/retrieval_query",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/retrieval_query",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/role",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/role",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/role",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/sample_size",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/sample_size",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/sample_size",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/schema_version",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/schema_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/schema_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/schema_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Company"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/schema_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/schema_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/schema_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/schema_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Market"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/schema_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Need"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/schema_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Offering"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/schema_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Stage"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/schema_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/schema_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/schema_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/schema_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/schema_version",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/segment",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/segment",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/StakeholderArchetype"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/segment",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/signal_type",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/signal_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/signal_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/source_ref",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/source_ref",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/source_ref",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/source_type",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/source_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/source_type",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/source_url",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/source_url",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Evidence"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/source_url",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/standard_error",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/standard_error",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/standard_error",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#double"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/started_at",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/started_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/started_at",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/status",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/status",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/status",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/subconscious_experiment_id",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/subconscious_experiment_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/subconscious_experiment_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/super_ego_run_id",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/super_ego_run_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/super_ego_run_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/to_stage_id",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/to_stage_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Transition"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/to_stage_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/trait_id",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/trait_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/trait_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/unit",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/unit",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Attribute"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/unit",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Trait"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/unit",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/valid_from",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/valid_from",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/valid_from",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/valid_from",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/valid_from",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#date"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/valid_to",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/valid_to",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/valid_to",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/valid_to",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/valid_to",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#date"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/value",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/value",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/AttributeLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/value",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/Estimate"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/value",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/TraitLevel"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/value",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/wandb_artifacts",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/wandb_artifacts",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/wandb_artifacts",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/wandb_entity",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/wandb_entity",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/wandb_entity",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/wandb_project",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/wandb_project",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/wandb_project",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/wandb_run_id",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/wandb_run_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/wandb_run_id",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/wandb_run_name",
+      "predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "object": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/wandb_run_name",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "https://ontology.subconscious.ai/class/ExperimentRun"
+    },
+    {
+      "subject": "https://ontology.subconscious.ai/property/wandb_run_name",
+      "predicate": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string"
+    }
+  ]
+}

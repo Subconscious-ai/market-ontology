@@ -18,6 +18,21 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 ARTIFACT = ROOT / "poc_v1" / "ontology" / "trustgraph_ontology.json"
+TRIPLE_ARTIFACT = ROOT / "poc_v1" / "ontology" / "trustgraph_projection.json"
+TTL_ARTIFACT = ROOT / "poc_v1" / "ontology" / "trustgraph_projection.ttl"
+
+RDF_TYPE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+OWL_CLASS = "http://www.w3.org/2002/07/owl#Class"
+OWL_OBJECT_PROPERTY = "http://www.w3.org/2002/07/owl#ObjectProperty"
+OWL_DATATYPE_PROPERTY = "http://www.w3.org/2002/07/owl#DatatypeProperty"
+
+
+def _triple_set(path: Path) -> set[tuple[str, str, str]]:
+    payload = json.loads(path.read_text())
+    return {
+        (row["subject"], row["predicate"], row["object"])
+        for row in payload["triples"]
+    }
 
 
 class TestTrustGraphProjection(unittest.TestCase):
@@ -89,6 +104,83 @@ class TestTrustGraphProjection(unittest.TestCase):
             text=True,
         )
         self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_axioms_and_projection_shape(self):
+        proj = self._load()
+        axioms = proj["axioms"]
+
+        self.assertTrue(
+            any(
+                axiom["type"] == "owl:minCardinality"
+                and axiom["subject"] == "https://ontology.subconscious.ai/class/Evidence"
+                and axiom["predicate"] == "https://ontology.subconscious.ai/property/id"
+                and axiom["value"] == 1
+                for axiom in axioms
+            )
+        )
+        self.assertTrue(
+            any(
+                axiom["type"] == "owl:oneOf"
+                and axiom["subject"] == "https://ontology.subconscious.ai/class/StakeholderArchetype"
+                and axiom["predicate"] == "https://ontology.subconscious.ai/property/archetype_type"
+                and isinstance(axiom.get("values"), list)
+                and axiom["values"]
+                for axiom in axioms
+            )
+        )
+
+    def test_triple_projection_is_triple_clean(self):
+        triples = _triple_set(TRIPLE_ARTIFACT)
+
+        evidence_class = "https://ontology.subconscious.ai/class/Evidence"
+        transition_class = "https://ontology.subconscious.ai/class/Transition"
+        offering_class = "https://ontology.subconscious.ai/class/Offering"
+        has_attr_predicate = "https://ontology.subconscious.ai/predicate/HAS_ATTRIBUTE"
+        schema_version_prop = "https://ontology.subconscious.ai/property/schema_version"
+
+        self.assertIn((evidence_class, RDF_TYPE, OWL_CLASS), triples)
+        self.assertIn((offering_class, RDF_TYPE, OWL_CLASS), triples)
+        self.assertIn((has_attr_predicate, RDF_TYPE, OWL_OBJECT_PROPERTY), triples)
+        self.assertIn((schema_version_prop, RDF_TYPE, OWL_DATATYPE_PROPERTY), triples)
+        self.assertIn(
+            (
+                offering_class,
+                has_attr_predicate,
+                "https://ontology.subconscious.ai/class/Attribute",
+            ),
+            triples,
+        )
+        self.assertIn(
+            (
+                "https://ontology.subconscious.ai/property/name",
+                "http://www.w3.org/2000/01/rdf-schema#domain",
+                transition_class,
+            ),
+            triples,
+        )
+        self.assertIn(
+            (
+                "https://ontology.subconscious.ai/property/name",
+                "http://www.w3.org/2000/01/rdf-schema#range",
+                "http://www.w3.org/2001/XMLSchema#string",
+            ),
+            triples,
+        )
+
+    def test_ttl_projection_is_written_and_non_empty(self):
+        text = TTL_ARTIFACT.read_text(encoding="utf-8")
+        self.assertIn("@prefix tg:", text)
+        self.assertIn("schema_version=", text)
+        self.assertIn("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>", text)
+
+    def test_projection_artifact_has_expected_schema_fields(self):
+        projection = json.loads(TRIPLE_ARTIFACT.read_text(encoding="utf-8"))
+        self.assertEqual(projection["schema_version"], "1.6.0")
+        self.assertEqual(
+            projection["namespace"], "https://ontology.subconscious.ai"
+        )
+        self.assertIn("triples", projection)
+        self.assertTrue(len(projection["triples"]) > 0)
 
 
 if __name__ == "__main__":
