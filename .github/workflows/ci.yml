@@ -39,6 +39,7 @@ jobs:
         run: |
           python scripts/generate_kg_seed_contract.py --check
           python scripts/generate_twenty_app.py --check
+          python scripts/generate_trustgraph_ontology.py --check
 
       - name: Validate causal projection examples
         run: |
