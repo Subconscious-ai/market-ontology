@@ -81,7 +81,7 @@ separate.
 
 ### Public modules (consumer imports)
 
-The schema repo also hosts two derived modules that every downstream
+The schema repo also hosts three derived modules that every downstream
 consumer (spice-harvester, burn-substrate Graphiti sidecar, twenty CRM,
 future research agents) imports directly. Keeping them next to
 `schema.py` means consumers can't drift away from the canonical shape.
@@ -103,9 +103,11 @@ from poc_v1.ontology.identity import (
     normalize_slug,  # boundary validator (HTTP routes; subset of to_identity)
 )
 from poc_v1.ontology.iri import (
-    to_iri,        # entity class + node id -> canonical RDF IRI
-    parse_iri,     # canonical RDF IRI -> entity class + node id
-    predicate_iri, # edge label -> canonical RDF predicate IRI
+    BASE_NAMESPACE,  # the single namespace every ontology IRI lives under
+    to_iri,          # (class, id) → node IRI;   parse_iri  is its inverse
+    class_iri,       # class → class (type) IRI
+    predicate_iri,   # edge name → predicate IRI; parse_predicate_iri inverse
+    property_iri,    # field name → property IRI; parse_property_iri inverse
 )
 ```
 
@@ -122,9 +124,14 @@ distinct group_ids (`spice_ibm_com` vs `spice_ibm_ai`); subdomains
 collapse to the brand (`mail.acme.io` → `acme_io`). IDN punycodes,
 multi-part TLDs (`lloyds.co.uk` → `lloyds_co_uk`) work out of the box.
 
-`iri` is the canonical RDF/TrustGraph identifier surface. Entity IRIs use
-`https://ontology.subconscious.ai/<Class>/<id>`; predicate IRIs use
-`https://ontology.subconscious.ai/predicate/<EDGE_LABEL>`.
+`iri` mints the canonical RDF IRI for every ontology node instance,
+class, edge predicate, and literal property — four disjoint namespaces
+under `https://ontology.subconscious.ai` (`/<Class>/<id>`, `/class/…`,
+`/predicate/…`, `/property/…`). It is a schema-decoupled boundary
+serializer: every `to_*`/`parse_*` pair round-trips exactly, ids are
+percent-encoded so a `/` can't leak a path segment, and IRIs are
+instance-stable — they do not encode `SCHEMA_VERSION`. Consumed by the
+TrustGraph projection layer and spice-harvester `typed_graph` emission.
 
 ## W&B/SuperEgo Loop
 
