@@ -89,7 +89,7 @@ ExperimentRun -[:PRODUCED]-> Estimate
 
 ## Public modules (consumer imports)
 
-Three sibling modules, all under `poc_v1.ontology`, are the public API
+Four sibling modules, all under `poc_v1.ontology`, are the public API
 that downstream consumers (spice-harvester, burn-substrate Graphiti
 sidecar, twenty CRM, future research agents) import directly:
 
@@ -108,9 +108,11 @@ from poc_v1.ontology.identity import (
     normalize_slug,  # boundary validator for HTTP routes (no PSL)
 )
 from poc_v1.ontology.iri import (
-    to_iri,        # (class_name, node_id) -> stable entity IRI
-    parse_iri,     # entity IRI -> (class_name, node_id)
-    predicate_iri, # edge label -> stable predicate IRI
+    BASE_NAMESPACE,  # single namespace for every ontology IRI
+    to_iri, parse_iri,                   # node-instance IRIs
+    class_iri,                           # class (type) IRIs
+    predicate_iri, parse_predicate_iri,  # edge-predicate IRIs
+    property_iri, parse_property_iri,    # literal-property IRIs
 )
 ```
 
@@ -118,8 +120,9 @@ Single source of truth — adding a new node/edge to `schema.py`
 automatically propagates to `graphiti_views`. Identity shape (the trio
 `canonical_domain` / `route_slug` / `group_id`) is part of "what
 defines a Company" so it lives next to the Pydantic Company model.
-IRI shape is also centralized here so RDF/TrustGraph projections use one
-dereferenceable namespace: `https://ontology.subconscious.ai`.
+`iri` centralizes the RDF/TrustGraph IRI scheme — four disjoint
+namespaces (node instance, class, predicate, property) under
+`https://ontology.subconscious.ai`, instance-stable across schema versions.
 
 ## Pipeline
 
