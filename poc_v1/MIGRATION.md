@@ -2,6 +2,19 @@
 
 This document records what changed between the initial POC scaffolding and the v1 ontology, and why. Keep this file. Future schema migrations should follow the same pattern.
 
+## v1.5 → v1.6 (2026-05-17) — W3C PROV-O lineage fields
+
+**Additive, non-breaking.** Every new field is `Optional`; existing 1.5.0 `kg_seed/*.jsonl` records continue to validate unchanged. `SCHEMA_VERSION` bumped `1.5.0 → 1.6.0`.
+
+### Change
+
+- New `_AgentAttributed` mixin adds `agent_type` and `agent_id` (the W3C PROV-O `prov:Agent`) to `Evidence`, `Estimate`, and `ExperimentRun`.
+- New `Evidence.generated_at` (`prov:generatedAtTime`). `Estimate` already has `estimated_at` and `ExperimentRun` has `completed_at`; `Evidence` had no generation timestamp.
+
+### Why
+
+TrustGraph's explainability layer expects provenance modeled as W3C PROV-O. The lineage nodes already carried run/artifact metadata but not an explicit agent identity. These fields let the TrustGraph projection emit `prov:wasAttributedTo` / `prov:wasGeneratedBy` directly instead of re-deriving the agent from `model_version` / `extractor_version`. No `prov:`/`owl:` classes enter the ontology — the projection is a separate artifact.
+
 ## v1.4 → v1.5 (2026-05-16) — Need node, typed level values, free-string Stage, cache removal
 
 **Mostly additive.** With Pydantic's default `extra="ignore"`, existing `kg_seed/*.jsonl` continues to validate; the removed fields are simply dropped. `SCHEMA_VERSION` bumped `1.4.0 → 1.5.0`.

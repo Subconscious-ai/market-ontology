@@ -1,6 +1,6 @@
 {
   "$schema": "https://subconscious.ai/schemas/twenty-projection-manifest.json",
-  "schema_version": "1.5.0",
+  "schema_version": "1.6.0",
   "projection_version": "1.0.0",
   "metadata_fields": [
     {"name": "ontology_node_id", "type": "text", "required": true},
