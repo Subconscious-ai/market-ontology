@@ -109,6 +109,7 @@ from poc_v1.ontology.identity import (
 )
 from poc_v1.ontology.iri import (
     to_iri,        # (class_name, node_id) -> stable entity IRI
+    class_iri,     # class name -> stable RDF class IRI
     parse_iri,     # entity IRI -> (class_name, node_id)
     predicate_iri, # edge label -> stable predicate IRI
 )
