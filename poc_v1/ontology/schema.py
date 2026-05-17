@@ -7,7 +7,7 @@ This is the single source of truth for the schema. Keep it aligned with:
   - ontology/edge_schemas.json
   - graph-store adapter constraints/import scripts
 
-Schema version: 1.5.0
+Schema version: 1.6.0
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field, model_validator
 
-SCHEMA_VERSION = "1.5.0"
+SCHEMA_VERSION = "1.6.0"
 
 
 # ---------------------------------------------------------------------------
@@ -94,6 +94,22 @@ class _TemporallyValid(BaseModel):
         if self.valid_from and self.valid_to and self.valid_from > self.valid_to:
             raise ValueError("valid_from must be <= valid_to")
         return self
+
+
+class _AgentAttributed(BaseModel):
+    """W3C PROV-O agent attribution for experiment-lineage nodes (v1.6).
+
+    `agent_type` / `agent_id` identify the `prov:Agent` that produced the
+    record — an LLM, the spice-harvester research agent, the Subconscious
+    DCE engine — so the TrustGraph projection can emit
+    `prov:wasAttributedTo` / `prov:wasAssociatedWith` directly instead of
+    re-deriving the agent from `model_version` / `extractor_version`.
+
+    Both fields are Optional: the ontology stores stable IDs and lineage,
+    it does not *require* provenance on every legacy record.
+    """
+    agent_type: Optional[str] = None
+    agent_id: Optional[str] = None
 
 
 # ---------------------------------------------------------------------------
@@ -236,7 +252,7 @@ class Need(_VersionedNode):
     definition: str
 
 
-class Evidence(_VersionedNode):
+class Evidence(_VersionedNode, _AgentAttributed):
     id: str
     source_type: EvidenceSourceType
     source_ref: str  # e.g. "sec://company-x/s1/2026-02-14"
@@ -248,9 +264,13 @@ class Evidence(_VersionedNode):
     confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0)
     signal_type: Optional[EvidenceSignalType] = None
     period_observed: Optional[str] = None
+    # PROV-O generation time (v1.6): when this evidence record was produced.
+    # Estimate has estimated_at and ExperimentRun has completed_at; Evidence
+    # had no generation timestamp until now.
+    generated_at: Optional[datetime] = None
 
 
-class Estimate(_VersionedNode, _TemporallyValid):
+class Estimate(_VersionedNode, _TemporallyValid, _AgentAttributed):
     """Results returned from Subconscious experiments."""
     id: str
     estimate_type: EstimateType
@@ -278,7 +298,7 @@ class WandbArtifactRef(BaseModel):
     files: list[dict[str, Any]] = Field(default_factory=list)
 
 
-class ExperimentRun(_VersionedNode):
+class ExperimentRun(_VersionedNode, _AgentAttributed):
     """Experiment execution record tying a snapshot to SuperEgo/W&B artifacts."""
     id: str
     ontology_snapshot_hash: str
