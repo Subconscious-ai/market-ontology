@@ -72,6 +72,37 @@ class TestTrustGraphProjection(unittest.TestCase):
         self.assertIn("Offering", has_attr["domain"])
         self.assertIn("Attribute", has_attr["range"])
 
+    def test_classes_and_predicates_carry_docstring_prose(self):
+        """#83 — every class/predicate must project its schema docstring as
+        `comment`. The TrustGraph extraction prompt renders this prose; an
+        empty comment leaves the LLM extracting against bare type names."""
+        import inspect
+
+        from poc_v1.ontology.schema import EDGE_MODELS, NODE_MODELS
+
+        proj = self._load()
+        for c in proj["classes"]:
+            doc = inspect.getdoc(NODE_MODELS[c["name"]])
+            self.assertTrue(
+                doc, f"{c['name']} model has no docstring to project"
+            )
+            expected = " ".join(doc.split("\n\n", 1)[0].split())
+            self.assertEqual(c["comment"], expected, c["name"])
+        for p in proj["predicates"]:
+            self.assertTrue(
+                p.get("comment"),
+                f"predicate {p['name']} has no projected comment",
+            )
+            self.assertEqual(
+                p["comment"],
+                " ".join(
+                    inspect.getdoc(EDGE_MODELS[p["name"]])
+                    .split("\n\n", 1)[0]
+                    .split()
+                ),
+                p["name"],
+            )
+
     def test_prov_o_lineage_mapping(self):
         """The PROV-O mapping is the point of the projection — verify the
         lineage classes/edges land on the right PROV-O terms."""

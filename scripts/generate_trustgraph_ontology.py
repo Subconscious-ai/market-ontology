@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse
 import datetime as _dt
 import difflib
+import inspect
 import json
 import sys
 import typing
@@ -142,6 +143,19 @@ def _build_predicate_maps() -> tuple[
     return domain, range_
 
 
+def _doc_comment(obj: typing.Any) -> str | None:
+    """First paragraph of a model's docstring -> ``rdfs:comment`` prose.
+
+    The TrustGraph extraction prompt renders this prose per class/predicate;
+    without it the LLM is shown bare type names and extracts less reliably.
+    """
+    doc = inspect.getdoc(obj)
+    if not doc:
+        return None
+    first_paragraph = doc.split("\n\n", 1)[0]
+    return " ".join(first_paragraph.split()) or None
+
+
 def build_projection() -> dict:
     """Build the main TrustGraph projection contract."""
     domain, range_ = _build_predicate_maps()
@@ -202,6 +216,7 @@ def build_projection() -> dict:
             {
                 "name": name,
                 "iri": class_iri,
+                "comment": _doc_comment(model),
                 "properties": properties,
             }
         )
@@ -228,6 +243,7 @@ def build_projection() -> dict:
             {
                 "name": name,
                 "iri": predicate_iri,
+                "comment": _doc_comment(EDGE_MODELS[name]),
                 "domain": sorted(domain.get(name, set())),
                 "range": sorted(range_.get(name, set())),
             }
