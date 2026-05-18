@@ -1,142 +1,62 @@
-# Market Simulation Ontology - v1 POC
+# market-ontology
 
-## Purpose
+Canonical Pydantic schema for the Subconscious knowledge graph. It sits between
+research / interview ingestion and the Subconscious.ai discrete-choice
+experiment engine.
 
-This package is the minimal ontology that sits between:
+The ontology is **context for experiments, not the experiment itself.** This
+repo owns the structured context fed to Subconscious and the normalized results
+that come back. Subconscious owns experiment design and causal estimation.
 
-- A wiki-style market research agent plus executive interview input
-- The Subconscious.ai discrete choice experiment engine
+## Install
 
-The ontology is context for the experiment, not the experiment itself.
-Subconscious owns experiment design and causal estimation. This repo owns the
-structured context that feeds Subconscious and the structured results that come
-back.
-
-## Scope
-
-Single customer, single company, 12-month horizon. POC-grade. See
-`poc_v1/v2_spec.md` for the parking lot of things deliberately cut.
-
-## Core model
-
-Stakeholder archetypes plus persona traits, Offering attributes and levels, and
-Market/Transition context go into Subconscious experiments. W&B/SuperEgo run
-outputs come back as normalized `Estimate` nodes linked to the same ontology IDs
-through `ExperimentRun` lineage.
-
-## Stack
-
-- FalkorDB-compatible property graph as the store.
-- Pydantic at the write boundary for schema enforcement.
-- Splink as a separate job for entity resolution on Offerings and StakeholderArchetypes.
-- Deployment-specific import/export over validated JSONL fixtures.
-- Postgres + pgvector as optional separate retrieval infrastructure for Evidence excerpts.
-
-## Node Types
-
-The authoritative count is `len(NODE_MODELS)` in
-`poc_v1/ontology/schema.py`.
-
-| Node | Purpose |
-|---|---|
-| Market | Scope boundary for every query |
-| Stage | AARRR stage as a first-class node |
-| Transition | The state change being modeled |
-| StakeholderArchetype | Customer or competitor-side archetype |
-| Offering | Object of study, such as product, service, or SKU |
-| Attribute | Dimension of an Offering that can be varied |
-| AttributeLevel | Plausible level for an Attribute in a Market/period |
-| Trait | Dimension of a StakeholderArchetype used to describe a persona |
-| TraitLevel | Plausible level for a Trait in a Market/period |
-| Need | Outcome a StakeholderArchetype wants — the job-to-be-done behind a Transition |
-| Evidence | Source grounding for any node |
-| Estimate | Part-worth, AMCE, importance, or other returned quantity |
-| Company | Organization that offers one or more Offerings |
-| ExperimentRun | Execution record tying an ontology snapshot to SuperEgo/W&B artifacts |
-
-## Edge Types
-
-The authoritative count is `len(EDGE_MODELS)` in
-`poc_v1/ontology/schema.py`.
-
-```text
-Transition -[:FROM]-> Stage
-Transition -[:TO]-> Stage
-Transition -[:IN_MARKET]-> Market
-Transition -[:RELEVANT_TO]-> StakeholderArchetype
-Transition -[:ABOUT]-> Offering
-Offering -[:HAS_ATTRIBUTE]-> Attribute
-Offering -[:OFFERED_BY]-> Company
-Attribute -[:HAS_LEVEL]-> AttributeLevel
-Trait -[:HAS_LEVEL]-> TraitLevel
-StakeholderArchetype -[:HAS_TRAIT]-> Trait
-Attribute -[:RELEVANT_AT {score, valid_from, valid_to, evidence_ids}]-> Stage
-Attribute -[:ADDRESSES]-> Need
-StakeholderArchetype -[:HAS_NEED]-> Need
-Evidence -[:SUPPORTS]-> *
-Estimate -[:ABOUT]-> *
-ExperimentRun -[:CONSUMED]-> *
-ExperimentRun -[:PRODUCED]-> Estimate
+```bash
+pip install -e ".[dev]"
 ```
 
-## Golden Rules
+Installs `market-ontology` plus dev validation dependencies. The package version
+tracks `SCHEMA_VERSION` in `poc_v1/ontology/schema.py`.
 
-1. No probabilities or part-worths on ontology nodes. Those are `Estimate`s.
-2. Causal DAGs are projection artifacts over ontology IDs, not ontology edges.
-3. W&B stores experiment provenance and artifacts; the ontology stores stable IDs, lineage, and normalized estimates.
-4. Dependent variables, persona traits/levels, and attribute treatments/levels must enter experiments from ontology IDs.
-5. Run-local W&B/SuperEgo IDs must map back to ontology IDs through a versioned mapping artifact.
+## The public contract
 
-## Public modules (consumer imports)
-
-Four sibling modules, all under `poc_v1.ontology`, are the public API
-that downstream consumers (spice-harvester, burn-substrate Graphiti
-sidecar, twenty CRM, future research agents) import directly:
+Downstream consumers (spice-harvester, ai-chatbot-native-sizzle, twenty CRM,
+burn-substrate Graphiti sidecar) import these four modules directly:
 
 ```python
-from poc_v1.ontology.schema import (
-    NODE_MODELS, EDGE_MODELS, SCHEMA_VERSION,
-)
-from poc_v1.ontology.graphiti_views import (
-    ENTITY_TYPES,    # graphiti-compatible Pydantic view of NODE_MODELS
-    EDGE_TYPES,      # graphiti-compatible Pydantic view of EDGE_MODELS
-    EDGE_TYPE_MAP,   # dict[(src_label, tgt_label), list[predicate]]
-)
-from poc_v1.ontology.identity import (
-    CompanyIdentity, # dataclass(canonical_domain, route_slug, group_id)
-    to_identity,     # email/URL/domain/slug → identity (PSL-aware)
-    normalize_slug,  # boundary validator for HTTP routes (no PSL)
-)
-from poc_v1.ontology.iri import (
-    BASE_NAMESPACE,  # single namespace for every ontology IRI
-    to_iri, parse_iri,                   # node-instance IRIs
-    class_iri,                           # class (type) IRIs
-    predicate_iri, parse_predicate_iri,  # edge-predicate IRIs
-    property_iri, parse_property_iri,    # literal-property IRIs
-)
+from poc_v1.ontology.schema         import NODE_MODELS, EDGE_MODELS, SCHEMA_VERSION
+from poc_v1.ontology.graphiti_views import ENTITY_TYPES, EDGE_TYPES, EDGE_TYPE_MAP
+from poc_v1.ontology.identity       import CompanyIdentity, to_identity, normalize_slug
+from poc_v1.ontology.iri            import BASE_NAMESPACE, to_iri, class_iri, predicate_iri, property_iri
 ```
 
-Single source of truth — adding a new node/edge to `schema.py`
-automatically propagates to `graphiti_views`. Identity shape (the trio
-`canonical_domain` / `route_slug` / `group_id`) is part of "what
-defines a Company" so it lives next to the Pydantic Company model.
-`iri` centralizes the RDF/TrustGraph IRI scheme — four disjoint
-namespaces (node instance, class, predicate, property) under
-`https://ontology.subconscious.ai`, instance-stable across schema versions.
+`schema.py` is the single source of truth for graph shape. `graphiti_views` and
+every generated `*.json` / `*.ttl` artifact under `poc_v1/ontology/` derive from
+it — never hand-edited. For the authoritative node and edge counts, read
+`len(NODE_MODELS)` / `len(EDGE_MODELS)`; the full typed spec is in
+`ontology_spec.md` (linked below).
 
-## Pipeline
+## Where to look
 
-1. Research agent and executive interview extract node and edge candidates with evidence into JSONL.
-2. Pydantic validates the ontology write boundary.
-3. The graph-store adapter imports validated JSONL into a FalkorDB-compatible property graph.
-4. Experiment context is projected from ontology IDs into SuperEgo/W&B contracts.
-5. SuperEgo/W&B run-local IDs are bound back to ontology IDs through `poc_v1/contracts/experiment_run_mapping.schema.json`.
-6. Normalized results from W&B artifacts become `Estimate` nodes and `ABOUT`/`PRODUCED` edges.
-7. Recommendations remain artifacts until promoted by a human or a later graph-native claim model.
+| You want… | Read |
+|---|---|
+| To work in this repo — agents and contributors | `CLAUDE.md` |
+| The full node / edge / temporal spec | `poc_v1/ontology/ontology_spec.md` |
+| A visual map of the repo and its consumers | `docs/architecture.html` |
+| Why a structural decision was made | `docs/adr/` |
+| What changed between schema versions | `poc_v1/MIGRATION.md` |
+| What was deliberately cut from v1 | `poc_v1/v2_spec.md` |
+| The causal layer (a peer module, not the ontology) | `causal_dag_v1/` |
 
-## See Also
+## Golden rules
 
-- `CLAUDE.md` - agent guidance
-- `AGENTS.md` - Codex harness pointer
-- `poc_v1/MIGRATION.md` - what changed from v0
-- `poc_v1/v2_spec.md` - what is deliberately cut from v1
+1. No probabilities or part-worths on ontology nodes — those are `Estimate` nodes.
+2. The ontology is not a causal DAG. Causal hypotheses live in `causal_dag_v1/`
+   and in projection artifacts over ontology IDs.
+3. W&B is experiment provenance, not ontology truth.
+4. Every new kg_seed fixture must be registered in
+   `scripts/validate_kg_seed.py::FIXTURES`.
+5. Breaking schema changes require coordinating downstream consumers in the same
+   PR round.
+
+Full guidance, commands, and the schema-change recipe live in **`CLAUDE.md`** —
+start there.
