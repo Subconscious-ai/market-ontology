@@ -15,7 +15,6 @@ class StoreAndSuperEgoProjectionTest(unittest.TestCase):
             ROOT / "AGENTS.md",
             ROOT / "CLAUDE.md",
             ROOT / "README.md",
-            ROOT / "poc_v1" / "README.md",
             ROOT / "poc_v1" / "MIGRATION.md",
             ROOT / "poc_v1" / "v2_spec.md",
             ROOT / "poc_v1" / "ontology" / "ontology_spec.md",
@@ -28,11 +27,15 @@ class StoreAndSuperEgoProjectionTest(unittest.TestCase):
                 self.assertNotIn("Neo4j", text)
                 self.assertNotIn("neo4j/", text)
 
-        self.assertIn("FalkorDB", (ROOT / "README.md").read_text(encoding="utf-8"))
-        self.assertIn(
-            "property graph",
-            (ROOT / "poc_v1" / "README.md").read_text(encoding="utf-8"),
+        # Store technology is asserted in the ontology spec. As of the 2026-05
+        # docs consolidation (#86) the README is a thin pointer doc and the
+        # stale duplicate poc_v1/README.md was removed; ontology_spec.md owns
+        # the stack description, so the FalkorDB drift-guard checks it there.
+        spec = (ROOT / "poc_v1" / "ontology" / "ontology_spec.md").read_text(
+            encoding="utf-8"
         )
+        self.assertIn("FalkorDB", spec)
+        self.assertIn("property graph", spec)
 
     def test_neo4j_files_are_legacy_adapter_specific(self):
         self.assertFalse((ROOT / "poc_v1" / "neo4j").exists())
