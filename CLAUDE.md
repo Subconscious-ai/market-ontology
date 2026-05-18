@@ -14,6 +14,9 @@ projected from ontology IDs into SuperEgo/W&B. W&B outputs return as immutable
 artifact lineage plus normalized `Estimate` nodes linked back to those ontology
 IDs.
 
+A visual map of the repo, its public modules, and downstream consumers is in
+`docs/architecture.html` — open it in a browser.
+
 ## Setup
 
 One-time, in a venv at the repo root:
