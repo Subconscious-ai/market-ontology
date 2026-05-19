@@ -144,5 +144,19 @@ only.
 
 ### Session constraint
 The Codex arm runs headlessly (`codex exec` reads fresh config). The Claude arm
-needs a **fresh** Claude Code session started with `.mcp.json` present — MCP
-servers load at session start and cannot be hot-added to a running session.
+runs headlessly too — fresh `claude -p` processes load `.mcp.json`; a *live*
+session and its subagents cannot hot-add an MCP. (This is why earlier in-session
+bake-off attempts could not run a Claude arm.)
+
+## Phase 0 closeout (2026-05-19)
+
+market-ontology Phase 0 ships as a **file-based** agent-navigability system —
+`REPO_MAP.md` + `REPO_INDEX.md` + `nav_eval.py`, all `--check`-gated (PRs #92,
+#94). **No MCP here, deliberately:** per the ManoMano "Project Aegis" benchmark
+a code-intelligence MCP's overhead does not pay off on a repo this small, and
+`nav_eval` showed the file assets already serve Codex well (Claude reads source
+directly and still scores 5/5 — acceptable at this repo size).
+
+The MCP bake-off (protocol above) moves to **Phase 1 on `spice-harvester`** — a
+large repo where the MCP gain is real and measurable. Tracked in
+`Subconscious-ai/spice-harvester#543`.
