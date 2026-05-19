@@ -76,22 +76,28 @@ The byte ratio is a conservative lower bound: it does not count the grep/search
 an agent needs *without* the assets just to discover which files hold the answer.
 With the assets that search cost is zero.
 
-**Live test — do agents actually use the assets?** Two fresh agents (one
-Explore, one general-purpose) were each asked a navigation question the assets
-answer directly. Result: **0 of 2 used the generated assets.** Both went
-straight to `poc_v1/ontology/schema.py` and read it. The `CLAUDE.md`
-"read REPO_MAP.md first" routing line did not change behavior.
+**Live test — Claude.** Two fresh Claude subagents (Explore, general-purpose)
+were asked a navigation question the assets answer: **0/2 used the generated
+assets** — both read `schema.py` directly. Note: the Explore agent by design
+does not load `CLAUDE.md` at all; the general-purpose agent loads it but ignored
+the routing pointer.
 
-**Rollout-gate verdict: NOT passed.** The deterministic A/B proves the *ceiling*
-(6.36x context reduction *if* the asset is used). The live test shows agents do
-not autonomously reach for a standalone `docs/REPO_MAP.md` — the potential gain
-is currently left on the table. A separate file is the wrong delivery vehicle.
-N=2 and both were quick-question tasks, so this is a strong signal rather than
-proof, but the burden is on "agents will use it" and so far it is failing.
+**Live test — Codex.** A real `codex exec` run on the same question **did use
+the asset**: it read `docs/REPO_MAP.md` (via the `AGENTS.md`->`CLAUDE.md`
+routing), answered correctly, and cross-checked `schema.py`. Codex honors the
+routing; Claude subagents are unreliable with it.
 
-**Required before Phase 1 fan-out:** deliver the map *content* through the
-channel agents already auto-read — generate it into a marked block inside
-`CLAUDE.md` (auto-loaded by Claude; `AGENTS.md` / `GEMINI.md` symlink to it), or
-inject it via a SessionStart hook. Freshness (`--check`) and delivery (getting
-the agent to read it) are separate problems; Phase 0 solved the first, not the
-second. Re-run the live test; fan out only once agents demonstrably use it.
+**Verdict — and the fix is NOT an auto-generated context block.** Web
+best-practice research (InfoQ / arXiv, 2026) finds that auto-generated context
+files degrade agent task success (~3% worse, +20% inference cost) and that
+documenting derivable structure in `CLAUDE.md` is a liability. The proposed
+"inline the map into CLAUDE.md" fix is therefore **not pursued** — it would
+reinvent a wheel the research has already shown to be square. The
+research-endorsed, measured mechanism (60-80% gains) is a code-intelligence MCP
+server (Serena / Sourcegraph class) that exposes symbol-level navigation as
+*tools* — which reaches even Explore-type agents that skip docs.
+
+**Required before Phase 1 fan-out:** adopt a code-intelligence MCP as the
+cross-agent navigation layer; keep the deterministic `--check`-gated
+`REPO_MAP.md` / `REPO_INDEX.md` as its freshness substrate, and the lean
+`CLAUDE.md` pointer (which already works for Codex). Re-validate, then fan out.
