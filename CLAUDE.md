@@ -2,6 +2,12 @@
 
 This file provides guidance to agents working in this repository.
 
+**Orientation — read first.** `docs/REPO_MAP.md` is a generated, always-current
+map of the repo: schema counts, top-level layout, public import surface, and
+generated artifacts. It is produced by `scripts/generate_repo_map.py` and
+drift-gated in CI (`--check`), so it cannot go stale. Start there to navigate,
+then return here for conventions and commands.
+
 ## Repository Overview
 
 `market-ontology` is the canonical Pydantic schema enforcer for the
