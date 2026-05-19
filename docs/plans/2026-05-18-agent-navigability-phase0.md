@@ -76,6 +76,22 @@ The byte ratio is a conservative lower bound: it does not count the grep/search
 an agent needs *without* the assets just to discover which files hold the answer.
 With the assets that search cost is zero.
 
-**Rollout-gate verdict:** material gain — 100% coverage, 6.4x context reduction.
-Phase 1 fan-out (spice-harvester / ai-chatbot-native-sizzle / causl.io) is
-justified.
+**Live test — do agents actually use the assets?** Two fresh agents (one
+Explore, one general-purpose) were each asked a navigation question the assets
+answer directly. Result: **0 of 2 used the generated assets.** Both went
+straight to `poc_v1/ontology/schema.py` and read it. The `CLAUDE.md`
+"read REPO_MAP.md first" routing line did not change behavior.
+
+**Rollout-gate verdict: NOT passed.** The deterministic A/B proves the *ceiling*
+(6.36x context reduction *if* the asset is used). The live test shows agents do
+not autonomously reach for a standalone `docs/REPO_MAP.md` — the potential gain
+is currently left on the table. A separate file is the wrong delivery vehicle.
+N=2 and both were quick-question tasks, so this is a strong signal rather than
+proof, but the burden is on "agents will use it" and so far it is failing.
+
+**Required before Phase 1 fan-out:** deliver the map *content* through the
+channel agents already auto-read — generate it into a marked block inside
+`CLAUDE.md` (auto-loaded by Claude; `AGENTS.md` / `GEMINI.md` symlink to it), or
+inject it via a SessionStart hook. Freshness (`--check`) and delivery (getting
+the agent to read it) are separate problems; Phase 0 solved the first, not the
+second. Re-run the live test; fan out only once agents demonstrably use it.
