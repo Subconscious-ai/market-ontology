@@ -101,3 +101,48 @@ server (Serena / Sourcegraph class) that exposes symbol-level navigation as
 cross-agent navigation layer; keep the deterministic `--check`-gated
 `REPO_MAP.md` / `REPO_INDEX.md` as its freshness substrate, and the lean
 `CLAUDE.md` pointer (which already works for Codex). Re-validate, then fan out.
+
+## Bake-off protocol — code-intelligence MCP (systems #5/#6)
+
+Choose the navigation backend by measurement, not vendor claims. Vetted and
+ready to run as a focused pass.
+
+### Candidates
+- **Serena** — LSP-backed symbol intelligence. MCP command via `uvx`
+  (confirm exact subcommand with `--help`):
+  `uvx --from git+https://github.com/oraios/serena serena-mcp-server`
+- **codebase-memory-mcp v0.6.1** — AST knowledge graph, 14 tools. Install the
+  release binary deliberately (the `curl | bash` installer was reviewed and is
+  clean — signed-checksum binary, no sudo, no phone-home — but install by hand
+  so the Codex config is edited deliberately):
+  ```
+  curl -fsSL -o /tmp/cmm.tar.gz \
+    https://github.com/DeusData/codebase-memory-mcp/releases/download/v0.6.1/codebase-memory-mcp-linux-amd64.tar.gz
+  # verify against checksums.txt from the same release, then extract to ~/.local/bin/
+  ```
+  Do **not** run `codebase-memory-mcp install -y` — it auto-rewrites agent
+  configs. Configure deliberately instead.
+
+### Config
+Append an `[mcp_servers.*]` section to `~/.codex/config.toml` (it currently has
+none — safe to append) for the Codex arm; add the same two entries to a
+`.mcp.json` at the repo root for the Claude arm. Index the repo with each tool
+before measuring.
+
+### The eval
+Reuse the `nav_eval.py` question set. Three arms: **baseline** (no MCP),
+**Serena**, **codebase-memory-mcp**. For each, run the tasks via `codex exec`
+and record: tokens-to-answer, answer correctness vs known gold (14 nodes /
+18 edges / `SCHEMA_VERSION 1.6.0`), and whether the agent used the MCP's tools
+unprompted. Baseline already measured: Codex with no MCP ≈ 21,124 tokens.
+
+### Decision rule
+Lowest tokens-to-correct-answer that an agent uses unprompted wins. Verify
+codebase-memory-mcp's claimed 99.2% reduction against the measured baseline —
+report the measured number, not the vendor's. The 3D-graph UI is a tiebreaker
+only.
+
+### Session constraint
+The Codex arm runs headlessly (`codex exec` reads fresh config). The Claude arm
+needs a **fresh** Claude Code session started with `.mcp.json` present — MCP
+servers load at session start and cannot be hot-added to a running session.
