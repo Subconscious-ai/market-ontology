@@ -6,7 +6,8 @@ This file provides guidance to agents working in this repository.
 map of the repo: schema counts, top-level layout, public import surface, and
 generated artifacts. It is produced by `scripts/generate_repo_map.py` and
 drift-gated in CI (`--check`), so it cannot go stale. Start there to navigate,
-then return here for conventions and commands.
+then return here for conventions and commands. `docs/REPO_INDEX.md` (generated
+likewise) lists every Python module's public symbols.
 
 ## Repository Overview
 
@@ -41,6 +42,8 @@ python scripts/generate_kg_seed_contract.py --check
 python scripts/generate_twenty_app.py --check
 python scripts/generate_trustgraph_ontology.py --check
 python scripts/generate_repo_map.py --check
+python scripts/generate_repo_index.py --check
+python scripts/agent/nav_eval.py --check
 python scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.static.valid.json
 python scripts/validate_causal_projection.py poc_v1/contracts/examples/causal_dag_projection.timeseries.valid.json
 python -m unittest discover -s tests -v

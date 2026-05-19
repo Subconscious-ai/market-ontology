@@ -41,6 +41,8 @@ jobs:
           python scripts/generate_twenty_app.py --check
           python scripts/generate_trustgraph_ontology.py --check
           python scripts/generate_repo_map.py --check
+          python scripts/generate_repo_index.py --check
+          python scripts/agent/nav_eval.py --check
 
       - name: Validate causal projection examples
         run: |
